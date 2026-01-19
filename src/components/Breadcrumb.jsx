@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight , Home, House } from "lucide-react";
 
 export default function Breadcrumb() {
   const pathname = usePathname();
@@ -15,7 +15,9 @@ export default function Breadcrumb() {
       <ol className="flex items-center text-gray-600">
         {/* Home */}
         <li>
-          <Link href="/mainpage" className="hover:text-blue-600">
+          <Link href="/mainpage" className="hover:text-blue-500">
+          {/* <span className="p"> <House /></span> */}
+          
             Dashboard
           </Link>
         </li>
@@ -29,7 +31,7 @@ export default function Breadcrumb() {
               <ChevronRight className="w-4 h-4 mx-2" />
 
               {!isLast ? (
-                <Link href={path} className="hover:text-blue-600 capitalize">
+                <Link href={path} className="hover:text-blue-500 capitalize">
                   {part}
                 </Link>
               ) : (

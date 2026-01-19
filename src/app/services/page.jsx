@@ -1,11 +1,27 @@
-import React from 'react'
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import ServicesClient from "./ServicesClient";
 
-function Page() {
-  return (
-    <div>
-       service
-    </div>
-  )
+export default async function OurServicesPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.accessToken) {
+    redirect("/log-in");
+  }
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/our-services`, {
+    headers: {
+      Authorization: `Bearer ${session.user.accessToken}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch services");
+
+  const response = await res.json();
+  const services = response?.data ?? [];
+
+  return <ServicesClient
+   services={services} />;
 }
-
-export default Page

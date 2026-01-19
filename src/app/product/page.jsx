@@ -1,71 +1,36 @@
-// app/service/page.jsx
-"use client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import OurProductsClient from "./OurProductsClient";
 
-import { useState } from "react";
+export default async function ProductsPage() {
+  const session = await getServerSession(authOptions);
 
-export default function Page() {
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
+  if (!session?.user?.accessToken) {
+    redirect("/log-in");
+  }
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+    headers: {
+      Authorization: `Bearer ${session.user.accessToken}`, 
+    },
+    cache: "no-store",
   });
 
-  const [loading, setLoading] = useState(false);
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  const response = await res.json();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+console.log("RAW RESPONSE:", response);
 
-    try {
-      const res = await fetch("/api/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to submit");
-      }
-
-      setForm({ title: "", description: "" });
-      alert("Submitted successfully");
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 400 }}>
-      <input
-        type="text"
-        name="title"
-        placeholder="Title"
-        value={form.title}
-        onChange={handleChange}
-        required
-        className="p-3 border-2 m-5 "
-      />
-
-      <textarea
-        name="description"
-        placeholder="Description"
-        value={form.description}
-        onChange={handleChange}
-        required
-        className="p-2 border-2 m-5"
-      />
-
-      <button className="p-2 border-amber-300" type="submit" disabled={loading}>
-        {loading ? "Submitting..." : "Submit"}
-      </button>
-    </form>
-  );
+const products = Array.isArray(response)
+  ? response
+  : Array.isArray(response.data)
+  ? response.data
+  : [];
+  return <OurProductsClient products={products} />;
 }
+
+

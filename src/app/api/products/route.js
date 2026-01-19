@@ -1,28 +1,37 @@
-// app/api/service/route.js
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export async function POST(req) {
-  const session = await getServerSession(authOptions);
-  const token = session?.user?.accessToken;
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.accessToken) {
+        return Response.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-  if (!token) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+    try {
+       
+        const formData = await req.formData();
 
-  const body = await req.json();
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${session.user.accessToken}`,
+            },
+            body: formData,
+        });
 
-  const res = await fetch(`${process.env.API_BASE_URL}/products`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
-  });
+        const data = await res.json();
+        console.log("API Response:", data);
 
-  const data = await res.json();
+        if (!res.ok) {
+      return Response.json(data, { status: res.status });
+    }
 
-  return Response.json(data, { status: res.status });
+        return Response.json(data, { status: res.status });
+    } catch (error) {
+        return Response.json(
+            { message: error.message || "Server error" },
+            { status: 500 }
+        );
+    }
 }

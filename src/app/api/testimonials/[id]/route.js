@@ -1,9 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-/* =========================
-   PUT → Update testimonial
-   ========================= */
 export async function PUT(req, { params }) {
   const session = await getServerSession(authOptions);
 
@@ -11,47 +8,67 @@ export async function PUT(req, { params }) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await req.json();
-  const { id } = await params;
+  try {
+    // 1. Await params (Critical for Next.js 15+)
+    const { id } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/testimonials/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-      body: JSON.stringify(body),
-    }
-  );
+    // 2. Capture the incoming FormData
+    const formData = await req.formData();
 
-  const data = await res.json();
-  return Response.json(data, { status: res.status });
+    // 3. Forward to Backend
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/testimonials/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          // Pass the Bearer token for backend authentication
+          Authorization: `Bearer ${session.user.accessToken}`,
+          // Note: DO NOT set 'Content-Type' manually. 
+          // The browser/server will automatically set it with the boundary string.
+        },
+        body: formData, 
+      }
+    );
+
+    const data = await res.json();
+    return Response.json(data, { status: res.status });
+
+  } catch (error) {
+    console.error("Route Error:", error);
+    return Response.json({ message: "Server Error" }, { status: 500 });
+  }
 }
 
-/* =========================
-   DELETE → Remove testimonial
-   ========================= */
+
+
+// delete 
+
 export async function DELETE(req, { params }) {
   const session = await getServerSession(authOptions);
-
   if (!session?.user?.accessToken) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   const { id } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/testimonials/${id}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/testimonials/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      }
+    );
 
-  const data = await res.json();
-  return Response.json(data, { status: res.status });
+    if (!res.ok) {
+      const errorData = await res.json();
+      return Response.json(errorData, { status: res.status });
+    }
+
+    return Response.json({ message: "Deleted successfully" }, { status: 200 });
+  } catch (error) {
+    return Response.json({ message: "Internal Server Error" }, { status: 500 });
+  }
 }

@@ -1,41 +1,40 @@
-// /src/app/api/blogs/route.js
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-import { NextResponse } from "next/server";
+export async function POST(req) {
+  const session = await getServerSession(authOptions);
 
-export async function GET() {
+  if (!session?.user?.accessToken) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
-    const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/blogs`;
+    const formData = await req.formData();
 
-    const token = process.env.ADMIN_API_TOKEN;
-    if (!token) {
-      return Response.json(
-        { error: "Missing ADMIN_API_TOKEN in environment" },
-        { status: 500 }
-      );
-    }
-
-    const res = await fetch(apiUrl, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      cache: "no-store"
-    });
-
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: `Backend API Error: ${res.status}` },
-        { status: res.status }
-      );
-    }
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/blogs`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+          // ❌ DO NOT set Content-Type for FormData
+        },
+        body: formData,
+      }
+    );
 
     const data = await res.json();
-    return NextResponse.json(data);
+    console.log("API Response:", data);
 
+    if (!res.ok) {
+      return Response.json(data, { status: res.status });
+    }
+
+    
+    return Response.json(data, { status: res.status });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Proxy Server Error", details: error.message },
+    return Response.json(
+      { message: error.message || "Server error" },
       { status: 500 }
     );
   }

@@ -21,7 +21,7 @@ import LogoutButton from "./LogoutButton";
 export default function Header() {
   const router = useRouter();
 
-  const [darkMode, setDarkMode] = useState(false);
+const [darkMode, setDarkMode] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -53,7 +53,7 @@ export default function Header() {
   // };
 
   return (
-    <header className="sticky top-0 z-30 bg-white dark:bg-gray-900 shadow-sm">
+    <header className="sticky top-0 z-30 bg-gradient-to-br from-blue-500 to-blue-500 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
 
         {/* LEFT - LOGO */}
@@ -61,8 +61,8 @@ export default function Header() {
           <Image
             src="/images/542313.png"
             alt="Logo"
-            width={40}
-            height={40}
+            width={120}
+            height={50}
             className="rounded-md"
             priority
           />
@@ -78,9 +78,9 @@ export default function Header() {
                 setShowMessages((p) => !p);
                 setShowNotifications(false);
               }}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="p-2 rounded-full bg-gray-100 hover:bg-gray-400 transition"
             >
-              <MessageSquare size={18} className="text-gray-700 dark:text-gray-200" />
+              <MessageSquare size={18} className="text-gray-700 " />
             </button>
 
             <AnimatePresence>
@@ -89,7 +89,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border z-50"
+                  className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
                 >
                   <div className="px-4 py-2 border-b font-semibold">Messages</div>
                   {messages.map((m, i) => (
@@ -109,9 +109,9 @@ export default function Header() {
                 setShowNotifications((p) => !p);
                 setShowMessages(false);
               }}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="p-2 rounded-full bg-gray-100  hover:bg-gray-200 transition"
             >
-              <Bell size={18} className="text-gray-700 dark:text-gray-200" />
+              <Bell size={18} className="text-gray-700 " />
             </button>
 
             <AnimatePresence>
@@ -120,11 +120,11 @@ export default function Header() {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-lg border z-50"
+                  className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
                 >
                   <div className="px-4 py-2 border-b font-semibold">Notifications</div>
                   {notifications.map((n, i) => (
-                    <div key={i} className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <div key={i} className="px-4 py-2 hover:bg-gray-200">
                       {n}
                     </div>
                   ))}
@@ -136,7 +136,7 @@ export default function Header() {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+            className="p-2 rounded-full bg-gray-100  hover:bg-gray-200 transition"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -157,7 +157,7 @@ export default function Header() {
 
               <div className="hidden md:block text-left">
                 <div className="text-sm font-medium">Admin</div>
-                <div className="text-xs text-gray-500">admin@gmail.com</div>
+                <div className="text-xs text-gray-800">admin@gmail.com</div>
               </div>
 
               {profileOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
@@ -169,7 +169,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border z-50"
+                  className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border z-50"
                 >
                   <button
                     onClick={() => setShowEditProfile(true)}
