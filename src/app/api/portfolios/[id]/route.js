@@ -8,7 +8,7 @@ export async function PUT(req, { params }) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const formData = await req.formData();

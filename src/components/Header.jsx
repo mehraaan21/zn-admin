@@ -53,7 +53,7 @@ const [darkMode, setDarkMode] = useState(false);
   // };
 
   return (
-    <header className="sticky top-0 z-30 bg-gradient-to-br from-blue-500 to-blue-500 shadow-sm">
+    <header className="sticky top-0 z-30 bg-gradient-to-br from-blue-500 to-blue-500  shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
 
         {/* LEFT - LOGO */}
@@ -78,7 +78,7 @@ const [darkMode, setDarkMode] = useState(false);
                 setShowMessages((p) => !p);
                 setShowNotifications(false);
               }}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-400 transition"
+              className="p-2 rounded-full cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
             >
               <MessageSquare size={18} className="text-gray-700 " />
             </button>
@@ -109,7 +109,7 @@ const [darkMode, setDarkMode] = useState(false);
                 setShowNotifications((p) => !p);
                 setShowMessages(false);
               }}
-              className="p-2 rounded-full bg-gray-100  hover:bg-gray-200 transition"
+              className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
             >
               <Bell size={18} className="text-gray-700 " />
             </button>
@@ -136,7 +136,7 @@ const [darkMode, setDarkMode] = useState(false);
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-100  hover:bg-gray-200 transition"
+            className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -155,7 +155,7 @@ const [darkMode, setDarkMode] = useState(false);
                 className="rounded-full"
               />
 
-              <div className="hidden md:block text-left">
+              <div className="hidden md:block cursor-pointer text-left">
                 <div className="text-sm font-medium">Admin</div>
                 <div className="text-xs text-gray-800">admin@gmail.com</div>
               </div>

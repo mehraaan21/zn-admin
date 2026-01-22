@@ -36,7 +36,7 @@ export default async function CaseStudyPage({ searchParams }) {
   const result = await res.json();
   console.log("CASE STUDY PAGE API RESPONSE:", result);
 
-  // return (
-  //       <CaseStudyClient />
-  // );
+  return (
+    <CaseStudyClient caseStudies={result} />
+  );
 }

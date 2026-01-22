@@ -75,7 +75,7 @@ export default function AddTestimonial() {
 
     return (
         <>
-            <button onClick={() => setOpen(true)} className="bg-blue-600 text-white px-4 py-2 rounded">
+            <button onClick={() => setOpen(true)} className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded">
                 + Add Testimonial
             </button>
 
@@ -106,8 +106,8 @@ export default function AddTestimonial() {
                         </select>
 
                         <div className="flex justify-end gap-2">
-                            <button onClick={() => setOpen(false)} className="px-3 py-1 border rounded hover:bg-gray-50">Cancel</button>
-                            <button onClick={submit} disabled={loading} className="bg-blue-600 text-white px-4 py-1 rounded disabled:bg-blue-300">
+                            <button onClick={() => setOpen(false)} className="px-3 py-1 border cursor-pointer rounded hover:bg-gray-100">Cancel</button>
+                            <button onClick={submit} disabled={loading} className="bg-blue-500 cursor-pointer hover:bg-blue-700  text-white px-4 py-1 rounded disabled:bg-blue-300">
                                 {loading ? "Saving..." : "Save"}
                             </button>
                         </div>

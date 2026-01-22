@@ -56,7 +56,7 @@ export default function AddPortfolio() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white px-4 py-2 rounded"
       >
         + Add Portfolio
       </button>
@@ -95,11 +95,17 @@ export default function AddPortfolio() {
             />
 
             <div className="flex justify-end gap-2">
-              <button onClick={() => setOpen(false)}>Cancel</button>
+
+
+              <button
+               className="px-3 py-1 border rounded cursor-pointer hover:bg-gray-100"
+              onClick={() => setOpen(false)}>
+                Cancel
+                </button>
               <button
                 onClick={submit}
                 disabled={loading}
-                className="bg-blue-600 text-white px-4 py-1 rounded"
+                className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-4 py-1 rounded"
               >
                 {loading ? "Saving..." : "Save"}
               </button>

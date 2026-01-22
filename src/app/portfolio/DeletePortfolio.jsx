@@ -34,7 +34,7 @@ export default function DeletePortfolio({ id, onClose }) {
           <button onClick={onClose}>Cancel</button>
           <button
             onClick={remove}
-            className="bg-red-600 text-white px-4 py-1 rounded"
+            className="bg-red-500 text-white hover:bg-red-700 cursor-pointer px-4 py-1 rounded"
           >
             Delete
           </button>

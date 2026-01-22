@@ -93,31 +93,14 @@ for (let pair of fd.entries()) {
               }
             />
 
-            {/* <input
+            <input
               className="border p-2 w-full mb-3"
               placeholder="Category"
               value={form.category}
               onChange={(e) =>
                 setForm({ ...form, category: e.target.value })
               }
-            /> */}
-
-            <select
-  className="border p-2 w-full mb-3"
-  value={form.category}
-  onChange={(e) =>
-    setForm({ ...form, category: e.target.value })
-  }
->
-  <option value="">Select category</option>
-  <option value="frontend">Frontend</option>
-  <option value="backend">Backend</option>
-  <option value="integration">Integration</option>
-  <option value="testing">Testing</option>
-  <option value="database">Database</option>
-  <option value="devops">DevOps</option>
-</select>
-
+            />
 
             <input
               ref={fileRef}

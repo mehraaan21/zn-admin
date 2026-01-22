@@ -1,6 +1,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+export const runtime = "nodejs";
+
 export async function PUT(req, { params }) {
   const session = await getServerSession(authOptions);
 
@@ -8,32 +10,26 @@ export async function PUT(req, { params }) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 
-  try {
-    const formData = await req.formData();
+  const { id } = await params;
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/tech-stacks/${params.id}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-        body: formData,
-      }
-    );
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/tech-stacks/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${session.user.accessToken}`,
+        // 🔥 VERY IMPORTANT
+        "Content-Type": req.headers.get("content-type"),
+      },
+      // 🔥 RAW STREAM FORWARD
+      body: req.body,
+      duplex: "half",
+    }
+  );
 
-    const data = await res.json();
-    return Response.json(data, { status: res.status });
-  } catch (error) {
-    return Response.json(
-      { message: error.message || "Server error" },
-      { status: 500 }
-    );
-  }
+  const data = await res.json();
+  return Response.json(data, { status: res.status });
 }
-
-
-
 
 
 

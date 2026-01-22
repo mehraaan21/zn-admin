@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ServicesClient from "./ServicesClient";
+import ServiceModernView from "./ServicesClient";
 
 export default async function OurServicesPage() {
   const session = await getServerSession(authOptions);
@@ -19,9 +20,12 @@ export default async function OurServicesPage() {
 
   if (!res.ok) throw new Error("Failed to fetch services");
 
-  const response = await res.json();
-  const services = response?.data ?? [];
 
-  return <ServicesClient
-   services={services} />;
+  const response = await res.json();
+  
+  // Response check karein: { success: true, message: "...", data: { data: [], total: 6... } }
+  const servicesData = response?.data || { data: [], total: 0 };
+
+
+ return <ServicesClient services={servicesData} />;
 }

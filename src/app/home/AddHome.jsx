@@ -132,67 +132,121 @@ export default function AddHome() {
   const [loading, setLoading] = useState(false);
 
   // Form state
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    status: true, // true = active, false = inactive
-    images: null, // file object(s)
-  });
+const [form, setForm] = useState({
+  title: "",
+  description: "",
+  status: true,
+  images: null, // String "" ko hata kar null karein
+});
 
-  const submit = async () => {
-    if (!form.title || !form.description || !form.images) {
-      toast("Title, Description & Image are required", "error");
-      return;
-    }
+  // const submit = async () => {
+  //   if (!form.title || !form.description || !form.images) {
+  //     toast("Title, Description & Image are required", "error");
+  //     return;
+  //   }
 
-    try {
-      setLoading(true);
+  //   try {
+  //     setLoading(true);
 
-      const formData = new FormData();
-      formData.append("title", form.title);
-      formData.append("description", form.description);
-      formData.append("status", form.status ? "true" : "false");
+  //     const formData = new FormData();
+  //     formData.append("title", form.title);
+  //     formData.append("description", form.description);
+  //     formData.append("status", form.status ? "true" : "false");
 
-      if (form.images) {
-        if (form.images.length) {
-          // multiple files
-          Array.from(form.images).forEach((file) => formData.append("images[]", file));
-        } else {
-          formData.append("images[]", form.images);
-        }
-      }
+  //     if (form.images) {
+  //       if (form.images.length) {
+  //         // multiple files
+  //         Array.from(form.images).forEach((file) => formData.append("images[]", file));
+  //       } else {
+  //         formData.append("images[]", form.images);
+  //       }
+  //     }
 
-      const res = await fetch("/api/homes", {
-        method: "POST",
-        body: formData,
-      });
+  //     const res = await fetch("/api/homes", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Failed to add home");
-      }
+  //     if (!res.ok) {
+  //       const err = await res.json();
+  //       throw new Error(err.message || "Failed to add home");
+  //     }
 
-      toast("Home added successfully");
-      setOpen(false);
+  //     toast("Home added successfully");
+  //     setOpen(false);
 
-      // Reset form
-      setForm({
-        title: "",
-        description: "",
-        status: true,
-        images: null,
-      });
+  //     // Reset form
+  //     setForm({
+  //       title: "",
+  //       description: "",
+  //       status: true,
+  //       images: null,
+  //     });
 
-      router.refresh();
-    } catch (error) {
-      toast(error.message, "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     router.refresh();
+  //   } catch (error) {
+  //     toast(error.message, "error");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
 
   
+
+
+  const submit = async () => {
+  // Validation
+  if (!form.title || !form.description || (!form.images || form.images.length === 0) ) {
+    toast("Title, Description & Image are required", "error");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    // formData.append("image_url", form.images);
+    formData.append("status", form.status ? "true" : "false");
+
+if (form.images && form.images.length > 0) {
+    Array.from(form.images).forEach((file) => {
+        formData.append("images[]", file); 
+    });
+} else {
+    console.error("No images found in state!");
+}
+    const res = await fetch("/api/homes", {
+      method: "POST",
+      body: formData, // Browser automatically sets Content-Type to multipart/form-data
+    });
+
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Failed to add home");
+    }
+
+    toast("Home added successfully");
+    setOpen(false);
+
+    // Reset form
+    setForm({
+      title: "",
+      description: "",
+      status: true,
+      images: null,
+    });
+
+    router.refresh();
+  } catch (error) {
+    toast(error.message, "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -224,23 +278,47 @@ export default function AddHome() {
               
             />
             
+            
 
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label className="text-sm text-gray-500 mb-1 block">Images</label>
               <input
                 type="file"
                 accept="image/*"
                 multiple
                 className="border p-1 w-full text-sm"
-                onChange={(e) => setForm({ ...form, images: e.target.files })}
+                onChange={(e) => setForm({ ...form, images: e.target.files[0] })}
                 required
               />
+
               {form.images && (
                 <p className="text-green-600 text-xs mt-1">
                   {form.images.length ? `${form.images.length} file(s) selected` : form.images.name}
                 </p>
               )}
-            </div>
+            </div> */}
+
+            <div className="mb-3">
+  <label className="text-sm text-gray-500 mb-1 block">Image</label>
+<input
+  type="file"
+  accept="image/*"
+  multiple
+  className="border p-1 w-full text-sm"
+  onChange={(e) => {
+    // files[0] mat likhiye, pura files object store karein
+    setForm({ ...form, images: e.target.files });
+  }}
+  required
+/>
+
+{/* Debugging ke liye ye line help karegi */}
+{form.images && form.images.length > 0 && (
+  <p className="text-green-600 text-xs mt-1">
+    {form.images.length} images selected
+  </p>
+)}
+</div>
 
             <select
               value={form.status ? "true" : "false"}

@@ -141,7 +141,7 @@ export default function Sidebar() {
                         router.push(sub.path);
                         setSidebarOpen(false);
                       }}
-                      className="block w-full text-left hover:text-blue-500 transition"
+                      className="block w-full text-left cursor-pointer hover:text-blue-500 transition"
                     >
                       {sub.label}
                     </button>

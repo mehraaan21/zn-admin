@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from "lucide-react";
 
+
 export default function DeleteConfirm({ id }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,12 +33,13 @@ export default function DeleteConfirm({ id }) {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="text-red-600 hover:underline text-sm"
-      >
-        Delete
-      </button>
+     <button
+  onClick={() => setOpen(true)}
+  className="p-2 text-red-600 cursor-pointer hover:bg-red-50 rounded-full transition-colors"
+  title="Delete Item"
+>
+  <Trash2 size={18} />
+</button>
 
       {open && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
