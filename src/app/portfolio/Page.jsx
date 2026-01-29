@@ -30,5 +30,7 @@ export default async function PortfolioPage() {
     ? response.data
     : [];
 
+    console.log("Fetched portfolios:", portfolios.data);
+
   return <PortfolioClient portfolios={portfolios} />;
 }

@@ -1,111 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
-// import Image from "next/image";
-// import AddGallery from "./AddGallery";
-// import EditGallery from "./EditGallery";
-// import DeleteGallery from "./DeleteGallery";
-
-// export default function GalleryClient({ gallery = [] }) {
-//   const [showAdd, setShowAdd] = useState(false);
-//   const [editItem, setEditItem] = useState(null);
-//   const [deleteId, setDeleteId] = useState(null);
-
-//   return (
-//     <>
-//       {/* HEADER */}
-//       <div className="mb-4 flex justify-between items-center">
-//         <h1 className="text-2xl font-bold">Gallery</h1>
-
-//         <button
-//           onClick={() => setShowAdd(true)}
-//           className="bg-blue-600 text-white px-4 py-2 rounded"
-//         >
-//           + Add Image
-//         </button>
-//       </div>
-
-//       {/* TABLE */}
-//       <div className="overflow-x-auto border rounded">
-//         <table className="min-w-full text-sm">
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="border p-2 text-center">ID</th>
-//               <th className="border p-2 text-center">Sequence</th>
-//               <th className="border p-2 text-center">Image</th>
-//               <th className="border p-2 text-center">Actions</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {gallery.length === 0 ? (
-//               <tr>
-//                 <td colSpan="4" className="p-4 text-center text-gray-500">
-//                   No images found
-//                 </td>
-//               </tr>
-//             ) : (
-//               gallery.map((item) => (
-//                 <tr key={item.id} className="text-center">
-//                   <td className="border p-2">{item.id}</td>
-
-//                   <td className="border p-2 font-medium">
-//                     {item.sequence ?? "-"}
-//                   </td>
-
-//                   <td className="border p-2">
-//                     <Image
-//                       src={item.image_url || "/placeholder.png"}
-//                       alt="Gallery Image"
-//                       width={56}
-//                       height={56}
-//                       className="h-14 w-14 mx-auto rounded object-cover"
-//                     />
-//                   </td>
-
-//                   <td className="border p-2">
-//                     <div className="flex justify-center gap-3">
-//                       <button
-//                         onClick={() => setEditItem(item)}
-//                         className="text-blue-600 hover:underline"
-//                       >
-//                         Edit
-//                       </button>
-
-//                       <button
-//                         onClick={() => setDeleteId(item.id)}
-//                         className="text-red-600 hover:underline"
-//                       >
-//                         Delete
-//                       </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* MODALS */}
-//       {showAdd && <AddGallery onClose={() => setShowAdd(false)} />}
-
-//       {editItem && (
-//         <EditGallery
-//           item={editItem}
-//           onClose={() => setEditItem(null)}
-//         />
-//       )}
-
-//       {deleteId && (
-//         <DeleteGallery
-//           id={deleteId}
-//           onClose={() => setDeleteId(null)}
-//         />
-//       )}
-//     </>
-//   );
-// }
 
 
 
@@ -113,15 +5,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Pencil, Trash2, Image as ImageIcon, Plus, Hash } from "lucide-react"; // Icons
+import { Pencil, Trash2, Image as ImageIcon, Plus, Hash, Eye } from "lucide-react"; // Icons
 import AddGallery from "./AddGallery";
 import EditGallery from "./EditGallery";
 import DeleteGallery from "./DeleteGallery";
+import ViewGallery from "./ViewGallery";
 
 export default function GalleryClient({ gallery = [] }) {
   const [showAdd, setShowAdd] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [viewItem, setViewItem] = useState(null);
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -192,6 +86,13 @@ export default function GalleryClient({ gallery = [] }) {
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
                         <button
+  onClick={() => setViewItem(item)}
+  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+  title="View Image"
+>
+  <Eye size={18} />
+</button>
+                        <button
                           onClick={() => setEditItem(item)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
                           title="Edit Image"
@@ -231,6 +132,12 @@ export default function GalleryClient({ gallery = [] }) {
           onClose={() => setDeleteId(null)}
         />
       )}
+      {viewItem && (
+  <ViewGallery 
+    data={viewItem} 
+    onClose={() => setViewItem(null)} 
+  />
+)}
     </div>
   );
 }

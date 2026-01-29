@@ -1,9 +1,355 @@
     
+// // "use client";
+
+// // import { useState, useRef } from "react";
+// // import { useRouter } from "next/navigation";
+// // import { toast } from "@/lib/toast";
+
+// // export default function AddTechStack() {
+// //   const router = useRouter();
+// //   const fileRef = useRef(null);
+
+// //   const [open, setOpen] = useState(false);
+// //   const [loading, setLoading] = useState(false);
+
+// //   const [form, setForm] = useState({
+// //     name: "",
+// //     category: "",
+// //     image: null,
+// //   });
+
+// //   const resetForm = () => {
+// //     setForm({ name: "", category: "", image: null });
+// //     if (fileRef.current) fileRef.current.value = "";
+// //   };
+
+// //   const submit = async () => {
+// //     if (loading) return;
+
+// //     if (!form.name || !form.category || !form.image) {
+// //       toast("All fields required", "error");
+// //       return;
+// //     }
+
+// //    const fd = new FormData();
+// // fd.append("name", form.name);
+// // fd.append("category", form.category);
+// // fd.append("image", form.image);
+
+// // // comments
+// // console.log("FormData entries:");
+// // for (let pair of fd.entries()) {
+// //   console.log(pair[0] + ": " + pair[1]);
+// // }
+
+
+// //     try {
+// //       setLoading(true);
+
+// //       const res = await fetch("/api/tech-stacks", {
+// //         method: "POST",
+// //         body: fd,
+// //       });
+
+      
+
+// //       if (!res.ok) throw new Error("Failed to add tech stack");
+
+// //       toast("Tech stack added successfully");
+// //       resetForm();
+// //       setOpen(false);
+// //       router.refresh();
+// //     } catch (err) {
+// //       toast(err.message || "Something went wrong", "error");
+// //     } finally {
+// //       setLoading(false);
+// //     }
+// //   };
+
+// //   return (
+// //     <>
+
+// //       <>
+// //       <button
+// //         onClick={() => setOpen(true)}
+// //         className="bg-blue-600 text-white px-4 py-2 rounded"
+// //       >
+// //         + Add Tech
+// //        </button>
+// //       </>
+
+
+// //       {open && (
+// //         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+// //           <div className="bg-white p-6 rounded w-96">
+// //             <h2 className="font-bold mb-4">Add Tech Stack</h2>
+
+// //             <input
+// //               className="border p-2 w-full mb-3"
+// //               placeholder="Name"
+// //               value={form.name}
+// //               onChange={(e) =>
+// //                 setForm({ ...form, name: e.target.value })
+// //               }
+// //             />
+
+// //             <input
+// //               className="border p-2 w-full mb-3"
+// //               placeholder="Category"
+// //               value={form.category}
+// //               onChange={(e) =>
+// //                 setForm({ ...form, category: e.target.value })
+// //               }
+// //             />
+
+// //             <input
+// //               ref={fileRef}
+// //               type="file"
+// //               className="border p-2 w-full mb-4"
+// //               onChange={(e) =>
+// //                 setForm({ ...form, image: e.target.files?.[0] })
+// //               }
+// //             />
+
+// //             <div className="flex justify-end gap-2">
+// //               <button
+// //                 onClick={() => {
+// //                   resetForm();
+// //                   setOpen(false);
+// //                 }}
+// //               >
+// //                 Cancel
+// //               </button>
+
+// //               <button
+// //                 onClick={submit}
+// //                 disabled={loading}
+// //                 className="bg-blue-600 text-white px-4 py-1 rounded disabled:opacity-60"
+// //               >
+// //                 {loading ? "Saving..." : "Save"}
+// //               </button>
+// //             </div>
+// //           </div>
+// //         </div>
+// //       )}
+// //     </>
+// //   );
+// // }
+
+
+// "use client";
+
+// import { useState, useRef } from "react";
+// import { useRouter } from "next/navigation";
+// import { toast } from "@/lib/toast";
+// import { X, Plus, Upload, Type, Layers, RefreshCcw, Code2 } from "lucide-react";
+// import Image from "next/image";
+
+// export default function AddTechStack() {
+//   const router = useRouter();
+//   const fileRef = useRef(null);
+
+//   const [open, setOpen] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const [preview, setPreview] = useState(null);
+
+//   const [form, setForm] = useState({
+//     name: "",
+//     category: "",
+//     image: null,
+//   });
+
+//   const handleFileChange = (e) => {
+//     const file = e.target.files?.[0];
+//     if (file) {
+//       setForm({ ...form, image: file });
+//       setPreview(URL.createObjectURL(file));
+//     }
+//   };
+
+//   const resetForm = () => {
+//     setForm({ name: "", category: "", image: null });
+//     setPreview(null);
+//     if (fileRef.current) fileRef.current.value = "";
+//   };
+
+//   const submit = async () => {
+//     if (loading) return;
+
+//     if (!form.name || !form.category || !form.image) {
+//       toast("All fields required", "error");
+//       return;
+//     }
+
+//     const fd = new FormData();
+//     fd.append("name", form.name);
+//     fd.append("category", form.category);
+//     fd.append("image", form.image);
+
+//     try {
+//       setLoading(true);
+
+//       const res = await fetch("/api/tech-stacks", {
+//         method: "POST",
+//         body: fd,
+//       });
+
+//       if (!res.ok) throw new Error("Failed to add tech stack");
+
+//       toast("Tech stack added successfully");
+//       resetForm();
+//       setOpen(false);
+//       router.refresh();
+//     } catch (err) {
+//       toast(err.message || "Something went wrong", "error");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <button
+//         onClick={() => setOpen(true)}
+//         className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
+//       >
+//         <Plus size={20} />
+//         Add Tech
+//       </button>
+
+//       {open && (
+//         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+//           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+            
+//             {/* Header */}
+//             <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
+//               <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+//                 <Code2 className="text-blue-600" size={22} />
+//                 Add Technology
+//               </h2>
+//               <button 
+//                 onClick={() => {
+//                   resetForm();
+//                   setOpen(false);
+//                 }} 
+//                 className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+//               >
+//                 <X size={24} />
+//               </button>
+//             </div>
+
+//             <div className="p-6 space-y-6">
+//               {/* Icon Upload Area */}
+//               <div className="space-y-3">
+//                 <label className="block text-sm font-semibold text-slate-700 flex items-center gap-1">
+//                   <Upload size={14} /> Technology Icon
+//                 </label>
+//                 <div className="relative group border-2 border-dashed border-slate-200 rounded-xl p-4 hover:border-blue-400 transition-all bg-slate-50 flex flex-col items-center justify-center min-h-[140px]">
+//                   {preview ? (
+//                     <div className="relative h-20 w-20 rounded-lg overflow-hidden border bg-white p-2 shadow-sm">
+//                       <Image 
+//                         src={preview} 
+//                         alt="Preview" 
+//                         fill 
+//                         className="object-contain p-2" 
+//                         unoptimized 
+//                       />
+//                     </div>
+//                   ) : (
+//                     <div className="text-center">
+//                       <Upload className="mx-auto text-slate-300 mb-2" size={32} />
+//                       <p className="text-xs text-slate-500 font-medium">SVG or PNG (Max 1MB)</p>
+//                     </div>
+//                   )}
+//                   <label className="absolute inset-0 cursor-pointer">
+//                     <input 
+//                       ref={fileRef}
+//                       type="file" 
+//                       accept="image/*" 
+//                       className="hidden" 
+//                       onChange={handleFileChange} 
+//                     />
+//                   </label>
+//                 </div>
+//               </div>
+
+//               {/* Form Inputs */}
+//               <div className="space-y-4">
+//                 <div>
+//                   <label className="block text-sm font-semibold text-slate-700 mb-1 flex items-center gap-1">
+//                     <Type size={14} /> Technology Name
+//                   </label>
+//                   <input
+//                     type="text"
+//                     placeholder="e.g. Next.js, Flutter"
+//                     value={form.name}
+//                     onChange={(e) => setForm({ ...form, name: e.target.value })}
+//                     className="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+//                   />
+//                 </div>
+
+//                 <div>
+//                   <label className="block text-sm font-semibold text-slate-700 mb-1 flex items-center gap-1">
+//                     <Layers size={14} /> Category
+//                   </label>
+//                   <select
+//                     value={form.category}
+//                     onChange={(e) => setForm({ ...form, category: e.target.value })}
+//                     className="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-white transition-all shadow-sm cursor-pointer"
+//                   >
+//                     <option value="">Select Category</option>
+//                     <option value="Frontend">Frontend</option>
+//                     <option value="Backend">Backend</option>
+//                     <option value="Mobile">Mobile</option>
+//                     <option value="Database">Database</option>
+//                     <option value="DevOps">DevOps</option>
+//                   </select>
+//                 </div>
+//               </div>
+
+//               {/* Footer Actions */}
+//               <div className="flex justify-end gap-3 pt-4 border-t">
+//                 <button
+//                   type="button"
+//                   onClick={() => {
+//                     resetForm();
+//                     setOpen(false);
+//                   }}
+//                   className="px-6 py-2 border border-slate-200 rounded-lg font-medium hover:bg-slate-50 transition-colors text-slate-600 cursor-pointer"
+//                 >
+//                   Cancel
+//                 </button>
+//                 <button
+//                   onClick={submit}
+//                   disabled={loading}
+//                   className="px-8 py-2 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 disabled:bg-blue-300 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+//                 >
+//                   {loading ? (
+//                     <>
+//                       <RefreshCcw size={18} className="animate-spin" />
+//                       Saving...
+//                     </>
+//                   ) : (
+//                     "Save Tech"
+//                   )}
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+
 "use client";
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
+import { X, Plus, Upload, Type, Layers, RefreshCcw, Code2 } from "lucide-react";
+import Image from "next/image";
 
 export default function AddTechStack() {
   const router = useRouter();
@@ -11,6 +357,7 @@ export default function AddTechStack() {
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -18,8 +365,17 @@ export default function AddTechStack() {
     image: null,
   });
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setForm({ ...form, image: file });
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
   const resetForm = () => {
     setForm({ name: "", category: "", image: null });
+    setPreview(null);
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -31,17 +387,10 @@ export default function AddTechStack() {
       return;
     }
 
-   const fd = new FormData();
-fd.append("name", form.name);
-fd.append("category", form.category);
-fd.append("image", form.image);
-
-// comments
-console.log("FormData entries:");
-for (let pair of fd.entries()) {
-  console.log(pair[0] + ": " + pair[1]);
-}
-
+    const fd = new FormData();
+    fd.append("name", form.name);
+    fd.append("category", form.category);
+    fd.append("image", form.image);
 
     try {
       setLoading(true);
@@ -50,8 +399,6 @@ for (let pair of fd.entries()) {
         method: "POST",
         body: fd,
       });
-
-      
 
       if (!res.ok) throw new Error("Failed to add tech stack");
 
@@ -68,66 +415,128 @@ for (let pair of fd.entries()) {
 
   return (
     <>
-
-      <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
       >
-        + Add Tech
-       </button>
-      </>
-
+        <Plus size={20} />
+        Add Tech
+      </button>
 
       {open && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded w-96">
-            <h2 className="font-bold mb-4">Add Tech Stack</h2>
-
-            <input
-              className="border p-2 w-full mb-3"
-              placeholder="Name"
-              value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
-            />
-
-            <input
-              className="border p-2 w-full mb-3"
-              placeholder="Category"
-              value={form.category}
-              onChange={(e) =>
-                setForm({ ...form, category: e.target.value })
-              }
-            />
-
-            <input
-              ref={fileRef}
-              type="file"
-              className="border p-2 w-full mb-4"
-              onChange={(e) =>
-                setForm({ ...form, image: e.target.files?.[0] })
-              }
-            />
-
-            <div className="flex justify-end gap-2">
-              <button
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+            
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <Code2 className="text-blue-600" size={22} />
+                Add Technology
+              </h2>
+              <button 
                 onClick={() => {
                   resetForm();
                   setOpen(false);
-                }}
+                }} 
+                className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
               >
-                Cancel
+                <X size={24} />
               </button>
+            </div>
 
-              <button
-                onClick={submit}
-                disabled={loading}
-                className="bg-blue-600 text-white px-4 py-1 rounded disabled:opacity-60"
-              >
-                {loading ? "Saving..." : "Save"}
-              </button>
+            <div className="p-6 space-y-6">
+              {/* Icon Upload Area */}
+              <div className="space-y-3">
+                <label className="block text-sm font-semibold text-slate-700 flex items-center gap-1">
+                  <Upload size={14} /> Technology Icon
+                </label>
+                <div className="relative group border-2 border-dashed border-slate-200 rounded-xl p-4 hover:border-blue-400 transition-all bg-slate-50 flex flex-col items-center justify-center min-h-[140px]">
+                  {preview ? (
+                    <div className="relative h-20 w-20 rounded-lg overflow-hidden border bg-white p-2 shadow-sm">
+                      <Image 
+                        src={preview} 
+                        alt="Preview" 
+                        fill 
+                        className="object-contain p-2" 
+                        unoptimized 
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <Upload className="mx-auto text-slate-300 mb-2" size={32} />
+                      <p className="text-xs text-slate-500 font-medium tracking-tight">SVG, PNG, or WEBP (Max 1MB)</p>
+                    </div>
+                  )}
+                  <label className="absolute inset-0 cursor-pointer">
+                    <input 
+                      ref={fileRef}
+                      type="file" 
+                      accept="image/*" 
+                      className="hidden" 
+                      onChange={handleFileChange} 
+                    />
+                  </label>
+                </div>
+              </div>
+
+              {/* Form Inputs */}
+              <div className="space-y-4">
+                {/* Name Input */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1 flex items-center gap-1">
+                    <Type size={14} /> Technology Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Next.js, Flutter"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                  />
+                </div>
+
+                {/* Category Input (Changed from Select to Input) */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1 flex items-center gap-1">
+                    <Layers size={14} /> Category
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Frontend, Mobile, Database"
+                    value={form.category}
+                    onChange={(e) => setForm({ ...form, category: e.target.value })}
+                    className="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Footer Actions */}
+              <div className="flex justify-end gap-3 pt-4 border-t">
+                <button
+                  type="button"
+                  onClick={() => {
+                    resetForm();
+                    setOpen(false);
+                  }}
+                  className="px-6 py-2 border border-slate-200 rounded-lg font-medium hover:bg-slate-50 transition-colors text-slate-600 cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={submit}
+                  disabled={loading}
+                  className="px-8 py-2 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 disabled:bg-blue-300 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+                >
+                  {loading ? (
+                    <>
+                      <RefreshCcw size={18} className="animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    "Save Tech"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

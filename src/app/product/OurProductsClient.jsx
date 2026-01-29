@@ -1,126 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
-// import AddProduct from "./AddProduct";
-// import EditProduct from "./EditProduct";
-// import DeleteProduct from "./DeleteProduct";
-// import Image from "next/image";
-// import { Pencil, Trash2 } from "lucide-react";
-// import { truncateDescription } from "@/lib/wordcut";
-
-// export default function OurProductsClient({ products }) {
-//   const [editProduct, setEditProduct] = useState(null);
-//   const [deleteId, setDeleteId] = useState(null);
-  
-
-//   return (
-//     <div className="p-6">
-//       {/* HEADER */}
-//       <div className="flex justify-between items-center mb-4">
-//         <h1 className="text-2xl font-bold">Our Products</h1>
-//         <AddProduct />
-//       </div>
-
-//       {/* TABLE */}
-//       <div className="overflow-x-auto">
-//         <table className="min-w-full border border-gray-300">
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="border p-2">Sr.No</th>
-//               <th className="border p-2">Images</th>
-//               <th className="border p-2">Title</th>
-//               <th className="border p-2">Slug</th>
-//               <th className="border p-2">Website</th>
-//               <th className="border p-2 text-left">Description</th>
-//               <th className="border p-2">Actions</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {products.length === 0 ? (
-//               <tr>
-//                 <td colSpan="6" className="text-center p-4 text-gray-500">
-//                   No products found
-//                 </td>
-//               </tr>
-//             ) : (
-//               products.map((item, index) => (
-//                 <tr key={item.id} className="hover:bg-gray-50">
-//                   <td className="border p-2 text-center"> #{index+1}</td>
-// <td className="border p-2 text-center">
-//   <Image
-//     src={item.image_url || "/placeholder.png"}
-//     alt={item.title}
-//     width={56}
-//     height={56}
-//     className="h-10 w-10 rounded-full mx-auto object-cover"
-//   />
-// </td>
-
-
-
-//                   <td className="border p-2 font-semibold">{item.title}</td>
-//                   <td className="border p-2 text-sm text-gray-600">
-//   {item.slug}
-// </td>
-
-// <td className="border p-2 text-center">
-//   {item.website_url ? (
-//     <a
-//       href={item.website_url}
-//       target="_blank"
-//       rel="noopener noreferrer"
-//       className="text-blue-600 underline hover:text-blue-800"
-//     >
-//       Visit
-//     </a>
-//   ) : (
-//     <span className="text-gray-400">N/A</span>
-//   )}
-// </td>
-//  <td className="border p-3 text-sm text-left max-w-[300px]">
-//                       <div className="line-clamp-2 text-gray-500" title={item.description.replace(/<[^>]*>/g, "")}>
-//                         {truncateDescription(item.description, 50)}
-//                       </div>
-//                     </td>
-
-//                   <td className="border p-4 text-center">
-//                     <div className="flex justify-center gap-4">
-//                       <button
-//                         onClick={() => setEditProduct(item)}
-//                          className="text-blue-500 cursor-pointer hover:underline text-sm"
-//                       >
-//                           <Pencil size={18} />
-//                       </button>
-//                       <button
-//                         onClick={() => setDeleteId(item.id)}
-//                          className="text-red-500 cursor-pointer hover:underline text-sm"
-//                       >
-                        
-//   <Trash2 size={18} />
-//                       </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* MODALS */}
-//       {editProduct && (
-//         <EditProduct
-//           product={editProduct}
-//           onClose={() => setEditProduct(null)}
-//         />
-//       )}
-//       {deleteId && (
-//         <DeleteProduct id={deleteId} onClose={() => setDeleteId(null)} />
-//       )}
-//     </div>
-//   );
-// }
 
 
 "use client";
@@ -130,12 +7,14 @@ import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import DeleteProduct from "./DeleteProduct";
 import Image from "next/image";
-import { Pencil, Trash2, ShoppingBag, ExternalLink } from "lucide-react"; // Icons for modern look
+import { Pencil, Trash2, ShoppingBag, ExternalLink, Eye } from "lucide-react"; // Icons for modern look
 import { truncateDescription } from "@/lib/wordcut";
+import ViewProduct from "./ViewProduct";
 
 export default function OurProductsClient({ products }) {
   const [editProduct, setEditProduct] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [viewProduct, setViewProduct] = useState(null);
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -224,6 +103,15 @@ export default function OurProductsClient({ products }) {
 
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                       
+                       <button
+                          onClick={() => setViewProduct(item)}
+                          className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                          title="View Details"
+                        >
+                          <Eye size={18} />
+                        </button>
+
                         <button
                           onClick={() => setEditProduct(item)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
@@ -258,6 +146,13 @@ export default function OurProductsClient({ products }) {
       {deleteId && (
         <DeleteProduct id={deleteId} onClose={() => setDeleteId(null)} />
       )}
+
+      {viewProduct && (
+  <ViewProduct
+    data={viewProduct}
+    onClose={() => setViewProduct(null)}
+  />
+)}
     </div>
   );
 }

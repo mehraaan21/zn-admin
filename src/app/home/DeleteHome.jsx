@@ -1,12 +1,85 @@
 
+// "use client";
+
+// import { toast } from "@/lib/toast";
+// import axios from "axios";
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+// import { Trash2 } from "lucide-react";
+
+
+// export default function DeleteConfirm({ id }) {
+//   const [open, setOpen] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const router = useRouter();
+
+//   const remove = async () => {
+//     setLoading(true);
+//     try {
+//       // Calling your local Next.js API route
+//       const res = await axios.delete(`/api/homes/${id}`);
+
+//       if (res.status === 200) {
+//         toast("Home deleted", "success");
+//         setOpen(false);
+//         router.refresh(); // Automatically refreshes the server component data
+//       }
+//     } catch (error) {
+//       toast(error.response?.data?.message || "Delete failed", "error");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <>
+//      <button
+//   onClick={() => setOpen(true)}
+//   className="p-2 text-red-600 cursor-pointer hover:bg-red-50 rounded-full transition-colors"
+//   title="Delete Item"
+// >
+//   <Trash2 size={18} />
+// </button>
+
+//       {open && (
+//         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+//           <div className="bg-white rounded p-6 w-80 shadow-xl">
+//             <h3 className="font-semibold mb-2">Confirm Delete</h3>
+//             <p className="text-sm text-gray-600">
+//               Are you sure you want to delete this home? This action cannot be undone.
+//             </p>
+
+//             <div className="flex justify-end gap-2 mt-4">
+//               <button
+//                 onClick={() => setOpen(false)}
+//                 className="px-3 py-1 border rounded hover:bg-gray-50"
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 onClick={remove}
+//                 disabled={loading}
+//                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 disabled:bg-red-300"
+//               >
+//                 {loading ? "Deleting..." : "Delete"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+
+
 "use client";
 
-import { toast } from "@/lib/toast";
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Trash2 } from "lucide-react";
-
+import { toast } from "@/lib/toast";
+import { Trash2, AlertTriangle, X, RefreshCcw } from "lucide-react";
 
 export default function DeleteConfirm({ id }) {
   const [open, setOpen] = useState(false);
@@ -16,13 +89,13 @@ export default function DeleteConfirm({ id }) {
   const remove = async () => {
     setLoading(true);
     try {
-      // Calling your local Next.js API route
+      // Calling local Next.js API route
       const res = await axios.delete(`/api/homes/${id}`);
 
       if (res.status === 200) {
-        toast("Home deleted", "success");
+        toast("Deleted successfully", "success");
         setOpen(false);
-        router.refresh(); // Automatically refreshes the server component data
+        router.refresh(); // Refresh server component data
       }
     } catch (error) {
       toast(error.response?.data?.message || "Delete failed", "error");
@@ -33,37 +106,71 @@ export default function DeleteConfirm({ id }) {
 
   return (
     <>
-     <button
-  onClick={() => setOpen(true)}
-  className="p-2 text-red-600 cursor-pointer hover:bg-red-50 rounded-full transition-colors"
-  title="Delete Item"
->
-  <Trash2 size={18} />
-</button>
+      {/* TRIGGER BUTTON - Standardized with your other table actions */}
+      <button
+        onClick={() => setOpen(true)}
+        className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-all duration-200 cursor-pointer active:scale-90"
+        title="Delete Item"
+      >
+        <Trash2 size={18} />
+      </button>
 
+      {/* MODAL OVERLAY */}
       {open && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded p-6 w-80 shadow-xl">
-            <h3 className="font-semibold mb-2">Confirm Delete</h3>
-            <p className="text-sm text-gray-600">
-              Are you sure you want to delete this home? This action cannot be undone.
-            </p>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
+          
+          {/* MODAL CARD */}
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in duration-200">
+            
+            {/* TOP DECORATIVE STRIP */}
+            <div className="h-1.5 bg-red-500 w-full" />
 
-            <div className="flex justify-end gap-2 mt-4">
-              <button
-                onClick={() => setOpen(false)}
-                className="px-3 py-1 border rounded hover:bg-gray-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={remove}
-                disabled={loading}
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 disabled:bg-red-300"
-              >
-                {loading ? "Deleting..." : "Delete"}
-              </button>
+            <div className="p-6">
+              <div className="flex flex-col items-center text-center">
+                {/* WARNING ICON */}
+                <div className="bg-red-100 p-3 rounded-full text-red-600 mb-4">
+                  <AlertTriangle size={32} />
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900">Are you sure?</h3>
+                <p className="text-gray-500 mt-2 text-sm leading-relaxed">
+                  Do you really want to delete this record? This process cannot be undone and the data will be permanently removed.
+                </p>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="grid grid-cols-2 gap-3 mt-8">
+                <button
+                  onClick={() => setOpen(false)}
+                  disabled={loading}
+                  className="px-4 py-2.5 border border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={remove}
+                  disabled={loading}
+                  className="px-4 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 shadow-lg shadow-red-200 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer disabled:bg-red-300"
+                >
+                  {loading ? (
+                    <>
+                      <RefreshCcw size={18} className="animate-spin" />
+                      Deleting
+                    </>
+                  ) : (
+                    "Yes, Delete"
+                  )}
+                </button>
+              </div>
             </div>
+
+            {/* CLOSE ICON (TOP RIGHT) */}
+            <button 
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            >
+              <X size={20} />
+            </button>
           </div>
         </div>
       )}

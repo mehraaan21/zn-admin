@@ -1,256 +1,3 @@
-// // "use client";
-
-// // import { useState } from "react";
-// // import AddBlogModal from "./AddBlogModal";
-// // import DeleteBlogModal from "./DeleteBlogModal";
-// // import EditBlogModal from "./EditBlogModal";
-// // import { useRouter } from "next/navigation";
-
-
-
-
-// // export default function BlogsTable({ data }) {
-// //   const [showAdd, setShowAdd] = useState(false);
-// //   const [deleteId, setDeleteId] = useState(null);
-// //   const [editBlog, setEditBlog] = useState(null);
-// //   const router = useRouter();
-  
-
-// //   return (
-// //     <>
-// //       <div className="mb-4 flex justify-end">
-// //           <button
-// //         onClick={() => setOpen(true)}
-// //         className="bg-blue-600 text-white px-4 py-2 rounded"
-// //       >
-// //         + Add Blog
-// //       </button>
-
-// //       </div>
-
-// //       <div className="overflow-x-auto border rounded">
-// //         <table className="min-w-full text-sm">
-// //           <thead className="bg-gray-100">
-// //             <tr>
-// //               <th className="border p-2">Image</th>
-// //               <th className="border p-2">Title</th>
-// //               <th className="border p-2">Slug</th>
-// //               <th className="border p-2">SEO Title</th>
-// //               <th className="border p-2">Actions</th>
-// //             </tr>
-// //           </thead>
-
-// //           <tbody>
-// //             {data.length === 0 ? (
-// //               <tr>
-// //                 <td colSpan="5" className="p-4 text-center text-gray-500">
-// //                   No blogs found
-// //                 </td>
-// //               </tr>
-// //             ) : (
-// //               data.map((blog) => (
-// //                 <tr key={blog.id}>
-// //                   <td className="border p-2">
-// //                     <img
-// //                       src={blog.image_url}
-// //                       alt={blog.title}
-// //                       className="w-20 h-14 object-cover rounded"
-// //                     />
-// //                   </td>
-
-// //                   <td className="border p-2 font-medium">{blog.title}</td>
-// //                   <td className="border p-2">{blog.slug}</td>
-// //                   <td className="border p-2">{blog.seo_title}</td>
-
-// //                   {/* <td className="border p-2">
-// //                     <button
-// //                       onClick={() => setDeleteId(blog.id)}
-// //                       className="text-red-600 hover:underline"
-// //                     >
-// //                       Delete
-// //                     </button>
-// //                   </td> */}
-
-// //                   <td className="border  p-2 ">
-// //                     <div className="flex justify-center gap-3">
-
-
-// //                     <button
-// //                         onClick={() => setEditBlog(blog)}
-// //                         className="text-blue-600 hover:underline"
-// //                     >
-// //                         Edit
-// //                     </button>
-
-// //                     <button
-// //                         onClick={() => setDeleteId(blog.id)}
-// //                         className="text-red-600 hover:underline"
-// //                     >
-// //                         Delete
-// //                     </button>
-// //                     </div>
-// //                     </td>
-
-// //                 </tr>
-// //               ))
-// //             )}
-// //           </tbody>
-// //         </table>
-// //       </div>
-
-// //       {showAdd && <AddBlogModal onClose={() => setShowAdd(false)} />}
-// //       {deleteId && (
-// //         <DeleteBlogModal
-// //           id={deleteId}
-// //           onClose={() => setDeleteId(null)}
-// //         />
-
-// //         )}
-// //               {editBlog && (
-// //   <EditBlogModal
-// //     blog={editBlog}
-// //     onClose={() => setEditBlog(null)}
-// //   />
-// // )}
-
-// //     </>
-// //   );
-// // }
-
-
-
-// "use client";
-
-// import { useState } from "react";
-// import AddBlogModal from "./AddBlogModal";
-// import DeleteBlogModal from "./DeleteBlogModal";
-// import EditBlogModal from "./EditBlogModal";
-
-// export default function BlogsTable({ data = [] }) {
-//   const [showAdd, setShowAdd] = useState(false);
-//   const [deleteId, setDeleteId] = useState(null);
-//   const [editBlog, setEditBlog] = useState(null);
-
-//   return (
-//     <>
-//       {/* ADD BUTTON */}
-//       <div className="mb-4 flex justify-end">
-//         <button
-//           onClick={() => setShowAdd(true)}
-//           className="bg-blue-600 text-white px-4 py-2 rounded"
-//         >
-//           + Add Blog
-//         </button>
-//       </div>
-
-//       {/* TABLE */}
-//       <div className="overflow-x-auto border rounded">
-//         <table className="min-w-full text-sm">
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="border p-2">Image</th>
-//               <th className="border p-2">Title</th>
-//               <th className="border p-2">Slug</th>
-//               <th className="border p-2">SEO Title</th>
-//               <th className="border p-2">Actions</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {data.length === 0 ? (
-//               <tr>
-//                 <td colSpan="5" className="p-4 text-center text-gray-500">
-//                   No blogs found
-//                 </td>
-//               </tr>
-//             ) : (
-//               data.map((blog) => (
-//                 <tr key={blog.id}>
-//                   <td className="border p-2">
-//                     <img
-//                       src={blog.image_url || "/placeholder.png"}
-//                       alt={blog.title}
-//                       className="w-20 h-14 object-cover rounded"
-//                     />
-//                   </td>
-
-//                   <td className="border p-2 font-medium">
-//                     {blog.title}
-//                   </td>
-
-//                   <td className="border p-2">{blog.slug}</td>
-
-//                   <td className="border p-2">
-//                     {blog.seo_title}
-//                   </td>
-
-//                   <td className="border p-2">
-//                     <div className="flex justify-center gap-3">
-//                       <button
-//                         onClick={() => setEditBlog(blog)}
-//                         className="text-blue-600 hover:underline"
-//                       >
-//                         Edit
-//                       </button>
-
-//                       <button
-//                         onClick={() => setDeleteId(blog.id)}
-//                         className="text-red-600 hover:underline"
-//                       >
-//                         Delete
-//                       </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* MODALS */}
-//       {showAdd && (
-//         <AddBlogModal onClose={() => setShowAdd(false)} />
-//       )}
-
-//       {deleteId && (
-//         <DeleteBlogModal
-//           id={deleteId}
-//           onClose={() => setDeleteId(null)}
-//         />
-//       )}
-
-//       {editBlog && (
-//         <EditBlogModal
-//           blog={editBlog}
-//           onClose={() => setEditBlog(null)}
-//         />
-//       )}
-//     </>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -258,16 +5,18 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FileText, Pencil, Trash2 } from "lucide-react";
+import { Eye, FileText, Pencil, Trash2 } from "lucide-react";
 
 import AddBlogModal from "./AddBlogModal";
 import DeleteBlogModal from "./DeleteBlogModal";
 import EditBlogModal from "./EditBlogModal";
+import ViewBlogModal from "./ViewBlogModal";
 
 export default function BlogsTable({ data = [] }) {
   const [showAdd, setShowAdd] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editBlog, setEditBlog] = useState(null);
+  const [viewBlog, setViewBlog] = useState(null);
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -309,10 +58,10 @@ export default function BlogsTable({ data = [] }) {
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
                   Slug
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
                   Description
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
+                </th> */}
+                {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
                   SEO Title
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
@@ -320,7 +69,7 @@ export default function BlogsTable({ data = [] }) {
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
                   SEO Description
-                </th>
+                </th> */}
                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase">
                   Actions
                 </th>
@@ -367,12 +116,12 @@ export default function BlogsTable({ data = [] }) {
                       {blog.slug}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
+                    {/* <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
                       {blog.description}
-                    </td>
+                    </td> */}
 
                     
-
+{/* 
                     <td className="px-6 py-4 text-sm text-gray-500 max-w-[250px] truncate">
                       {blog.seo_title}
                     </td>
@@ -383,10 +132,19 @@ export default function BlogsTable({ data = [] }) {
 
                     <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
                       {blog.seo_description}
-                    </td>
+                    </td> */}
 
                     <td className="px-6 py-4">
                       <div className="flex justify-center gap-3 opacity-80 group-hover:opacity-100 transition-opacity">
+                        
+                           <button
+  onClick={() => setViewBlog(blog)}
+  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+  title="Quick View"
+>
+  <Eye size={18} />
+</button>
+
                         <button
                           onClick={() => setEditBlog(blog)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
@@ -414,6 +172,8 @@ export default function BlogsTable({ data = [] }) {
 
       {/* MODALS */}
       {showAdd && <AddBlogModal onClose={() => setShowAdd(false)} />}
+      
+   
 
       {deleteId && (
         <DeleteBlogModal
@@ -428,6 +188,13 @@ export default function BlogsTable({ data = [] }) {
           onClose={() => setEditBlog(null)}
         />
       )}
+
+      {viewBlog && (
+  <ViewBlogModal 
+    data={viewBlog} 
+    onClose={() => setViewBlog(null)} 
+  />
+)}
     </div>
   );
 }

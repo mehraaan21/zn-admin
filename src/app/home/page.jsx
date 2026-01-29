@@ -1,137 +1,5 @@
 
 
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
-// import { redirect } from "next/navigation";
-
-
-// import AddHome from "./AddHome";
-// import EditHome from "./EditHome";
-// import DeleteHome from "./DeleteHome";
-// import Image from "next/image";
-// import StatusBadge from "@/components/StatusToggle";
-// import { truncateDescription } from "@/lib/wordcut";
-// import Pagination from "@/components/Pagination";
-
-
-
-// export default async function HomePage({ searchParams }) { 
-//    // Ab 'searchParams' available hai
-//    const currentPage = Number(searchParams?.page) || 1;
-//    const limit = 10;
-//   const session = await getServerSession(authOptions);
-//   //   // URL se current page lo (default 1)
-//   // const currentPage = Number(searchParams?.page) || 1;
-//   // const limit = 5; // Ek page par kitne items dikhane ha
-
-//   if (!session?.user?.accessToken) {
-//     redirect("/log-in");
-//   }
-
-
-
-
-//  const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_URL}/home?page=${currentPage}&limit=${limit}`, 
-//     {
-//       headers: { Authorization: `Bearer ${session.user.accessToken}` },
-//       cache: "no-store",
-//     }
-//   );
-
-//   if (!res.ok) throw new Error("Failed to fetch home data");
-
-//   const response = await res.json();
-//   const homes = response?.data ?? [];
-//   const totalPages = response?.last_page || 1;
-//   console.log("HOMES RESPONSE:", homes);
-
-//   return (
-//     <div className="p-6">
-//       {/* Header */}
-//       <div className="flex justify-between items-center mb-4">
-//         <h1 className="text-2xl font-bold">Home</h1>
-//         <AddHome />
-//       </div>
-
-//       {/* Table */}
-//       <div className="overflow-x-auto">
-//         <table className="min-w-full border border-gray-300">
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="border p-2">ID</th>
-//               <th className="border p-2">Title</th>
-//               <th className="border p-2">Description</th>
-//               <th className="border p-2">Images</th>
-//               <th className="border p-2">Status</th>
-//               <th className="border align-center p-2">Actions</th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {homes.length === 0 ? (
-//               <tr>
-//                 <td colSpan="6" className="text-center p-4">
-//                   No home data found
-//                 </td>
-//               </tr>
-//             ) : (
-//               homes.map((item) => {
-
-//                 return (
-//                   <tr key={item.id} className="text-center align-top">
-//                     <td className="border p-2">{item.id}</td>
-
-//                     <td className="border p-2 font-semibold">
-//                       {item.title}
-//                     </td>
-
-
-//                     {/* Responsive Description with 50-word limit */}
-//   <td className="border p-3 text-sm text-left max-w-[300px]">
-//     <div className="line-clamp-2 text-gray-500" title={item.description.replace(/<[^>]*>/g, "")}>
-//       {truncateDescription(item.description, 50)}
-//     </div>
-//   </td>
-
-//                     {/* IMAGES */}
-//                                   <td className="border p-2">
-//                                     <Image
-//                                       src={item.image_url?.[0] || "/placeholder.png"} // Added fallback
-//                                       alt={item.client_name}
-//                                       width={56}
-//                                       height={56}
-//                                       className="h-10 w-10 rounded-full mx-auto object-cover"
-//                                     />
-//                                   </td>
-
-//                     {/* REUSABLE STATUS BADGE */}
-//                       <td className="border p-3">
-//                         <StatusBadge status={item.status} />
-//                       </td>
-
-//                     {/* ACTIONS */}
-//                     <td className="border  p-2">
-//                       <div className="flex justify-center align-center  text-center; gap-3">
-//                         <EditHome home={item} />
-//                         <DeleteHome id={item.id} />
-//                       </div>
-//                     </td>
-//                   </tr>
-//                 );
-//               })
-//             )}
-//           </tbody>
-//         </table>
-
-//         {/* PAGINATION COMPONENT */}
-//     <Pagination totalPages={totalPages} />
-//       </div>
-//     </div>
-//   );
-// }
-
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -144,6 +12,7 @@ import DeleteHome from "./DeleteHome";
 import StatusBadge from "@/components/StatusToggle";
 import { truncateDescription } from "@/lib/wordcut";
 import Pagination from "@/components/Pagination";
+import ViewHome from "./ViewHome";
 
 export default async function HomePage({ searchParams }) { 
   // Next.js 15+ Compatibility: Await searchParams if necessary
@@ -195,7 +64,7 @@ export default async function HomePage({ searchParams }) {
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Title</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Image</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                {/* <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th> */}
                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
@@ -239,12 +108,14 @@ export default async function HomePage({ searchParams }) {
                       </div>
                     </td>
 
-                    <td className="px-6 py-4 text-center">
+                    {/* <td className="px-6 py-4 text-center">
                       <StatusBadge status={item.status} />
-                    </td>
+                    </td> */}
 
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                       
+                       <ViewHome home={item} />
                         <EditHome home={item} />
                         <DeleteHome id={item.id} />
                       </div>

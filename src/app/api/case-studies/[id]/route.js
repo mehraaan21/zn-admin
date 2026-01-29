@@ -14,7 +14,7 @@ export async function PUT(req, { params }) {
     const formData = await req.formData();
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/portfolios/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/case-studies/${id}`,
       {
         method: "PUT",
         headers: {
@@ -43,6 +43,10 @@ export async function PUT(req, { params }) {
    ========================= */
 
 
+
+
+// Delete the Data
+
 export async function DELETE(req, { params }) {
   const session = await getServerSession(authOptions);
 
@@ -64,6 +68,8 @@ export async function DELETE(req, { params }) {
         },
       }
     );
+
+    console.log("Response from API:", res);
 
     if (!res.ok) {
       const errorData = await res.json();

@@ -234,7 +234,7 @@ export default function OpeningForm({ initialData, onClose, onSuccess }) {
                 onChange={(e) => setForm({ ...form, opening: Number(e.target.value) })}
               />
             </div>
-            <div>
+            {/* <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
                 <CheckCircle2 size={14} /> Hiring Status
               </label>
@@ -246,7 +246,7 @@ export default function OpeningForm({ initialData, onClose, onSuccess }) {
                 <option value="active text-green-600 font-medium">Active</option>
                 <option value="closed text-red-600 font-medium">Closed</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Footer Actions */}

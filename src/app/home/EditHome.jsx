@@ -437,7 +437,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast"; 
-import CustomEditor from "@/components/Editor";
+// import CustomEditor from "@/components/Editor";
 import { Pencil, X, Layout, Upload, RefreshCcw, Type, FileText, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
 

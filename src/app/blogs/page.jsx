@@ -28,8 +28,8 @@ export default async function BlogsPage() {
   const blogs = Array.isArray(result.data) ? result.data : [];
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Blogs</h1>
+    <div className="p-3">
+      {/* <h1 className="text-2xl font-bold mb-4">Blogs</h1> */}
       <BlogsTable data={blogs} />
     </div>
   );

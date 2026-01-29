@@ -1,25 +1,34 @@
 
-
 "use client";
 
 import { useState } from "react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
+import { X, MessageSquare, Plus, Upload, User, Briefcase, Building2, RefreshCcw } from "lucide-react";
+import Image from "next/image";
 
 export default function AddTestimonial() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [preview, setPreview] = useState(null);
     
-    // Fixed state keys to match your input fields
     const [form, setForm] = useState({
         name: "",
         designation: "",
         company: "",
         message: "",
         status: "active",
-        image: null // Store the file object here
+        image: null
     });
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setForm({ ...form, image: file });
+            setPreview(URL.createObjectURL(file));
+        }
+    };
 
     const submit = async () => {
         if (!form.name || !form.message) {
@@ -29,21 +38,19 @@ export default function AddTestimonial() {
 
         try {
             setLoading(true);
-
-            // Create FormData to handle the image and text fields
             const data = new FormData();
             data.append("client_name", form.name);
             data.append("designation", form.designation);
             data.append("company", form.company);
             data.append("quote", form.message);
             data.append("status", form.status);
+            
             if (form.image) {
-                data.append("photo", form.image); // Field name must match backend expectations
+                data.append("photo", form.image);
             }
 
             const res = await fetch("/api/testimonials", {
                 method: "POST",
-                // Note: No 'Content-Type' header needed for FormData
                 body: data,
             });
 
@@ -55,7 +62,6 @@ export default function AddTestimonial() {
             toast("Testimonial added successfully");
             setOpen(false);
             
-            // Reset Form
             setForm({
                 name: "",
                 designation: "",
@@ -64,7 +70,7 @@ export default function AddTestimonial() {
                 status: "active",
                 image: null
             });
-
+            setPreview(null);
             router.refresh();
         } catch (error) {
             toast(error.message, "error");
@@ -75,41 +81,157 @@ export default function AddTestimonial() {
 
     return (
         <>
-            <button onClick={() => setOpen(true)} className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-4 py-2 rounded">
-                + Add Testimonial
+            <button 
+                onClick={() => setOpen(true)} 
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
+            >
+                <Plus size={20} />
+                Add Testimonial
             </button>
 
             {open && (
-                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                    <div className="bg-white w-full max-w-md rounded p-5 shadow-xl">
-                        <h2 className="text-lg font-semibold mb-4 text-gray-800">Add Testimonial</h2>
-
-                        <input className="border p-2 w-full mb-3 rounded" placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-                        <input className="border p-2 w-full mb-3 rounded" placeholder="Designation" value={form.designation} onChange={(e) => setForm({ ...form, designation: e.target.value })} />
-                        <input className="border p-2 w-full mb-3 rounded" placeholder="Company" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
-                        <textarea className="border p-2 w-full mb-3 rounded" placeholder="Message" rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-
-                        <div className="mb-3">
-                            <label className="text-sm text-gray-500 mb-1 block">Client Picture</label>
-                            <input 
-                                type="file" 
-                                accept="image/*" 
-                                className="border p-1 w-full text-sm" 
-                                onChange={(e) => setForm({ ...form, image: e.target.files[0] })} 
-                            />
-                            {form.image && <p className="text-green-600 text-xs mt-1">Image selected: {form.image.name}</p>}
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+                        
+                        {/* Header */}
+                        <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
+                            <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                                <MessageSquare className="text-blue-600" size={22} />
+                                Create Testimonial
+                            </h2>
+                            <button 
+                                onClick={() => setOpen(false)} 
+                                className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                            >
+                                <X size={24} />
+                            </button>
                         </div>
 
-                        <select className="border p-2 w-full mb-4 rounded" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                        <div className="p-6 space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Left Side: Profile Picture Upload */}
+                                <div className="space-y-3">
+                                    <label className="block text-sm font-semibold text-gray-700 flex items-center gap-1">
+                                        <Upload size={14} /> Client Photo
+                                    </label>
+                                    <div className="relative group border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition-all bg-gray-50 flex flex-col items-center justify-center min-h-[160px]">
+                                        {preview ? (
+                                            <div className="relative h-28 w-28 rounded-full overflow-hidden border-4 border-white shadow-md">
+                                                <Image 
+                                                    src={preview} 
+                                                    alt="Preview" 
+                                                    fill 
+                                                    className="object-cover"
+                                                    unoptimized
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="text-center">
+                                                <div className="mx-auto bg-gray-200 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-2">
+                                                    <User className="text-gray-400" size={32} />
+                                                </div>
+                                                <p className="text-xs text-gray-500 font-medium italic">Click to upload avatar</p>
+                                            </div>
+                                        )}
+                                        <label className="absolute inset-0 cursor-pointer">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                onChange={handleFileChange}
+                                            />
+                                        </label>
+                                    </div>
+                                </div>
 
-                        <div className="flex justify-end gap-2">
-                            <button onClick={() => setOpen(false)} className="px-3 py-1 border cursor-pointer rounded hover:bg-gray-100">Cancel</button>
-                            <button onClick={submit} disabled={loading} className="bg-blue-500 cursor-pointer hover:bg-blue-700  text-white px-4 py-1 rounded disabled:bg-blue-300">
-                                {loading ? "Saving..." : "Save"}
-                            </button>
+                                {/* Right Side: Identity Info */}
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                                            <User size={14} /> Client Name
+                                        </label>
+                                        <input 
+                                            className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" 
+                                            placeholder="John Doe" 
+                                            value={form.name} 
+                                            onChange={(e) => setForm({ ...form, name: e.target.value })} 
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                                            <Briefcase size={14} /> Designation
+                                        </label>
+                                        <input 
+                                            className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" 
+                                            placeholder="CEO" 
+                                            value={form.designation} 
+                                            onChange={(e) => setForm({ ...form, designation: e.target.value })} 
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                                            <Building2 size={14} /> Company Name
+                                        </label>
+                                        <input 
+                                            className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" 
+                                            placeholder="Tech Solutions" 
+                                            value={form.company} 
+                                            onChange={(e) => setForm({ ...form, company: e.target.value })} 
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Full Width Message */}
+                            <div>
+                                <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                                    <MessageSquare size={14} /> Testimonial Quote
+                                </label>
+                                <textarea 
+                                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm" 
+                                    placeholder="Write the client's feedback here..." 
+                                    rows={4} 
+                                    value={form.message} 
+                                    onChange={(e) => setForm({ ...form, message: e.target.value })} 
+                                />
+                            </div>
+
+                            {/* Status Select */}
+                            {/* <div>
+                                <label className="text-sm font-semibold text-gray-700 mb-1">Visibility Status</label>
+                                <select 
+                                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-white shadow-sm cursor-pointer font-medium" 
+                                    value={form.status} 
+                                    onChange={(e) => setForm({ ...form, status: e.target.value })}
+                                >
+                                    <option value="active" className="text-green-600">Active (Visible)</option>
+                                    <option value="inactive" className="text-red-600">Inactive (Hidden)</option>
+                                </select>
+                            </div> */}
+
+                            {/* Footer Actions */}
+                            <div className="flex justify-end gap-3 pt-4 border-t">
+                                <button 
+                                    onClick={() => setOpen(false)} 
+                                    className="px-6 py-2 border rounded-lg font-medium hover:bg-gray-50 text-gray-600 cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button 
+                                    onClick={submit} 
+                                    disabled={loading} 
+                                    className="px-8 py-2 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 disabled:bg-blue-300 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+                                >
+                                    {loading ? (
+                                        <>
+                                            <RefreshCcw size={18} className="animate-spin" />
+                                            Saving...
+                                        </>
+                                    ) : (
+                                        "Save Testimonial"
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

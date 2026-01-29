@@ -202,7 +202,7 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
       data.append("designation", form.designation);
       data.append("company", form.company);
       data.append("quote", form.quote);
-      data.append("status", form.status);
+      // data.append("status", form.status);
 
       if (form.image) {
         data.append("photo", form.image);
@@ -335,7 +335,7 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
               </div>
 
               {/* Status Select */}
-              <div>
+              {/* <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Visibility Status</label>
                 <select
                   className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-white transition-all shadow-sm cursor-pointer"
@@ -345,7 +345,7 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
                   <option value="active">Active (Visible on site)</option>
                   <option value="inactive">Inactive (Hidden)</option>
                 </select>
-              </div>
+              </div> */}
 
               {/* Footer Actions */}
               <div className="flex justify-end gap-3 pt-4 border-t">

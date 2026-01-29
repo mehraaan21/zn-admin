@@ -244,13 +244,15 @@ import { useState } from "react";
 import EditSpecialization from "./EditSpecialization";
 import DeleteSpecialization from "./DeleteSpecialization";
 import Image from "next/image";
-import { Pencil, Trash2, Award, ListChecks } from "lucide-react"; // Icons
+import { Pencil, Trash2, Award, ListChecks, Eye } from "lucide-react"; // Icons
 import { truncateDescription } from "@/lib/wordcut";
+import ViewSpecialization from "./ViewSpecialization";
 
 export default function SpecializationTable({ data: initialData }) {
   const [data, setData] = useState(initialData || []);
   const [editItem, setEditItem] = useState(null);
   const [deleteItem, setDeleteItem] = useState(null);
+  const [viewItem, setViewItem] = useState(null);
 
   const handleDeleteSuccess = (id) => {
     setData(prev => prev.filter(item => item.id !== id));
@@ -335,6 +337,15 @@ export default function SpecializationTable({ data: initialData }) {
 
                   <td className="px-6 py-4">
                     <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                      
+                      <button
+  onClick={() => setViewItem(item)}
+  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+  title="View Details"
+>
+  <Eye size={18} />
+</button>
+                      
                       <button
                         onClick={() => setEditItem(item)}
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
@@ -374,6 +385,12 @@ export default function SpecializationTable({ data: initialData }) {
           onSuccess={handleDeleteSuccess}
         />
       )}
+      {viewItem && (
+  <ViewSpecialization 
+    data={viewItem} 
+    onClose={() => setViewItem(null)} 
+  />
+)}
     </div>
   );
 }
