@@ -28,6 +28,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-hot-toast": "^2.6.0",
+    "react-quill": "^2.0.0",
     "recharts": "^3.5.1",
     "secret": "^1.2.0",
     "swr": "^2.3.7"

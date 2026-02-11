@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ServicesClient from "./ServicesClient";
-import ServiceModernView from "./ServicesClient";
+
 
 export default async function OurServicesPage() {
   const session = await getServerSession(authOptions);

@@ -552,7 +552,7 @@ if (form.images.length > 0) {
               {/* Existing Images Preview Section */}
               {home.image_url && home.image_url.length > 0 && (
                 <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-gray-700 flex items-center gap-1">
+                  <label className="block text-sm font-semibold text-gray-700 items-center gap-1">
                     <ImageIcon size={14} /> Current Images
                   </label>
                   <div className="grid grid-cols-4 gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100">
@@ -572,7 +572,7 @@ if (form.images.length > 0) {
 
               {/* Title Section */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1  items-center gap-1">
                   <Type size={14} /> Banner Title
                 </label>
                 <input
@@ -584,11 +584,11 @@ if (form.images.length > 0) {
 
               {/* Rich Text Editor */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                   <FileText size={14} /> Description
                 </label>
                 <div className="border rounded-lg overflow-hidden shadow-sm">
-                  <CustomEditor  
+                  <textarea 
                     value={form.description}
                     onChange={(htmlValue) => setForm({ ...form, description: htmlValue })}
                   />
@@ -597,7 +597,7 @@ if (form.images.length > 0) {
 
               {/* New Image Upload Area */}
               <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 flex items-center gap-1">
+                <label className="block text-sm font-semibold text-gray-700  items-center gap-1">
                   <Upload size={14} /> Upload New Images
                 </label>
                 
@@ -606,7 +606,7 @@ if (form.images.length > 0) {
                     <div className="grid grid-cols-3 gap-2 w-full mb-4">
                       {previewImages.map((src, idx) => (
                         <div key={idx} className="relative h-20 w-full rounded-lg overflow-hidden border">
-                          <img src={src} className="h-full w-full object-cover" alt="New upload preview" />
+                          <Image src={src} className="h-full w-full object-cover" alt="New upload preview" />
                         </div>
                       ))}
                     </div>

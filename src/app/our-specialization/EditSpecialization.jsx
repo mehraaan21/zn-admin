@@ -121,6 +121,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
 import { X, Upload, Award, ListChecks, Hash, Type, AlignLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function EditSpecialization({ data, onClose }) {
   const router = useRouter();
@@ -235,7 +236,7 @@ export default function EditSpecialization({ data, onClose }) {
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700">Display Image</label>
               <div className="relative group border-2 border-dashed border-gray-200 rounded-xl p-2 hover:border-blue-400 transition-all bg-gray-50">
-                <img
+                <Image
                   src={preview || "/placeholder.png"}
                   alt="Preview"
                   className="w-full h-32 object-cover rounded-lg shadow-sm"
@@ -254,7 +255,7 @@ export default function EditSpecialization({ data, onClose }) {
               <AlignLeft size={14} /> Short Description
             </label>
             <textarea
-              className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none min-h-[80px]"
+              className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none min-h-80px"
               rows={3}
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}

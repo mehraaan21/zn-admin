@@ -59,98 +59,78 @@ export default function AddService() {
     setForm({ ...form, [field]: list });
   };
 
-  // --- Submit Logic ---
-  // const submit = async () => {
-  //   setLoading(true);
-  //   const formData = new FormData();
-
-  //   // Basic Fields
-  //   formData.append("title", form.title);
-  //   formData.append("sub_title", form.sub_title);
-  //   formData.append("slug", form.slug);
-  //   formData.append("description", form.description);
-  //   if (form.icon) formData.append("icon", form.icon);
-
-  //   // Process & Arrays (Stringify karke bhej rahe hain for Backend handling)
-  //   formData.append("process_title", form.process_title);
-  //   formData.append("process_description", form.process_description);
-  //   formData.append("steps", JSON.stringify(form.steps));
-  //   formData.append("faqs", JSON.stringify(form.faqs));
-  //   formData.append("about_service", JSON.stringify(form.about_service));
-
-  //   try {
-  //     const res = await fetch("/api/services", { method: "POST", body: formData });
-  //     if (res.ok) {
-  //       toast("Service Added Successfully!");
-  //       setOpen(false);
-  //       router.refresh();
-  //     }
-  //   } catch (err) {
-  //     toast("Error saving data", "error");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const submit = async () => {
-    if (loading) return;
-    setLoading(true);
+  if (loading) return;
+  setLoading(true);
 
-    try {
-      const formData = new FormData();
+  try {
+    const formData = new FormData();
 
-      // BASIC
-      formData.append("title", form.title);
-      formData.append("sub_title", form.sub_title);
-      formData.append("slug", form.slug);
-      formData.append("description", form.description);
-      if (form.icon) formData.append("icon", form.icon);
+    // 1. BASIC FIELDS
+    formData.append("title", form.title);
+    formData.append("sub_title", form.sub_title);
+    formData.append("slug", form.slug);
+    formData.append("description", form.description);
+    if (form.icon) formData.append("icon", form.icon);
 
-      // PROCESS (SLICE)
-      formData.append("process_titles", form.process_title);
-      formData.append("process_descriptions", form.process_description);
+    // 2. PROCESS SECTION (Fixed Keys & Media)
+    formData.append("process_title", form.process_title); // This is the section title
+    formData.append("process_sub_title", form.process_sub_title); // This is the section sub-title
+    formData.append("process_description", form.process_description); // This is section desc
+    if (form.process_images) formData.append("process_media", form.process_images);
 
-      // FAQS (SLICE)
-      form.faqs.forEach((faq) => {
-        formData.append("faq_titles", faq.title);
-        formData.append("faq_descriptions", faq.description);
-      });
+    // 3. PROCESS STEPS (Mandatory Bracket Notation [])
+    form.steps.forEach((step) => {
+      formData.append("process_steps_keys[]", step.key);
+      formData.append("process_steps_values[]", step.value);
+    });
 
-      // ABOUT SERVICE
-      form.about_service.forEach((item, index) => {
-        formData.append(`about_service[${index}][title]`, item.title);
-        formData.append(
-          `about_service[${index}][description]`,
-          item.description,
-        );
-        if (item.media) {
-          formData.append(`about_service[${index}][media]`, item.media);
-        }
-      });
+    // 4. FAQS (Mandatory Bracket Notation [])
+    form.faqs.forEach((faq) => {
+      formData.append("faq_titles[]", faq.title);
+      formData.append("faq_descriptions[]", faq.description);
+    });
 
-      // DEBUG (VERY IMPORTANT)
-      console.log("---- FORM DATA ----");
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
+    // 5. ABOUT SERVICE (Indexed Notation for Multi-Part)
+    form.about_service.forEach((item, index) => {
+      formData.append(`about_titles[]`, item.title);
+      formData.append(`about_descriptions[]`, item.description);
+      if (item.media) {
+        formData.append(`about_media[]`, item.media);
       }
+    });
 
-      const res = await fetch("/api/services", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Validation Error");
-
-      toast("Service added successfully!");
-      setOpen(false);
-      router.refresh();
-    } catch (err) {
-      toast(err.message, "error");
-    } finally {
-      setLoading(false);
+    // DEBUG: Ensure no null values are being sent
+    console.log("---- DISPATCHING FORM DATA ----");
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1] instanceof File ? pair[1].name : pair[1]}`);
     }
-  };
+
+    const res = await fetch("/api/services", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await res.json();
+
+    const text = await res.text();
+console.log(text);
+
+
+    if (!res.ok) {
+      throw new Error(result.message || "Server rejected the request (500)");
+    }
+
+    toast("Service added successfully!", "success");
+    setOpen(false);
+    router.refresh();
+  } catch (err) {
+    console.error("Critical Error:", err);
+    toast(err.message, "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -297,7 +277,7 @@ export default function AddService() {
                         }
                       />
                       <input
-                        className="flex-[2] border p-2 rounded-lg"
+                        className="flex-2 border p-2 rounded-lg"
                         placeholder="Step Value"
                         value={step.value}
                         onChange={(e) =>

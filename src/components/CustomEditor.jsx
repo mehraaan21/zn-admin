@@ -1,52 +1,40 @@
-'use client';
+"use client";
+import { useState } from "react";
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import {
-  ClassicEditor,
-  Essentials,
-  Paragraph,
-  Bold,
-  Italic,
-  Heading,
-  Link,
-  List
-} from 'ckeditor5';
+export default function EditableText() {
+  const [text, setText] = useState("This is some default text.");
+  const [isEditing, setIsEditing] = useState(false);
 
-import 'ckeditor5/ckeditor5.css';
+  const handleSave = () => {
+    setIsEditing(false);
+    // Here you can also call API to save data
+  };
 
-export default function CustomEditor({ value, onChange }) {
-  return (
-    <CKEditor
-      editor={ClassicEditor}
-      config={{
-        licenseKey: 'GPL',
-        plugins: [
-          Essentials,
-          Paragraph,
-          Bold,
-          Italic,
-          Heading,
-          Link,
-          List
-        ],
-        toolbar: [
-          'heading',
-          '|',
-          'bold',
-          'italic',
-          'link',
-          'bulletedList',
-          'numberedList',
-          '|',
-          'undo',
-          'redo'
-        ],
-      }}
-      data={value}
-      onChange={(event, editor) => {
-        const data = editor.getData();
-        onChange(data);
-      }}
-    />
-  );
+  return (
+    <div>
+      {isEditing ? (
+        <>
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={4}
+            className="border p-2 w-full"
+          />
+          <button onClick={handleSave} className="mt-2 bg-blue-500 text-white px-4 py-1">
+            Save
+          </button>
+        </>
+      ) : (
+        <>
+          <p>{text}</p>
+          <button
+            onClick={() => setIsEditing(true)}
+            className="mt-2 bg-gray-500 text-white px-4 py-1"
+          >
+            Edit
+          </button>
+        </>
+      )}
+    </div>
+  );
 }

@@ -38,7 +38,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-500 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 to-blue-500 px-4">
       <div className="w-full max-w-sm text-center"> 
 
       <Image
@@ -76,7 +76,7 @@ export default function LoginPage() {
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70"
           >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            {showPassword ? <EyeOff size={18} className="cursor-pointer" /> : <Eye size={18} />}
           </button>
         </div>
 

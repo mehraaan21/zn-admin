@@ -26,11 +26,10 @@ export default async function PortfolioPage() {
 
   const response = await res.json();
 
-  const portfolios = Array.isArray(response?.data)
-    ? response.data
+  const portfolios = Array.isArray(response?.data.data)
+    ? response.data.data
     : [];
 
-    console.log("Fetched portfolios:", portfolios.data);
-
+    console.log("Fetched portfolios:", portfolios);
   return <PortfolioClient portfolios={portfolios} />;
 }

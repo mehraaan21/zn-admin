@@ -15,7 +15,7 @@ export default function Breadcrumb() {
       <ol className="flex items-center text-gray-700">
         {/* Home */}
         <li>
-          <Link href="/mainpage" className="hover:text-blue-500">
+          <Link href="/mainpage" className="hover:text-blue-600">
           {/* <span className="p"> <House /></span> */}
           
             Dashboard

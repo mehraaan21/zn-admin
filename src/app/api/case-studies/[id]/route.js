@@ -1,26 +1,33 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+
+/* =========================
+   PUT → Edit case-study         working well
+   ========================= */
+
 export async function PUT(req, { params }) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.accessToken) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
-
-  const { id } = params;
-
+  // Await params in Next.js 15+
+  const { id } = await params;
   try {
     const formData = await req.formData();
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/case-studies/${id}`,
+   const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/case-studies/${id}`,
       {
         method: "PUT",
         headers: {
+          // Pass the Bearer token for backend authentication
           Authorization: `Bearer ${session.user.accessToken}`,
+          // Note: DO NOT set 'Content-Type' manually. 
+          // The browser/server will automatically set it with the boundary string.
         },
-        body: formData,
+        body: formData, 
       }
     );
 
@@ -38,14 +45,11 @@ export async function PUT(req, { params }) {
 
 
 
+
 /* =========================
-   DELETE → Remove testimonial
+   DELETE → Remove case-study
    ========================= */
 
-
-
-
-// Delete the Data
 
 export async function DELETE(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -81,3 +85,6 @@ export async function DELETE(req, { params }) {
     return Response.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
+
+
+

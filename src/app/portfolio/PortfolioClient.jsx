@@ -179,6 +179,7 @@ import DeletePortfolio from "./DeletePortfolio";
 import ViewPortfolio from "./ViewPortfolio"; // Import the new View component
 import { truncateDescription } from "@/lib/wordcut";
 
+
 export default function PortfolioClient({ portfolios = [] }) {
   
   const [editItem, setEditItem] = useState(null);

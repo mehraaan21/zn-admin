@@ -1,34 +1,59 @@
 
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export async function POST(req) {
+  try {
     const session = await getServerSession(authOptions);
+
     if (!session?.user?.accessToken) {
-        return Response.json({ message: "Unauthorized" }, { status: 401 });
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
+
+    const formData = await req.formData();
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/our-services`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+          // ❗ DO NOT SET Content-Type for FormData
+        },
+        body: formData,
+      }
+    );
+
+    // 🔥 SAFEST WAY — read text first
+    const text = await res.text();
+
+    let data;
 
     try {
-        // Since we are sending FormData from the frontend, 
-        // we capture it as formData here.
-        const formData = await req.formData();
+      data = JSON.parse(text);
+    } catch {
+      console.error("🚨 Backend returned NON JSON:");
+      console.error(text); // <-- YOU WILL SEE REAL ERROR HERE
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/our-services`, {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${session.user.accessToken}`,
-                // IMPORTANT: Do not set Content-Type header here manually.
-                // Fetch will set multipart/form-data with the correct boundary automatically.
-            },
-            body: formData,
-        });
-
-        const data = await res.json();
-        return Response.json(data, { status: res.status });
-    } catch (error) {
-        return Response.json(
-            { message: error.message || "Server error" },
-            { status: 500 }
-        );
+      return Response.json(
+        {
+          message:
+            "Backend crashed or returned HTML. Check terminal.",
+        },
+        { status: 500 }
+      );
     }
+
+    return Response.json(data, { status: res.status });
+
+  } catch (error) {
+    console.error("❌ API CRASH:", error);
+
+    return Response.json(
+      { message: error.message || "Server Error" },
+      { status: 500 }
+    );
+  }
 }
+

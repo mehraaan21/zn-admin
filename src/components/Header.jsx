@@ -53,7 +53,7 @@ const [darkMode, setDarkMode] = useState(false);
   // };
 
   return (
-    <header className="sticky top-0 z-30 bg-gradient-to-br from-blue-500 to-blue-500  shadow-sm">
+    <header className="sticky top-0 z-30 bg-linear-to-br from-blue-500 to-blue-500  shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
 
         {/* LEFT - LOGO */}
@@ -142,7 +142,7 @@ const [darkMode, setDarkMode] = useState(false);
           </button>
 
           {/* PROFILE */}
-          <div className="relative">
+          <div className="relative ">
             <button
               onClick={() => setProfileOpen((p) => !p)}
               className="flex items-center gap-2"
@@ -156,11 +156,11 @@ const [darkMode, setDarkMode] = useState(false);
               />
 
               <div className="hidden md:block cursor-pointer text-left">
-                <div className="text-sm font-medium">Admin</div>
-                <div className="text-xs text-gray-800">admin@gmail.com</div>
+                <div className="text-sm text-white font-medium">Admin</div>
+                <div className="text-xs text-white">admin@gmail.com</div>
               </div>
 
-              {profileOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+              {profileOpen ? <ChevronUp className="text-white" size={18} /> : <ChevronDown className="text-white" size={18} />}
             </button>
 
             <AnimatePresence>
@@ -173,9 +173,9 @@ const [darkMode, setDarkMode] = useState(false);
                 >
                   <button
                     onClick={() => setShowEditProfile(true)}
-                    className="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer hover:text-white"
                   >
-                    <User size={16} /> Edit profile
+                    <User  size={16}  /> Edit profile
                   </button>
 
                 {/* logout */}

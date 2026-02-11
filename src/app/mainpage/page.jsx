@@ -1,33 +1,5 @@
 
 
-// "use client";
-
-// import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
-// import { useEffect } from "react";
-
-// export default function DashboardPage() {
-//   const { data: session, status } = useSession();
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     if (status === "unauthenticated") {
-//       router.push("/log-in");
-//     }
-//   }, [status, router]);
-
-//   if (status === "loading") return <p>Loading...</p>;
-
-//   return (
-//     <div className="p-5 m-2 text-3xl">
-//       <h1>Dashboard</h1>
-//       <p>Welcome {session?.user?.email}</p>
-//       <h4> Please navigate throw navbar</h4>
-//     </div>
-//   );
-// }
-
-
 "use client";
 
 import { useSession } from "next-auth/react";
@@ -63,7 +35,7 @@ export default function DashboardPage() {
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
       
       {/* WELCOME HEADER SECTION */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
         <div className="relative z-10">
           <h1 className="text-3xl md:text-4xl font-extrabold flex items-center gap-3">
             <LayoutDashboard size={32} />
@@ -87,16 +59,16 @@ export default function DashboardPage() {
       {/* QUICK STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {stats.map((stat, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all group cursor-pointer">
+          <div key={idx} className=" p-6 rounded-xl border border-b-2  border-blue-600 shadow-2xl hover:shadow-md transition-all group cursor-pointer">
             <div className="flex justify-between items-start">
-              <div className={`p-3 rounded-lg ${stat.bg} ${stat.color} group-hover:scale-110 transition-transform`}>
-                {stat.icon}
+              <div className={`p-3 rounded-lg text-blue-600 bg-blue-100 border-b-2 border-blue-600 group-hover:scale-110 transition-transform`}>
+                {stat.icon }
               </div>
-              <ArrowRight size={16} className="text-gray-300 group-hover:text-blue-500 transition-colors" />
+              <ArrowRight size={26} className=" text-blue-500 font-extrabold transition-colors" />
             </div>
             <div className="mt-4">
-              <h3 className="text-gray-500 text-sm font-medium">{stat.title}</h3>
-              <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+              <h3 className="text-gray-500 text-md font-medium">{stat.title}</h3>
+              <p className="text-xl font-semibold text-gray-700 mt-1">{stat.value}</p>
             </div>
           </div>
         ))}

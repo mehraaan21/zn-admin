@@ -10,27 +10,32 @@ export default function DeleteSpecialization({ id, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
 
   const remove = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(`/api/case-studies/${id}`, {
-        method: "DELETE",
-      });
+  if (!id) {
+    toast("Invalid ID. Delete aborted.", "error");
+    return;
+  }
 
-      if (!res.ok) {
-        const error = await res.json();
-        toast(error.message || "Delete failed", "error");
-        return;
-      }
+  try {
+    setLoading(true);
+    const res = await fetch(`/api/case-studies/${id}`, {
+      method: "DELETE",
+    });
 
-      toast("case-study deleted successfully", "success");
-      if (onSuccess) onSuccess(id); // Update UI state
-      onClose(); // Close the modal
-    } catch (err) {
-      toast("Something went wrong", "error");
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      const error = await res.json();
+      toast(error.message || "Delete failed", "error");
+      return;
     }
-  };
+
+    toast("Case-study deleted successfully", "success");
+    onSuccess?.(id);
+    onClose();
+  } catch (err) {
+    toast("Something went wrong", "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-300">

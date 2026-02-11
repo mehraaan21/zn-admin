@@ -22,13 +22,16 @@ export async function POST(req) {
 
         const data = await res.json();
         console.log("API Response:", data);
+        
 
         if (!res.ok) {
       return Response.json(data, { status: res.status });
     }
 
         return Response.json(data, { status: res.status });
+
     } catch (error) {
+        console.error("Error in POST /api/case-studies:", error);
         return Response.json(
             { message: error.message || "Server error" },
             { status: 500 }
