@@ -1,11 +1,15 @@
-
-
-
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
-import { Pencil, Trash2, Image as ImageIcon, Plus, Hash, Eye } from "lucide-react"; // Icons
+import {
+  Pencil,
+  Trash2,
+  Image as ImageIcon,
+  Plus,
+  Hash,
+  Eye,
+} from "lucide-react"; // Icons
 import AddGallery from "./AddGallery";
 import EditGallery from "./EditGallery";
 import DeleteGallery from "./DeleteGallery";
@@ -26,7 +30,9 @@ export default function GalleryClient({ gallery = [] }) {
             <ImageIcon className="text-blue-600" />
             Image Gallery
           </h1>
-          <p className="text-gray-500 mt-1">Manage website gallery images and display sequences.</p>
+          <p className="text-gray-500 mt-1">
+            Manage website gallery images and display sequences.
+          </p>
         </div>
         <button
           onClick={() => setShowAdd(true)}
@@ -43,23 +49,37 @@ export default function GalleryClient({ gallery = [] }) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Sr.No</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Sequence</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Preview</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Sr.No
+                </th>
+                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Sequence
+                </th>
+                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Preview
+                </th>
+                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody className="bg-white divide-y divide-gray-100">
               {gallery.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="px-6 py-10 text-center text-gray-400">
+                  <td
+                    colSpan="4"
+                    className="px-6 py-10 text-center text-gray-400"
+                  >
                     No images found. Click "Add Image" to populate your gallery.
                   </td>
                 </tr>
               ) : (
                 gallery.map((item, index) => (
-                  <tr key={item.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <tr
+                    key={item.id}
+                    className="hover:bg-gray-50/50 transition-colors group"
+                  >
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-400">
                       #{index + 1}
                     </td>
@@ -86,12 +106,12 @@ export default function GalleryClient({ gallery = [] }) {
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
                         <button
-  onClick={() => setViewItem(item)}
-  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
-  title="View Image"
->
-  <Eye size={18} />
-</button>
+                          onClick={() => setViewItem(item)}
+                          className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                          title="View Image"
+                        >
+                          <Eye size={18} />
+                        </button>
                         <button
                           onClick={() => setEditItem(item)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
@@ -118,26 +138,17 @@ export default function GalleryClient({ gallery = [] }) {
 
       {/* MODALS */}
       {showAdd && <AddGallery onClose={() => setShowAdd(false)} />}
-      
+
       {editItem && (
-        <EditGallery
-          item={editItem}
-          onClose={() => setEditItem(null)}
-        />
+        <EditGallery item={editItem} onClose={() => setEditItem(null)} />
       )}
 
       {deleteId && (
-        <DeleteGallery
-          id={deleteId}
-          onClose={() => setDeleteId(null)}
-        />
+        <DeleteGallery id={deleteId} onClose={() => setDeleteId(null)} />
       )}
       {viewItem && (
-  <ViewGallery 
-    data={viewItem} 
-    onClose={() => setViewItem(null)} 
-  />
-)}
+        <ViewGallery data={viewItem} onClose={() => setViewItem(null)} />
+      )}
     </div>
   );
 }

@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useState } from "react";
@@ -26,7 +23,7 @@ export default function OpeningTable({ openings }) {
           Current Vacancies
         </h2>
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 text-sm font-medium"
+          className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-8 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 text-md font-medium"
           onClick={() => setAddOpen(true)}
         >
           <Plus size={18} />
@@ -42,22 +39,28 @@ export default function OpeningTable({ openings }) {
               <th className="px-6 py-4">Sr.No</th>
               <th className="px-6 py-4">Job Title & Position</th>
               <th className="px-6 py-4 text-center">Openings</th>
-              {/* <th className="px-6 py-4 text-center">Status</th> */}
               <th className="px-6 py-4 text-center">Actions</th>
             </tr>
           </thead>
 
           <tbody className="divide-y divide-gray-100">
             {openings.map((job, index) => (
-              <tr key={job.id} className="hover:bg-blue-50/30 transition-colors group">
-                 <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-400">
-                      #{index+1}
-                    </td>
-                
+              <tr
+                key={job.id}
+                className="hover:bg-blue-50/30 transition-colors group"
+              >
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-400">
+                  #{index + 1}
+                </td>
+
                 <td className="px-6 py-4">
                   <div className="flex flex-col">
-                    <span className="font-bold text-gray-800 text-base">{job.title}</span>
-                    <span className="text-gray-500 text-xs italic">{job.position}</span>
+                    <span className="font-bold text-gray-800 text-base">
+                      {job.title}
+                    </span>
+                    <span className="text-gray-500 text-xs italic">
+                      {job.position}
+                    </span>
                   </div>
                 </td>
 
@@ -69,37 +72,24 @@ export default function OpeningTable({ openings }) {
                     </span>
                   </div>
                 </td>
-{/* 
-                <td className="px-6 py-4 text-center">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-bold border transition-all
-                      ${job.status === "active" || job.status === true 
-                        ? "bg-green-100 text-green-700 border-green-200" 
-                        : "bg-red-100 text-red-700 border-red-200"}
-                    `}
-                  >
-                    {job.status === "active" || job.status === true ? "● Active" : "○ Inactive"}
-                  </span>
-                </td> */}
 
                 <td className="px-6 py-4">
                   <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                    
-                    <button 
-  onClick={() => setViewJob(job)}
-  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-  title="View Details"
->
-  <Eye size={18} />
-</button>
-                    <button 
+                    <button
+                      onClick={() => setViewJob(job)}
+                      className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                      title="View Details"
+                    >
+                      <Eye size={18} />
+                    </button>
+                    <button
                       onClick={() => setEditJob(job)}
                       className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
                       title="Edit Job"
                     >
                       <Pencil size={18} />
                     </button>
-                    <button 
+                    <button
                       onClick={() => setDeleteId(job.id)}
                       className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
                       title="Delete Job"
@@ -135,11 +125,8 @@ export default function OpeningTable({ openings }) {
         />
       )}
       {viewJob && (
-  <ViewOpening 
-    data={viewJob} 
-    onClose={() => setViewJob(null)} 
-  />
-)}
+        <ViewOpening data={viewJob} onClose={() => setViewJob(null)} />
+      )}
     </div>
   );
 }

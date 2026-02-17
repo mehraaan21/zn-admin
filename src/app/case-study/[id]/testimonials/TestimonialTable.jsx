@@ -22,13 +22,13 @@ export default function TestimonialTable({ data, caseStudyId }) {
       {/* HEADER */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold flex gap-3 items-center text-slate-900">
-          <MessageCircle className="text-purple-600" size={32} />
+          <MessageCircle className="text-blue-600" size={32} />
           Client Testimonials
         </h1>
 
         <button
           onClick={() => setOpenAdd(true)}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl shadow active:scale-95 transition font-semibold"
+          className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-8 py-2.5 rounded-xl shadow active:scale-95 cursor-pointer transition font-semibold"
         >
           <Plus size={18} />
           Add Testimonial
@@ -59,7 +59,7 @@ export default function TestimonialTable({ data, caseStudyId }) {
                       {/* IMAGE/AVATAR */}
                       <td className="p-5">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-purple-50 flex items-center justify-center border border-purple-100">
+                          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-blue-50 flex items-center justify-center border border-blue-100">
                             {hasImage ? (
                               <Image
                                 src={testimonial.image_url}
@@ -68,7 +68,7 @@ export default function TestimonialTable({ data, caseStudyId }) {
                                 className="object-cover"
                               />
                             ) : (
-                              <span className="text-purple-600 text-xl">💬</span>
+                              <span className="text-blue-600 text-xl">💬</span>
                             )}
                           </div>
                         </div>
@@ -93,7 +93,7 @@ export default function TestimonialTable({ data, caseStudyId }) {
                         <div className="flex justify-center items-center gap-2">
                           <button
                             onClick={() => setViewItem(testimonial)}
-                            className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                            className="p-2 text-slate-400 bg-slate-100 hover:text-slate-400 cursor-pointer hover:bg-green-50 rounded-full transition-colors"
                             title="View Details"
                           >
                             <Eye size={18} />
@@ -101,7 +101,7 @@ export default function TestimonialTable({ data, caseStudyId }) {
                           
                           <button
                             onClick={() => setEditItem(testimonial)}
-                            className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                            className="p-2 text-blue-400 cursor-pointer bg-blue-100 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
                             title="Edit"
                           >
                             <Pencil size={18} />
@@ -109,7 +109,7 @@ export default function TestimonialTable({ data, caseStudyId }) {
                           
                           <button
                             onClick={() => setDeleteId(item.id)}
-                            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                            className="p-2 text-red-400 cursor-pointer bg-red-100 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
                             title="Delete"
                           >
                             <Trash2 size={18} />

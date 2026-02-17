@@ -136,7 +136,7 @@ console.log(text);
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 text-white px-6 py-2 rounded-xl flex items-center gap-2 font-bold shadow-lg"
+        className="bg-blue-600 text-white px-8 cursor-pointer py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg"
       >
         <Plus size={20} /> Add New Service
       </button>
@@ -157,7 +157,7 @@ console.log(text);
                 </h2>
                 <button
                   onClick={() => setOpen(false)}
-                  className="p-2 hover:bg-red-100 text-red-500 rounded-full transition-all"
+                  className="p-2 hover:bg-gray-100 text-black-400 rounded-full transition-all"
                 >
                   <X size={24} />
                 </button>
@@ -172,21 +172,23 @@ console.log(text);
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
-                      className="border p-3 rounded-xl outline-none focus:ring-2 ring-blue-500"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+
                       placeholder="Service Title"
                       onChange={(e) =>
                         setForm({ ...form, title: e.target.value })
                       }
                     />
                     <input
-                      className="border p-3 rounded-xl outline-none focus:ring-2 ring-blue-500"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+
                       placeholder="Sub Title"
                       onChange={(e) =>
                         setForm({ ...form, sub_title: e.target.value })
                       }
                     />
                     <input
-                      className="border p-3 rounded-xl outline-none focus:ring-2 ring-blue-500 font-mono"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       placeholder="slug-url-here"
                       onChange={(e) =>
                         setForm({ ...form, slug: e.target.value })
@@ -194,14 +196,14 @@ console.log(text);
                     />
                     <input
                       type="file"
-                      className="border p-2 rounded-xl"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       onChange={(e) =>
                         setForm({ ...form, icon: e.target.files[0] })
                       }
                     />
                   </div>
                   <textarea
-                    className="w-full border p-3 rounded-xl outline-none focus:ring-2 ring-blue-500"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                     rows={3}
                     placeholder="Full Description..."
                     onChange={(e) =>
@@ -225,21 +227,23 @@ console.log(text);
                   </div>
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <input
-                      className="border p-3 rounded-xl"
+                       className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+
                       placeholder="Process Title"
                       onChange={(e) =>
                         setForm({ ...form, process_title: e.target.value })
                       }
                     />
                     <input
-                      className="border p-3 rounded-xl"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+
                       placeholder="Process sub-Title"
                       onChange={(e) =>
                         setForm({ ...form, process_sub_title: e.target.value })
                       }
                     />
                     <textarea
-                      className="w-full border p-3 rounded-xl outline-none focus:ring-2 ring-blue-500"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       rows={3}
                       placeholder="Process Description..."
                       onChange={(e) =>
@@ -251,7 +255,7 @@ console.log(text);
                     />
                     <input
                       type="file"
-                      className="border p-2 rounded-xl"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       onChange={(e) =>
                         setForm({ ...form, process_images: e.target.files[0] })
                       }
@@ -264,7 +268,7 @@ console.log(text);
                       className="flex gap-3 animate-in fade-in zoom-in duration-300"
                     >
                       <input
-                        className="flex-1 border p-2 rounded-lg"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                         placeholder="Step Key (e.g. Planning)"
                         value={step.key}
                         onChange={(e) =>
@@ -277,7 +281,7 @@ console.log(text);
                         }
                       />
                       <input
-                        className="flex-2 border p-2 rounded-lg"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                         placeholder="Step Value"
                         value={step.value}
                         onChange={(e) =>
@@ -324,7 +328,7 @@ console.log(text);
                         <X size={16} />
                       </button>
                       <input
-                        className="w-full border p-2 rounded-lg font-semibold"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                         placeholder="Question"
                         value={faq.title}
                         onChange={(e) =>
@@ -337,7 +341,7 @@ console.log(text);
                         }
                       />
                       <textarea
-                        className="w-full border p-2 rounded-lg text-sm"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                         placeholder="Answer"
                         value={faq.description}
                         onChange={(e) =>
@@ -383,7 +387,7 @@ console.log(text);
 
                       <div className="space-y-3">
                         <input
-                          className="w-full border p-3 rounded-xl outline-none focus:ring-2 ring-purple-500"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                           placeholder="Section Title (e.g. Why choose us?)"
                           value={about.title}
                           onChange={(e) =>
@@ -396,7 +400,7 @@ console.log(text);
                           }
                         />
                         <textarea
-                          className="w-full border p-3 rounded-xl outline-none focus:ring-2 ring-purple-500"
+ className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                           rows={3}
                           placeholder="Detailed description..."
                           value={about.description}
@@ -464,7 +468,7 @@ console.log(text);
                 <button
                   onClick={submit}
                   disabled={loading}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-2 rounded-xl font-bold shadow-lg flex items-center gap-2 disabled:bg-blue-300"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg flex items-center gap-2 disabled:bg-blue-300"
                 >
                   {loading ? (
                     <Loader2 className="animate-spin" />

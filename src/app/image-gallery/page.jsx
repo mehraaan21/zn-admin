@@ -31,7 +31,6 @@ export default async function page() {
   const gallery = Array.isArray(response)
     ? response
     : response?.data ?? [];
-    console.log("Image Gallery data:", gallery);
-
+    
    return <GalleryClient gallery={gallery} />;
 }

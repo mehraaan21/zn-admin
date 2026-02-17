@@ -83,16 +83,16 @@ export default function EditTechModal({ item, onClose }) {
         <div className="p-8 space-y-6">
           {/* IMAGE UPLOAD */}
           <div className="space-y-3">
-            <label className="text-[10px] font-black text-indigo-500 uppercase tracking-widest ml-1 flex items-center gap-1">
+            <label className="text-[10px] font-black text-blue-500 uppercase tracking-widest ml-1 flex items-center gap-1">
               <Upload size={12} /> Tech Logo
             </label>
-            <div className="relative border-2 border-dashed border-slate-200 rounded-[2rem] p-8 flex flex-col items-center justify-center bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-300 transition-all group">
+            <div className="relative border-2 border-dashed border-slate-200 rounded-2rem p-8 flex flex-col items-center justify-center bg-slate-50 hover:bg-indigo-50/50 hover:border-indigo-300 transition-all group">
               {preview ? (
                 <div className="relative h-20 w-20">
                   <Image src={preview} alt="preview" fill className="object-contain" />
                 </div>
               ) : (
-                <Upload className="text-slate-300 group-hover:text-indigo-400 transition-colors" size={32} />
+                <Upload className="text-slate-300 group-hover:text-blue-400 transition-colors" size={32} />
               )}
               <p className="mt-2 text-[10px] font-bold text-slate-400">Click to replace image</p>
               <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleImage} />
@@ -108,7 +108,7 @@ export default function EditTechModal({ item, onClose }) {
               type="text"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full border-2 border-slate-100 p-4 rounded-2xl focus:border-indigo-500 focus:ring-0 outline-none font-bold text-slate-700 transition-all bg-slate-50/50"
+              className="w-full border-2 border-slate-100 p-4 rounded-2xl focus:border-blue-500 focus:ring-0 outline-none font-bold text-slate-700 transition-all bg-slate-50/50"
               placeholder="e.g. Next.js"
             />
           </div>
@@ -122,20 +122,20 @@ export default function EditTechModal({ item, onClose }) {
               type="text"
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value })}
-              className="w-full border-2 border-slate-100 p-4 rounded-2xl focus:border-indigo-500 focus:ring-0 outline-none font-bold text-slate-700 transition-all bg-slate-50/50"
+              className="w-full border-2 border-slate-100 p-4 rounded-2xl focus:border-blue-500 focus:ring-0 outline-none font-bold text-slate-700 transition-all bg-slate-50/50"
               placeholder="e.g. Frontend , Backend"
             />
           </div>
 
           {/* FOOTER */}
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100">
-            <button onClick={onClose} className="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition-colors">
+            <button onClick={onClose} className="px-6 border-2 rounded-xl py-2.5 font-bold text-slate-400 hover:text-slate-600 transition-colors">
               Cancel
             </button>
             <button
               onClick={submit}
               disabled={loading}
-              className="px-10 py-3 bg-indigo-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] flex items-center gap-2 shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition-all active:scale-95"
+              className="px-8 cursor-pointer hover:bg-blue-600 py-2.5 bg-blue-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] flex items-center gap-2 shadow-lg shadow-indigo-100 transition-all active:scale-95"
             >
               {loading ? (
                 <>

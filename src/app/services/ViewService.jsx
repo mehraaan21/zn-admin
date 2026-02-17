@@ -27,8 +27,8 @@ export default function ViewService({ data, onClose }) {
           className="bg-white rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 custom-scrollbar"
         >
           {/* STYLISH HEADER */}
-          <div className="relative p-8 border-b bg-gradient-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden shrink-0">
-            <div className="absolute top-[-20px] left-[-20px] w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
+          <div className="relative p-8 border-b bg-linear-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden shrink-0">
+            <div className="absolute top-20px left-20px w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
             
             <div className="flex items-center gap-4 relative z-10">
               <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 text-white flex items-center justify-center overflow-hidden h-14 w-14">
@@ -106,7 +106,7 @@ export default function ViewService({ data, onClose }) {
                 
 
                 {/* FAQS ACCORDION STYLE */}
-                <section className="bg-white rounded-[2rem] p-8 border border-slate-100 shadow-xl">
+                <section className="bg-white rounded-2rem p-8 border border-slate-100 shadow-xl">
                   <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
                     <HelpCircle size={14} /> Service FAQ Support
                   </h3>
@@ -114,7 +114,7 @@ export default function ViewService({ data, onClose }) {
                     {data.faqs?.map((faq) => (
                       <div key={faq.id} className="group cursor-default">
                         <div className="flex items-start gap-3">
-                            <span className="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-150 transition-transform" />
+                            <span className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-150 transition-transform" />
                             <p className="font-black text-sm text-slate-800 leading-snug group-hover:text-blue-600 transition-colors">
                             {faq.title}
                             </p>
@@ -181,7 +181,7 @@ export default function ViewService({ data, onClose }) {
                           </p>
                         </div>
 
-                        <div className="w-full md:w-1/2 relative aspect-video rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl bg-slate-100 group">
+                        <div className="w-full md:w-1/2 relative aspect-video rounded-2rem overflow-hidden border-4 border-white shadow-2xl bg-slate-100 group">
                           {about.media_url ? (
                             <Image src={about.media_url} alt={about.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                           ) : (
@@ -206,7 +206,7 @@ export default function ViewService({ data, onClose }) {
           <div className="p-6 border-t bg-slate-50/50 flex justify-end px-8 shrink-0">
             <button
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
+              className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
             >
               Close Details
             </button>
@@ -222,122 +222,3 @@ export default function ViewService({ data, onClose }) {
     </AnimatePresence>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// "use client";
-
-// import { X, Info, HelpCircle, GitMerge, FileText, LayoutGrid, Calendar, Globe, Layers, CheckCircle2, Clock } from "lucide-react";
-// import Lottie from "lottie-react";
-// import Image from "next/image";
-// import { motion, AnimatePresence } from "framer-motion";
-
-// export default function ViewService({ data, onClose }) {
-//   if (!data) return null;
-
-//   // Helper to format dates from API
-//   const formatDate = (dateString) => {
-//     if (!dateString) return "N/A";
-//     return new Date(dateString).toLocaleDateString('en-US', {
-//       month: 'short', day: 'numeric', year: 'numeric'
-//     });
-//   };
-
-//   return (
-//     <AnimatePresence>
-//       <motion.div
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         exit={{ opacity: 0 }}
-//         className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
-//       >
-//         <motion.div
-//           initial={{ scale: 0.95, opacity: 0, y: 20 }}
-//           animate={{ scale: 1, opacity: 1, y: 0 }}
-//           exit={{ scale: 0.95, opacity: 0, y: 20 }}
-//           className="bg-white rounded-3xl w-full max-w-6xl max-h-[94vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 custom-scrollbar"
-//         >
-//           {/* STYLISH HEADER */}
-//           <div className="relative p-8 border-b bg-gradient-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden shrink-0">
-//             <div className="absolute top-[-20px] left-[-20px] w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
-            
-//             <div className="flex items-center gap-5 relative z-10">
-//               <div className="p-1 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 text-white flex items-center justify-center overflow-hidden h-16 w-16">
-//                 {data.icon_url?.endsWith('.json') ? (
-//                   <Lottie animationData={data.icon} loop={true} className="w-full h-full scale-110" />
-//                 ) : (
-//                   <LayoutGrid size={28} />
-//                 )}
-//               </div>
-//               <div>
-//                 <h2 className="text-3xl font-black text-slate-800 tracking-tight">
-//                   {data.title}
-//                 </h2>
-//                 <div className="flex items-center gap-3 mt-1">
-//                   <span className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded text-[10px] font-black uppercase tracking-wider border border-blue-100">
-//                     ID: #{data.id}
-//                   </span>
-//                   <span className="flex items-center gap-1 text-slate-400 text-[10px] font-bold uppercase">
-//                     <Clock size={12} /> Updated {formatDate(data.updated_at)}
-//                   </span>
-//                 </div>
-//               </div>
-//             </div>
-
-//             <button
-//               onClick={onClose}
-//               className="p-2 hover:bg-red-50 rounded-full transition-colors text-slate-400 hover:text-red-500 cursor-pointer border border-transparent hover:border-red-100"
-//             >
-//               <X size={28} />
-//             </button>
-//           </div>
-
-        
-
-//           {/* FOOTER */}
-//           <div className="p-6 border-t bg-slate-50/80 backdrop-blur-md flex justify-end px-10 shrink-0">
-//             <button
-//               onClick={onClose}
-//               className="px-12 py-4 bg-slate-900 hover:bg-black text-white rounded-2xl font-black shadow-xl shadow-slate-200 transition-all active:scale-95 cursor-pointer uppercase tracking-widest text-xs"
-//             >
-//               Exit View
-//             </button>
-//           </div>
-//         </motion.div>
-//       </motion.div>
-
-//       <style jsx global>{`
-//         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-//         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-//         .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-//       `}</style>
-//     </AnimatePresence>
-//   );
-// }

@@ -120,14 +120,14 @@ export default function ServicesClient({ services = [] }) {
 
                         <button
                           onClick={() => setEditService(item)}
-                          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                          className="p-2 text-blue-400  hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                         >
                           <Pencil size={18} />
                         </button>
                         
                         <button
                           onClick={() => setDeleteId(item.id)}
-                          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                          className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                         >
                           <Trash2 size={18} />
                         </button>

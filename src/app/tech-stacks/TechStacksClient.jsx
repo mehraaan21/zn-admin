@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import Image from "next/image";
@@ -13,7 +11,7 @@ import ViewTechStack from "./ViewTechStack";
 export default function TechStacksClient({ techStacks = [] }) {
   const [editItem, setEditItem] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
-  const [viewItem, setViewItem] = useState(null)
+  const [viewItem, setViewItem] = useState(null);
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -24,7 +22,9 @@ export default function TechStacksClient({ techStacks = [] }) {
             <Layout className="text-blue-600" />
             Tech Stacks
           </h1>
-          <p className="text-gray-500 mt-1">Manage the technologies and tools used in your projects.</p>
+          <p className="text-gray-500 mt-1">
+            Manage the technologies and tools used in your projects.
+          </p>
         </div>
         <AddTechStack />
       </div>
@@ -35,30 +35,44 @@ export default function TechStacksClient({ techStacks = [] }) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Sr.NO</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Technology</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Category</th>
-                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Sr.NO
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Technology
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Category
+                </th>
+                <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody className="bg-white divide-y divide-gray-100">
               {techStacks.length === 0 ? (
                 <tr>
-                  <td colSpan="4" className="px-6 py-10 text-center text-gray-400">
+                  <td
+                    colSpan="4"
+                    className="px-6 py-10 text-center text-gray-400"
+                  >
                     No tech stacks found. Click "Add Tech Stack" to create one.
                   </td>
                 </tr>
               ) : (
                 techStacks.map((item, index) => (
-                  <tr key={item.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <tr
+                    key={item.id}
+                    className="hover:bg-gray-50/50 transition-colors group"
+                  >
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-400">
-                      #{index+1}
+                      #{index + 1}
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 flex-shrink-0 border rounded-lg overflow-hidden bg-gray-50 shadow-sm">
+                        <div className="h-12 w-12 shrink-0 border rounded-lg overflow-hidden bg-gray-50 shadow-sm">
                           <Image
                             src={item.image_url || "/placeholder.png"}
                             alt={item.Name}
@@ -67,7 +81,9 @@ export default function TechStacksClient({ techStacks = [] }) {
                             className="h-full w-full object-contain p-1"
                           />
                         </div>
-                        <span className="font-bold text-gray-900">{item.Name}</span>
+                        <span className="font-bold text-gray-900">
+                          {item.Name}
+                        </span>
                       </div>
                     </td>
 
@@ -80,8 +96,7 @@ export default function TechStacksClient({ techStacks = [] }) {
 
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                        
-                    <button 
+                        <button
                           onClick={() => setViewItem(item)}
                           className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
                           title="View Details"
@@ -115,26 +130,16 @@ export default function TechStacksClient({ techStacks = [] }) {
 
       {/* MODALS */}
       {editItem && (
-        <EditTechStack
-          tech={editItem}
-          onClose={() => setEditItem(null)}
-        />
+        <EditTechStack tech={editItem} onClose={() => setEditItem(null)} />
       )}
 
       {viewItem && (
-        <ViewTechStack
-          data={viewItem}
-          onClose={() => setViewItem(null)}
-        />
+        <ViewTechStack data={viewItem} onClose={() => setViewItem(null)} />
       )}
 
       {deleteId && (
-        <DeleteTechStack
-          id={deleteId}
-          onClose={() => setDeleteId(null)}
-        />
+        <DeleteTechStack id={deleteId} onClose={() => setDeleteId(null)} />
       )}
-      
     </div>
   );
 }

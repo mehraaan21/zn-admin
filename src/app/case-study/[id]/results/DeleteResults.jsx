@@ -39,7 +39,7 @@ export default function DeleteSpecialization({ id, onClose, onSuccess }) {
 };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-300">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-100 p-4 animate-in fade-in duration-300">
       
       {/* MODAL CARD */}
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in duration-200 relative border border-slate-200">
@@ -55,7 +55,7 @@ export default function DeleteSpecialization({ id, onClose, onSuccess }) {
             </div>
 
             <h3 className="text-xl font-bold text-slate-900 tracking-tight">
-              Remove case-study?
+              Remove case-study-Results?
             </h3>
             <p className="text-slate-500 mt-2 text-sm leading-relaxed">
               Are you sure you want to delete this case-study-results? This action is permanent and will remove it from your services list.

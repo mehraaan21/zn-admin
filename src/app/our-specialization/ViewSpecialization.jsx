@@ -22,9 +22,9 @@ export default function ViewSpecialization({ data, onClose }) {
           className="bg-white rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200"
         >
           {/* STYLISH HEADER */}
-          <div className="relative p-8 border-b bg-gradient-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
+          <div className="relative p-8 border-b bg-linear-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
             {/* Background Decoration */}
-            <div className="absolute top-[-20px] left-[-20px] w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
+            <div className="absolute top-20px left-20px w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
             
             <div className="flex items-center gap-4 relative z-10">
               <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 text-white">
@@ -75,7 +75,7 @@ export default function ViewSpecialization({ data, onClose }) {
                       fill 
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                    />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                   <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 </div>
 
                 {/* Description */}
@@ -131,35 +131,8 @@ export default function ViewSpecialization({ data, onClose }) {
                           <p className="text-xs font-bold text-green-600 uppercase">Live on Web</p>
                        </div>
                     </div>
-
-                    {/* <div className="flex items-center gap-3">
-                       <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                          <Calendar size={16} className="text-slate-400" />
-                       </div>
-                       <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Last Update</p>
-                          <p className="text-xs font-bold text-slate-700">Jan 27, 2026</p>
-                       </div>
-                    </div> */}
                   </div>
                 </div>
-
-                {/* <div className="bg-slate-900 rounded-3xl p-6 text-white/70">
-                   <div className="flex items-center gap-2 mb-4">
-                      <Layout size={14} className="text-blue-400" />
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">System Metadata</p>
-                   </div>
-                   <div className="space-y-3">
-                      <div className="flex justify-between text-[10px] uppercase font-bold tracking-tighter">
-                        <span>Visibility</span>
-                        <span className="text-white">Public</span>
-                      </div>
-                      <div className="flex justify-between text-[10px] uppercase font-bold tracking-tighter">
-                        <span>Module</span>
-                        <span className="text-white italic underline decoration-blue-500/50">Services</span>
-                      </div>
-                   </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -168,7 +141,7 @@ export default function ViewSpecialization({ data, onClose }) {
           <div className="p-6 border-t bg-white flex justify-end gap-3 px-8">
             <button 
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
+              className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
             >
               Close Preview
             </button>

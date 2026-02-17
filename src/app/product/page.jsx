@@ -23,8 +23,6 @@ export default async function ProductsPage() {
 
   const response = await res.json();
 
-console.log("RAW RESPONSE:", response);
-
 const products = Array.isArray(response)
   ? response
   : Array.isArray(response.data)

@@ -1,12 +1,20 @@
-
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
-import { X, Pencil, User, Briefcase, Building2, MessageSquare, Upload, RefreshCcw } from "lucide-react";
+import {
+  X,
+  Pencil,
+  User,
+  Briefcase,
+  Building2,
+  MessageSquare,
+  Upload,
+  RefreshCcw,
+} from "lucide-react";
 import Image from "next/image";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditTestimonial({ testimonial, onSuccess }) {
   const [open, setOpen] = useState(false);
@@ -22,7 +30,9 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
     image: null,
   });
 
-  const [preview, setPreview] = useState(testimonial.picture_url || "/placeholder.png");
+  const [preview, setPreview] = useState(
+    testimonial.picture_url || "/placeholder.png",
+  );
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -86,16 +96,15 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
       </button>
 
       {open && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-            
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <MessageSquare className="text-blue-600" size={22} />
                 Edit Testimonial
               </h2>
-              <button 
+              <button
                 onClick={() => setOpen(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
               >
@@ -112,9 +121,11 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
                       <User size={14} /> Client Name
                     </label>
                     <input
-                      className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       value={form.client_name}
-                      onChange={(e) => setForm({ ...form, client_name: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, client_name: e.target.value })
+                      }
                     />
                   </div>
 
@@ -123,9 +134,11 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
                       <Briefcase size={14} /> Designation
                     </label>
                     <input
-                      className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       value={form.designation}
-                      onChange={(e) => setForm({ ...form, designation: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, designation: e.target.value })
+                      }
                     />
                   </div>
 
@@ -134,34 +147,42 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
                       <Building2 size={14} /> Company
                     </label>
                     <input
-                      className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                      className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                       value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, company: e.target.value })
+                      }
                     />
                   </div>
                 </div>
 
                 {/* Avatar Upload Area */}
                 <div className="space-y-2 flex flex-col items-center justify-center">
-                  <label className="text-sm font-semibold text-gray-700 self-start">Client Photo</label>
+                  <label className="text-sm font-semibold text-gray-700 self-start">
+                    Client Photo
+                  </label>
                   <div className="relative group h-32 w-32 border-2 border-dashed border-gray-200 rounded-full overflow-hidden bg-gray-50 flex items-center justify-center hover:border-blue-400 transition-all">
-                    <Image
+                    <img
                       src={preview}
                       alt="Preview"
                       className="h-full w-full object-cover"
                     />
                     <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white">
                       <Upload size={20} className="mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Change</span>
-                      <input 
-                        type="file" 
-                        className="hidden" 
+                      <span className="text-[10px] font-bold uppercase">
+                        Change
+                      </span>
+                      <input
+                        type="file"
+                        className="hidden"
                         onChange={handleFileChange}
-                        accept="image/*" 
+                        accept="image/*"
                       />
                     </label>
                   </div>
-                  <p className="text-[10px] text-gray-400 italic">Recommended: Square 1:1 ratio</p>
+                  <p className="text-[10px] text-gray-400 italic">
+                    Recommended: Square 1:1 ratio
+                  </p>
                 </div>
               </div>
 
@@ -170,12 +191,19 @@ export default function EditTestimonial({ testimonial, onSuccess }) {
                 <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                   <MessageSquare size={14} /> Testimonial Message
                 </label>
-                <textarea
-                  className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm min-h-[100px]"
-                  rows={4}
-                  value={form.quote}
-                  onChange={(e) => setForm({ ...form, quote: e.target.value })}
-                />
+             <RichTextEditor
+              className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+              value={form.quote || ""}
+              onChange={(content) =>
+                setForm((prev) => ({
+                  ...prev,
+                  quote: content,
+                }))
+              }
+            />
+
+
+                
               </div>
 
               {/* Footer Actions */}

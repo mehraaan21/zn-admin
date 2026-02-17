@@ -1,48 +1,3 @@
-
-
-// "use client";
-
-// import { toast } from "@/lib/toast";
-
-// export default function DeleteConfirm({ id, onClose, onSuccess }) {
-//   const remove = async () => {
-//     try {
-//       const res = await fetch(`/api/openings/${id}`, {
-//         method: "DELETE",
-//       });
-
-//       if (!res.ok) {
-//         toast("Delete failed", "error");
-//         return;
-//       }
-
-//       toast("Job deleted");
-//       onSuccess();
-//       onClose();
-//     } catch (error) {
-//       toast("Something went wrong", "error");
-//     }
-//   };
-
-//   return (
-//     <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-//       <div className="bg-white p-4 rounded">
-//         <p>Are you sure?</p>
-//         <div className="flex justify-end gap-2 mt-3">
-//           <button onClick={onClose}>Cancel</button>
-//           <button
-//             className="bg-red-600 text-white px-3"
-//             onClick={remove}
-//           >
-//             Delete
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
 "use client";
 
 import { useState } from "react";
@@ -65,7 +20,7 @@ export default function DeleteConfirm({ id, onClose, onSuccess }) {
 
       toast("Job opening removed", "success");
       onSuccess(); // Refresh table data
-      onClose();   // Close modal
+      onClose(); // Close modal
     } catch (error) {
       toast(error.message || "Something went wrong", "error");
     } finally {
@@ -74,11 +29,9 @@ export default function DeleteConfirm({ id, onClose, onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-300">
-      
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-100 p-4 animate-in fade-in duration-300">
       {/* MODAL CARD */}
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in duration-200 relative">
-        
         {/* TOP DANGER STRIP */}
         <div className="h-1.5 bg-red-500 w-full" />
 
@@ -93,7 +46,8 @@ export default function DeleteConfirm({ id, onClose, onSuccess }) {
               Delete Vacancy?
             </h3>
             <p className="text-gray-500 mt-2 text-sm leading-relaxed">
-              Are you sure you want to remove this job opening? Candidates will no longer be able to apply to this position.
+              Are you sure you want to remove this job opening? Candidates will
+              no longer be able to apply to this position.
             </p>
           </div>
 
@@ -124,7 +78,7 @@ export default function DeleteConfirm({ id, onClose, onSuccess }) {
         </div>
 
         {/* QUICK CLOSE */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
         >

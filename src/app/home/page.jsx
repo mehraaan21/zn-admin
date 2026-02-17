@@ -7,7 +7,6 @@ import { Layout } from "lucide-react"; // Header icon
 import AddHome from "./AddHome";
 import EditHome from "./EditHome";
 import DeleteHome from "./DeleteHome";
-import StatusBadge from "@/components/StatusToggle";
 import { truncateDescription } from "@/lib/wordcut";
 import Pagination from "@/components/Pagination";
 import ViewHome from "./ViewHome";
@@ -16,7 +15,7 @@ export default async function HomePage({ searchParams }) {
   // Next.js 15+ Compatibility: Await searchParams if necessary
   const sParams = await searchParams;
   const currentPage = Number(sParams?.page) || 1;
-  const limit = 10;
+  const limit = 1;
 
   const session = await getServerSession(authOptions);
 

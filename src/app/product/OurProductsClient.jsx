@@ -60,7 +60,7 @@ export default function OurProductsClient({ products }) {
 
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-4">
-                        <div className="h-12 w-12 flex-shrink-0 border rounded-lg overflow-hidden bg-gray-50 shadow-sm">
+                        <div className="h-12 w-12 shrink-0 border rounded-lg overflow-hidden bg-gray-50 shadow-sm">
                           <Image
                             src={item.image_url || "/placeholder.png"}
                             alt={item.title}

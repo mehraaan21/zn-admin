@@ -65,9 +65,9 @@ export default function AddTestimonialModal({ caseStudyId, onClose }) {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {/* HEADER */}
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-bold">New Client Testimonial</h2>
-          <button onClick={onClose} className="hover:text-red-500 transition">
+        <div className="flex justify-between  items-center p-6 border-b">
+          <h2 className="text-xl  font-bold">New Client Testimonial</h2>
+          <button onClick={onClose} className="hover:text-red-500 transition cursor-pointer">
             <X />
           </button>
         </div>
@@ -78,7 +78,7 @@ export default function AddTestimonialModal({ caseStudyId, onClose }) {
             <label className="font-semibold text-sm text-slate-600">
               Client Image
             </label>
-            <div className="relative border-2 border-dashed rounded-xl p-6 flex items-center justify-center bg-gray-50 hover:border-purple-400 transition">
+            <div className="relative border-2 border-dashed rounded-xl border-blue-200 p-6 flex items-center justify-center bg-gray-50 hover:border-blue-400 transition">
               {preview ? (
                 <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <Image
@@ -122,14 +122,14 @@ export default function AddTestimonialModal({ caseStudyId, onClose }) {
 
           {/* FOOTER */}
           <div className="flex justify-end gap-3 pt-4 border-t">
-            <button onClick={onClose} className="px-6 py-2 border rounded-lg hover:bg-slate-50 transition">
+            <button onClick={onClose} className="px-6 py-2 border cursor-pointer rounded-lg hover:bg-slate-50 transition">
               Cancel
             </button>
 
             <button
               onClick={submit}
               disabled={loading}
-              className="px-8 py-2 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 disabled:bg-purple-300 flex items-center gap-2 transition shadow-md"
+              className="px-8 py-2.5 bg-blue-500 text-white rounded-lg font-bold cursor-pointer hover:bg-blue-600 disabled:bg-purple-300 flex items-center gap-2 transition shadow-md"
             >
               {loading ? (
                 <>

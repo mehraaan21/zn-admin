@@ -35,7 +35,7 @@ export default async function ViewCaseStudy({ params }) {
   
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="bg-linear-to-b from-gray-50 to-white min-h-screen">
 
   {/* HERO */}
   <section className="relative w-full h-[480px] flex items-end">
@@ -51,7 +51,7 @@ export default async function ViewCaseStudy({ params }) {
     )}
 
     {/* Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+    <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent" />
 
     <div className="relative max-w-7xl mx-auto px-6 pb-14 text-white w-full">
       

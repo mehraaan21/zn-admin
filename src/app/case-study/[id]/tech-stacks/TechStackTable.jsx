@@ -34,7 +34,7 @@ export default function TechStackTable({ data, caseStudyId }) {
         </button>
       </div>
 
-      <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2rem shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-50/50 border-b border-gray-100">
             <tr>
@@ -64,9 +64,9 @@ export default function TechStackTable({ data, caseStudyId }) {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex justify-center items-center gap-2">
-                      <button onClick={() => setViewItem(tech)} className="p-3 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all"><Eye size={18} /></button>
-                      <button onClick={() => setEditItem(item)} className="p-3 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"><Pencil size={18} /></button>
-                      <button onClick={() => setDeleteId(item.id)} className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"><Trash2 size={18} /></button>
+                      <button onClick={() => setViewItem(tech)} className="p-3 text-gray-400 bg-slate-100 cursor-pointer hover:text-green-600  hover:bg-white rounded-xl transition-all"><Eye size={18} /></button>
+                      <button onClick={() => setEditItem(item)} className="p-3 text-blue-400 hover:text-blue-600 cursor-pointer hover:bg-white-200 hover:bg-white bg-blue-100 rounded-xl transition-all"><Pencil size={18} /></button>
+                      <button onClick={() => setDeleteId(item.id)} className="p-3 text-red-400 hover:text-red-600 bg-red-100 rounded-xl transition-all cursor-pointer hover:bg-white"><Trash2 size={18} /></button>
                     </div>
                   </td>
                 </tr>

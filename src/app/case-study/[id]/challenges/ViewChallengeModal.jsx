@@ -46,7 +46,7 @@ export default function ViewChallengeModal({ item, onClose }) {
                 <div className="flex items-center gap-2 text-red-600 font-black uppercase text-xs tracking-widest">
                   <AlertTriangle size={16} /> The Problem
                 </div>
-                <div className="bg-red-50 border-2 border-red-100 p-8 rounded-[2rem] min-h-[250px] shadow-inner">
+                <div className="bg-red-50 border-2 border-red-100 p-8 rounded-2rem min-h-[250px] shadow-inner">
                   <p className="text-red-900 leading-relaxed font-medium text-lg">
                     {item.challenge}
                   </p>
@@ -58,7 +58,7 @@ export default function ViewChallengeModal({ item, onClose }) {
                 <div className="flex items-center gap-2 text-green-600 font-black uppercase text-xs tracking-widest">
                   <Zap size={16} /> The Execution
                 </div>
-                <div className="bg-green-50 border-2 border-green-100 p-8 rounded-[2rem] min-h-[250px] shadow-inner">
+                <div className="bg-green-50 border-2 border-green-100 p-8 rounded-2rem min-h-[250px] shadow-inner">
                   <p className="text-green-900 leading-relaxed font-medium text-lg">
                     {item.solution}
                   </p>
@@ -71,7 +71,7 @@ export default function ViewChallengeModal({ item, onClose }) {
           <div className="p-8 border-t bg-slate-50/50 flex justify-end">
             <button
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all active:scale-95 shadow-xl shadow-slate-200"
+              className="px-8 py-2.5 bg-blue-500 cursor-pointer text-white rounded-xl font-black text-md tracking-widest hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-200"
             >
               Close Preview
             </button>

@@ -1,44 +1,3 @@
-// "use client";
-
-// import { useRouter } from "next/navigation";
-// import { toast } from "@/lib/toast";
-
-// export default function DeleteGallery({ id, onClose }) {
-//   const router = useRouter();
-
-//   const remove = async () => {
-//     const res = await fetch(`/api/gallery/${id}`, {
-//       method: "DELETE",
-//     });
-
-//     if (!res.ok) {
-//       toast("Delete failed", "error");
-//       return;
-//     }
-
-//     toast("Deleted");
-//     onClose();
-//     router.refresh();
-//   };
-
-//   return (
-//     <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-//       <div className="bg-white p-6 rounded">
-//         <p className="mb-4">Delete this image?</p>
-//         <div className="flex gap-2 justify-end">
-//           <button onClick={onClose}>Cancel</button>
-//           <button
-//             onClick={remove}
-//             className="bg-red-600 text-white px-4 rounded"
-//           >
-//             Delete
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { useState } from "react";
@@ -72,11 +31,9 @@ export default function DeleteGallery({ id, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4 animate-in fade-in duration-300">
-      
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-100 p-4 animate-in fade-in duration-300">
       {/* MODAL CARD */}
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in duration-200 relative border border-slate-200">
-        
         {/* TOP DANGER ACCENT */}
         <div className="h-1.5 bg-red-500 w-full" />
 
@@ -91,7 +48,8 @@ export default function DeleteGallery({ id, onClose }) {
               Delete Gallery Image?
             </h3>
             <p className="text-slate-500 mt-2 text-sm leading-relaxed">
-              Are you sure you want to remove this image? This action is permanent and will remove the file from your gallery display.
+              Are you sure you want to remove this image? This action is
+              permanent and will remove the file from your gallery display.
             </p>
           </div>
 
@@ -122,7 +80,7 @@ export default function DeleteGallery({ id, onClose }) {
         </div>
 
         {/* QUICK CLOSE ICON */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
         >

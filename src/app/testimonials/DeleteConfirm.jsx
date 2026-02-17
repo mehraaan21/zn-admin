@@ -1,79 +1,3 @@
-
-
-
-// "use client";
-
-// import { toast } from "@/lib/toast";
-// import axios from "axios";
-// import { useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { Trash2 } from "lucide-react";
-
-// export default function DeleteConfirm({ id }) {
-//   const [open, setOpen] = useState(false);
-//   const [loading, setLoading] = useState(false);
-//   const router = useRouter();
-
-//   const remove = async () => {
-//     setLoading(true);
-//     try {
-//       // Calling your local Next.js API route
-//       const res = await axios.delete(`/api/testimonials/${id}`);
-
-//       if (res.status === 200) {
-//         toast("Testimonial deleted", "success");
-//         setOpen(false);
-//         router.refresh(); // Automatically refreshes the server component data
-//       }
-//     } catch (error) {
-//       toast(error.response?.data?.message || "Delete failed", "error");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <button
-//         onClick={() => setOpen(true)}
-//         className="text-red-600 cursor-pointer hover:underline text-sm"
-//       >
-      
-//   <Trash2 size={18} />
-//       </button>
-
-//       {open && (
-//         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-//           <div className="bg-white rounded p-6 w-80 shadow-xl">
-//             <h3 className="font-semibold mb-2">Confirm Delete</h3>
-//             <p className="text-sm text-gray-600">
-//               Are you sure you want to delete this testimonial? This action cannot be undone.
-//             </p>
-
-//             <div className="flex justify-end gap-2 mt-4">
-//               <button
-//                 onClick={() => setOpen(false)}
-//                 className="px-3 py-1 border rounded hover:bg-gray-50"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 onClick={remove}
-//                 disabled={loading}
-//                 className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 disabled:bg-red-300"
-//               >
-//                 {loading ? "Deleting..." : "Delete"}
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </>
-//   );
-// }
-
-
-
 "use client";
 
 import { useState } from "react";
@@ -119,10 +43,8 @@ export default function DeleteConfirm({ id }) {
       {/* MODAL OVERLAY */}
       {open && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-          
           {/* MODAL CARD */}
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in duration-200 relative">
-            
             {/* TOP DANGER STRIP */}
             <div className="h-1.5 bg-red-500 w-full" />
 
@@ -133,9 +55,12 @@ export default function DeleteConfirm({ id }) {
                   <AlertTriangle size={32} />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900">Remove Testimonial?</h3>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Remove Testimonial?
+                </h3>
                 <p className="text-gray-500 mt-2 text-sm leading-relaxed">
-                  Are you sure you want to delete this testimonial? This action is permanent and cannot be undone.
+                  Are you sure you want to delete this testimonial? This action
+                  is permanent and cannot be undone.
                 </p>
               </div>
 
@@ -166,7 +91,7 @@ export default function DeleteConfirm({ id }) {
             </div>
 
             {/* QUICK CLOSE */}
-            <button 
+            <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
             >

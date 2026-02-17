@@ -104,7 +104,7 @@ if (!res.ok) {
               Result Image
             </label>
 
-            <div className="relative border-2 border-dashed rounded-xl p-6 flex items-center justify-center bg-gray-50 hover:border-purple-400 transition">
+            <div className="relative border-2 border-dashed rounded-xl p-6 flex items-center justify-center bg-gray-50 border-blue-200  hover:border-blue-500 transition">
 
               {preview ? (
                 <div className="relative w-full h-48 rounded-xl overflow-hidden">
@@ -142,7 +142,7 @@ if (!res.ok) {
             onChange={(e) =>
               setForm({ ...form, title: e.target.value })
             }
-            className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-purple-500 outline-none"
+                  className="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
           />
 
           {/* BULLETS */}
@@ -152,7 +152,7 @@ if (!res.ok) {
             onChange={(e) =>
               setForm({ ...form, bullet_points: e.target.value })
             }
-            className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-purple-500 outline-none"
+                  className="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
             rows={4}
           />
 
@@ -161,7 +161,7 @@ if (!res.ok) {
 
             <button
               onClick={onClose}
-              className="px-6 py-2 border rounded-lg"
+              className="px-6 cursor-pointer py-2 border rounded-lg"
             >
               Cancel
             </button>
@@ -169,7 +169,7 @@ if (!res.ok) {
             <button
               onClick={submit}
               disabled={loading}
-              className="px-8 py-2 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 disabled:bg-purple-300 flex items-center gap-2"
+              className="px-8 py-2.5 bg-blue-400 text-white cursor-pointer rounded-lg font-bold hover:bg-blue-500 disabled:bg-purple-300 flex items-center gap-2"
             >
               {loading ? (
                 <>

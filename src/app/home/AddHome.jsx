@@ -1,18 +1,26 @@
-
 "use client";
 
 import { useState } from "react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
-import { X, Layout, Plus, Upload, Type, FileText, CheckCircle2, RefreshCcw } from "lucide-react";
+import {
+  X,
+  Layout,
+  Plus,
+  Upload,
+  Type,
+  FileText,
+  CheckCircle2,
+  RefreshCcw,
+} from "lucide-react";
 import Image from "next/image";
-import ClientEditor from "@/components/ClientEditor";
-
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function AddHome() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ publicBanner, setpublicBanner] = useState(false) ;
 
   // Form state
   const [form, setForm] = useState({
@@ -27,15 +35,20 @@ export default function AddHome() {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       setForm({ ...form, images: e.target.files });
-      
+
       // Generate preview URLs
-      const previewUrls = files.map(file => URL.createObjectURL(file));
+      const previewUrls = files.map((file) => URL.createObjectURL(file));
       setPreviews(previewUrls);
     }
   };
 
   const submit = async () => {
-    if (!form.title || !form.description || !form.images || form.images.length === 0) {
+    if (
+      !form.title ||
+      !form.description ||
+      !form.images ||
+      form.images.length === 0
+    ) {
       toast("Title, Description & Image are required", "error");
       return;
     }
@@ -76,7 +89,7 @@ export default function AddHome() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
       >
         <Plus size={20} />
         Add Home
@@ -85,15 +98,14 @@ export default function AddHome() {
       {open && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
-            
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <Layout className="text-blue-600" size={22} />
-                Create Home 
+                Create Home
               </h2>
-              <button 
-                onClick={() => setOpen(false)} 
+              <button
+                onClick={() => setOpen(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
               >
                 <X size={24} />
@@ -110,12 +122,15 @@ export default function AddHome() {
                   {previews.length > 0 ? (
                     <div className="grid grid-cols-3 gap-3 w-full">
                       {previews.map((url, idx) => (
-                         <div key={idx} className="relative aspect-video rounded-lg overflow-hidden border shadow-sm">
+                        <div
+                          key={idx}
+                          className="relative aspect-video rounded-lg overflow-hidden border shadow-sm"
+                        >
                           {/* Next.js Optimized Image */}
-                          <Image 
-                            src={url} 
-                            alt={`Preview ${idx}`} 
-                            fill 
+                          <Image
+                            src={url}
+                            alt={`Preview ${idx}`}
+                            fill
                             className="object-cover"
                             unoptimized // Required for blob/local URLs to prevent external loader errors
                           />
@@ -124,9 +139,16 @@ export default function AddHome() {
                     </div>
                   ) : (
                     <div className="text-center">
-                      <Upload className="mx-auto text-gray-300 mb-2" size={40} />
-                      <p className="text-sm text-gray-500 font-medium">Click to upload multiple images</p>
-                      <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">JPG, PNG or WEBP</p>
+                      <Upload
+                        className="mx-auto text-gray-300 mb-2"
+                        size={40}
+                      />
+                      <p className="text-sm text-gray-500 font-medium">
+                        Click to upload multiple images
+                      </p>
+                      <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">
+                        JPG, PNG or WEBP
+                      </p>
                     </div>
                   )}
                   <label className="absolute inset-0 cursor-pointer">
@@ -140,22 +162,20 @@ export default function AddHome() {
                   </label>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Title */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
-                    <Type size={14} /> Banner Title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter main heading"
-                    value={form.title}
-                    onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
-                  />
-                </div>
+              {/* Title */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
+                  <Type size={14} /> Banner Title
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter main heading"
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  className=" w-full   border border-gray-300 rounded-xl p-3 shadow-sm outline-none   resize-none  transition-all focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+                />
               </div>
+              {/* </div> */}
 
               {/* Description */}
               <div>
@@ -163,24 +183,13 @@ export default function AddHome() {
                   <FileText size={14} /> Description
                 </label>
 
+             <RichTextEditor
+                value={form.description}
+                onChange={(content) =>
+                  setForm((prev) => ({ ...prev, description: content }))
+                }
+              />
 
-  
-
-                 {/* <ClientEditor 
-                  placeholder="Describe the banner content..."
-                  rows={4}
-                  value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
-                /> */}
-
-                <ClientEditor
-  placeholder="Describe the banner content..."
-  value={form.description}
-  onChange={(html) =>
-    setForm({ ...form, description: html })
-  }
-/>
               </div>
 
               {/* Footer Actions */}

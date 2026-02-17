@@ -1,127 +1,19 @@
-// "use client";
-
-// import { useState } from "react";
-// import { useRouter } from "next/navigation";
-// import { toast } from "@/lib/toast";
-
-// export default function EditSpecialization({ data, onClose }) {
-//   const router = useRouter();
-//   const [loading, setLoading] = useState(false);
-
-//   const [form, setForm] = useState({
-//     title: data.title,
-//     description: data.description,
-//     bullet_points: data.bullet_points?.join("\n") || "",
-//     icon: data.icon || "",
-//     number: data.number || "",
-//     image: null,
-//   });
-
-//   const submit = async () => {
-//     const fd = new FormData();
-//     fd.append("title", form.title);
-//     fd.append("description", form.description);
-//     fd.append(
-//       "bullet_points",
-//       JSON.stringify(form.bullet_points.split("\n"))
-//     );
-//     fd.append("icon", form.icon);
-//     fd.append("number", form.number);
-//     if (form.image) fd.append("image", form.image);
-
-//     try {
-//       setLoading(true);
-//       const res = await fetch(`/api/ourspecialization/${data.id}`, {
-//         method: "PUT",
-//         body: fd,
-//       });
-
-//       if (!res.ok) throw new Error("Update failed");
-
-//       toast("Updated successfully");
-//       onClose();
-//       router.refresh();
-//     } catch (e) {
-//       toast(e.message, "error");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-//       <div className="bg-white p-6 rounded w-[420px] space-y-3">
-//         <h2 className="font-bold text-lg">Edit Specialization</h2>
-
-//         <input
-//           className="border p-2 w-full"
-//           value={form.title}
-//           onChange={(e) => setForm({ ...form, title: e.target.value })}
-//         />
-
-//         <textarea
-//           className="border p-2 w-full"
-//           rows={3}
-//           value={form.description}
-//           onChange={(e) =>
-//             setForm({ ...form, description: e.target.value })
-//           }
-//         />
-
-//         <textarea
-//           className="border p-2 w-full"
-//           rows={3}
-//           value={form.bullet_points}
-//           onChange={(e) =>
-//             setForm({ ...form, bullet_points: e.target.value })
-//           }
-//         />
-
-//         <input
-//           className="border p-2 w-full"
-//           value={form.icon}
-//           onChange={(e) => setForm({ ...form, icon: e.target.value })}
-//         />
-
-//         <input
-//           className="border p-2 w-full"
-//           type="number"
-//           value={form.number}
-//           onChange={(e) => setForm({ ...form, number: e.target.value })}
-//         />
-
-//         <input
-//           type="file"
-//           className="border p-2 w-full"
-//           onChange={(e) =>
-//             setForm({ ...form, image: e.target.files[0] })
-//           }
-//         />
-
-//         <div className="flex justify-end gap-2">
-//           <button onClick={onClose}>Cancel</button>
-//           <button
-//             onClick={submit}
-//             disabled={loading}
-//             className="bg-blue-600 text-white px-4 py-1 rounded"
-//           >
-//             {loading ? "Updating..." : "Update"}
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
-import { X, Upload, Award, ListChecks, Hash, Type, AlignLeft } from "lucide-react";
+import {
+  X,
+  Upload,
+  Award,
+  ListChecks,
+  Hash,
+  Type,
+  AlignLeft,
+} from "lucide-react";
 import Image from "next/image";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditSpecialization({ data, onClose }) {
   const router = useRouter();
@@ -152,7 +44,9 @@ export default function EditSpecialization({ data, onClose }) {
     // Formatting bullet points as JSON for backend consistency
     fd.append(
       "bullet_points",
-      JSON.stringify(form.bullet_points.split("\n").filter(p => p.trim() !== ""))
+      JSON.stringify(
+        form.bullet_points.split("\n").filter((p) => p.trim() !== ""),
+      ),
     );
     fd.append("icon", form.icon);
     fd.append("number", form.number);
@@ -186,7 +80,10 @@ export default function EditSpecialization({ data, onClose }) {
             <Award className="text-blue-600" />
             Edit Specialization
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
             <X size={24} />
           </button>
         </div>
@@ -200,7 +97,7 @@ export default function EditSpecialization({ data, onClose }) {
                   <Type size={14} /> Title
                 </label>
                 <input
-                  className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
                 />
@@ -212,7 +109,7 @@ export default function EditSpecialization({ data, onClose }) {
                     <Award size={14} /> Icon Label
                   </label>
                   <input
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                     value={form.icon}
                     placeholder="e.g. Shield"
                     onChange={(e) => setForm({ ...form, icon: e.target.value })}
@@ -223,10 +120,12 @@ export default function EditSpecialization({ data, onClose }) {
                     <Hash size={14} /> Order
                   </label>
                   <input
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                     type="number"
                     value={form.number}
-                    onChange={(e) => setForm({ ...form, number: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, number: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -234,9 +133,11 @@ export default function EditSpecialization({ data, onClose }) {
 
             {/* Image Upload Area */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-700">Display Image</label>
+              <label className="text-sm font-semibold text-gray-700">
+                Display Image
+              </label>
               <div className="relative group border-2 border-dashed border-gray-200 rounded-xl p-2 hover:border-blue-400 transition-all bg-gray-50">
-                <Image
+                <img
                   src={preview || "/placeholder.png"}
                   alt="Preview"
                   className="w-full h-32 object-cover rounded-lg shadow-sm"
@@ -244,7 +145,12 @@ export default function EditSpecialization({ data, onClose }) {
                 <label className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer text-white">
                   <Upload size={20} className="mb-1" />
                   <span className="text-xs font-bold">Change Image</span>
-                  <input type="file" className="hidden" onChange={handleImageChange} accept="image/*" />
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={handleImageChange}
+                    accept="image/*"
+                  />
                 </label>
               </div>
             </div>
@@ -254,11 +160,15 @@ export default function EditSpecialization({ data, onClose }) {
             <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
               <AlignLeft size={14} /> Short Description
             </label>
-            <textarea
-              className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none min-h-80px"
-              rows={3}
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+           <RichTextEditor
+              className="w-full border border-gray-300 rounded-xl shadow-sm outline-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+              value={form.description || ""}
+              onChange={(content) =>
+                setForm((prev) => ({
+                  ...prev,
+                  description: content,
+                }))
+              }
             />
           </div>
 
@@ -267,13 +177,17 @@ export default function EditSpecialization({ data, onClose }) {
               <ListChecks size={16} /> Key Bullet Points
             </label>
             <textarea
-              className="w-full border-white rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none min-h-[100px] text-sm shadow-inner bg-white/80"
+              className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
               placeholder="Enter each point on a new line..."
               rows={4}
               value={form.bullet_points}
-              onChange={(e) => setForm({ ...form, bullet_points: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, bullet_points: e.target.value })
+              }
             />
-            <p className="text-[10px] text-blue-400 italic font-medium">Tip: Press Enter to create a new point</p>
+            <p className="text-[10px] text-blue-400 italic font-medium">
+              Tip: Press Enter to create a new point
+            </p>
           </div>
 
           {/* Footer Actions */}
@@ -288,7 +202,7 @@ export default function EditSpecialization({ data, onClose }) {
             <button
               onClick={submit}
               disabled={loading}
-              className="px-8 py-2 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 disabled:bg-blue-300 transition-all active:scale-95"
+              className="px-8 py-2.5 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 disabled:bg-blue-300 transition-all active:scale-95"
             >
               {loading ? "Saving Changes..." : "Update Specialization"}
             </button>

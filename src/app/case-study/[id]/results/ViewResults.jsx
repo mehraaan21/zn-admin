@@ -128,7 +128,7 @@ export default function ViewResults({ result, onClose }) {
           <div className="p-6 border-t flex justify-end">
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-black text-white rounded-xl"
+              className="px-8 py-2.5  bg-blue-500 cursor-pointer hover:bg-blue-600 text-white rounded-xl"
             >
               Close
             </button>

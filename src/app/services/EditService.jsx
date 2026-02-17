@@ -314,7 +314,7 @@ const update = async () => {
               <h2 className="text-2xl font-black text-gray-800 tracking-tight">Edit Service</h2>
               <p className="text-sm font-medium text-blue-600">ID: #{service.id} • {service.title}</p>
             </div>
-            <button onClick={onClose} className="p-2 text-red-500 transition-all rounded-full hover:bg-red-100">
+            <button onClick={onClose} className="p-2 text-black-500 transition-all rounded-full hover:bg-gray-150">
               <X size={24} />
             </button>
           </div>
@@ -330,24 +330,29 @@ const update = async () => {
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-400 ml-1">TITLE</label>
-                  <input className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-blue-500" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                  <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-400 ml-1">SUB TITLE</label>
-                  <input className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-blue-500" value={form.sub_title} onChange={(e) => setForm({ ...form, sub_title: e.target.value })} />
+                  <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+value={form.sub_title} onChange={(e) => setForm({ ...form, sub_title: e.target.value })} />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-400 ml-1">SLUG (URL)</label>
-                  <input className="w-full p-3 font-mono border outline-none rounded-xl focus:ring-2 ring-blue-500" value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} />
+                  <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ value={form.slug} onChange={(e) => setForm({ ...form, slug: e.target.value })} />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-400 ml-1">UPDATE ICON (OPTIONAL)</label>
-                  <input type="file" className="w-full p-2 border rounded-xl" onChange={(e) => setForm({ ...form, icon: e.target.files[0] })} />
+                  <input type="file" className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ onChange={(e) => setForm({ ...form, icon: e.target.files[0] })} />
                 </div>
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold text-gray-400 ml-1">FULL DESCRIPTION</label>
-                <textarea className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-blue-500" rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                <textarea  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
               </div>
             </div>
 
@@ -358,20 +363,26 @@ const update = async () => {
                 <button onClick={() => addField("steps")} className="px-3 py-1 text-xs font-bold text-orange-600 bg-orange-100 rounded-lg hover:bg-orange-200">+ Add Step</button>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <input className="p-3 border rounded-xl" placeholder="Process Title" value={form.process_title} onChange={(e) => setForm({ ...form, process_title: e.target.value })} />
-                <input className="p-3 border rounded-xl" placeholder="Process Sub-title" value={form.process_sub_title} onChange={(e) => setForm({ ...form, process_sub_title: e.target.value })} />
-                <textarea className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-blue-500" rows={3} placeholder="Process Description" value={form.process_description} onChange={(e) => setForm({ ...form, process_description: e.target.value })} />
+                <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Process Title" value={form.process_title} onChange={(e) => setForm({ ...form, process_title: e.target.value })} />
+                <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Process Sub-title" value={form.process_sub_title} onChange={(e) => setForm({ ...form, process_sub_title: e.target.value })} />
+                <textarea  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ rows={3} placeholder="Process Description" value={form.process_description} onChange={(e) => setForm({ ...form, process_description: e.target.value })} />
                 <div className="space-y-1">
                    <label className="text-xs font-bold text-orange-400 ml-1 uppercase">Update Process Image</label>
-                   <input type="file" className="w-full p-2 border rounded-xl" onChange={(e) => setForm({ ...form, process_images: e.target.files[0] })} />
+                   <input type="file"  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ onChange={(e) => setForm({ ...form, process_images: e.target.files[0] })} />
                 </div>
               </div>
 
               <div className="space-y-3">
                 {form.steps.map((step, index) => (
                   <div key={index} className="flex gap-3 p-3 bg-orange-50/50 rounded-2xl border border-orange-100 animate-in fade-in zoom-in duration-300">
-                    <input className="flex-1 p-2 border rounded-lg bg-white" placeholder="Step Key" value={step.key} onChange={(e) => handleDynamicChange("steps", index, "key", e.target.value)} />
-                    <input className="flex-[2] p-2 border rounded-lg bg-white" placeholder="Step Value" value={step.value} onChange={(e) => handleDynamicChange("steps", index, "value", e.target.value)} />
+                    <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Step Key" value={step.key} onChange={(e) => handleDynamicChange("steps", index, "key", e.target.value)} />
+                    <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Step Value" value={step.value} onChange={(e) => handleDynamicChange("steps", index, "value", e.target.value)} />
                     <button onClick={() => removeField("steps", index)} className="text-red-400 hover:text-red-600"><Trash2 size={20} /></button>
                   </div>
                 ))}
@@ -388,8 +399,10 @@ const update = async () => {
                 <div key={index} className="relative grid grid-cols-1 gap-4 p-6 border bg-purple-50/30 md:grid-cols-2 rounded-3xl border-purple-100">
                   <button onClick={() => removeField("about_service", index)} className="absolute p-1 text-red-500 bg-white border border-red-100 rounded-full shadow-md -top-2 -right-2 hover:bg-red-50"><X size={16} /></button>
                   <div className="space-y-3">
-                    <input className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-purple-500" placeholder="Section Title" value={about.title} onChange={(e) => handleDynamicChange("about_service", index, "title", e.target.value)} />
-                    <textarea className="w-full p-3 border outline-none rounded-xl focus:ring-2 ring-purple-500" rows={4} placeholder="Description" value={about.description} onChange={(e) => handleDynamicChange("about_service", index, "description", e.target.value)} />
+                    <input  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Section Title" value={about.title} onChange={(e) => handleDynamicChange("about_service", index, "title", e.target.value)} />
+                    <textarea  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ rows={4} placeholder="Description" value={about.description} onChange={(e) => handleDynamicChange("about_service", index, "description", e.target.value)} />
                   </div>
                   <div className="flex flex-col items-center justify-center p-4 bg-white border-2 border-dashed rounded-xl border-purple-200">
                     <input type="file" id={`edit-about-media-${index}`} className="hidden" onChange={(e) => {
@@ -413,14 +426,16 @@ const update = async () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b">
                 <div className="flex items-center gap-2 text-lg font-bold text-green-600"><HelpCircle size={20} /> FAQs</div>
-                <button onClick={() => addField("faqs")} className="px-3 py-1 text-xs font-bold text-green-600 bg-green-100 rounded-lg hover:bg-green-200">+ Add FAQ</button>
+                <button onClick={() => addField("faqs")} className="px-3 py-2 text-xs font-bold text-green-600 bg-green-100 rounded-lg hover:bg-green-200">+ Add FAQ</button>
               </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid p-2 grid-cols-1 gap-4 md:grid-cols-2">
                 {form.faqs.map((faq, index) => (
-                  <div key={index} className="relative p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                    <button onClick={() => removeField("faqs", index)} className="absolute text-gray-400 top-2 right-2 hover:text-red-500"><X size={16} /></button>
-                    <input className="w-full p-2 mb-2 font-semibold border rounded-lg" placeholder="Question" value={faq.title} onChange={(e) => handleDynamicChange("faqs", index, "title", e.target.value)} />
-                    <textarea className="w-full p-2 text-sm border rounded-lg" placeholder="Answer" value={faq.description} onChange={(e) => handleDynamicChange("faqs", index, "description", e.target.value)} />
+                  <div key={index} className="relative p-8 bg-gray-50 rounded-2xl border border-gray-100">
+                    <button onClick={() => removeField("faqs", index)} className="absolute text-red-400 top-2 right-2 p-2 hover:text-red-500"><X size={16} /></button>
+                    <input  className="   w-full   border border-gray-300   rounded-xl mb-4  p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Question" value={faq.title} onChange={(e) => handleDynamicChange("faqs", index, "title", e.target.value)} />
+                    <textarea  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+ placeholder="Answer" value={faq.description} onChange={(e) => handleDynamicChange("faqs", index, "description", e.target.value)} />
                   </div>
                 ))}
               </div>
@@ -430,7 +445,7 @@ const update = async () => {
           {/* Footer */}
           <div className="flex justify-end gap-4 p-6 bg-gray-50 border-t">
             <button onClick={onClose} className="px-6 py-2 font-bold text-gray-500 transition-all rounded-xl hover:bg-gray-200">Cancel</button>
-            <button onClick={update} disabled={loading} className="flex items-center gap-2 px-10 py-2 font-bold text-white bg-blue-600 shadow-lg rounded-xl hover:bg-blue-700 disabled:bg-blue-300">
+            <button onClick={update} disabled={loading} className="flex items-center gap-2 px-8 py-2.5 font-bold text-white bg-blue-600 shadow-lg rounded-xl hover:bg-blue-700 disabled:bg-blue-300">
               {loading ? <Loader2 className="animate-spin" /> : <Save size={20} />}
               {loading ? "Updating..." : "Save Changes"}
             </button>

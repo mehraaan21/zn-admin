@@ -30,32 +30,9 @@ export default function AddCaseStudy() {
     services: "",
     duration: "",
     team_size: "",
-    banner: null, // Fixed: banner null rakhein array nahi
-
-    // challenges: [{ challenge: "", solution: "" }],
-    //   bullet_points: [""],
+    banner: null,
     images: [],
-    //   testimonial: "",
-    //   tech_stacks: "",
-    //   result_title: ""
   });
-
-  //   // const addRow = (field, obj) => setForm({...form, [field]: [...form[field], obj]});
-  //   const addRow = (field, obj) => {
-  //   setForm(prev => ({
-  //     ...prev,
-  //     [field]: [...prev[field], obj]
-  //   }));
-  // };
-
-  //   const removeRow = (field, index) => {
-  //     const list = [...form[field]];
-  //     list.splice(index, 1);
-  //     setForm(prev => ({
-  //   ...prev,
-  //   [field]: list
-  // }));
-  //   };
 
   const submit = async () => {
     if (loading) return;
@@ -74,38 +51,7 @@ export default function AddCaseStudy() {
       formData.append("team_size", form.team_size);
 
       formData.append("banner", form.banner);
-
-      //       if (form.testimonial)
-      //   formData.append("testimonial", form.testimonial);
-
-      //      // Tech stacks ko comma se split karo
-      // if (form.tech_stacks) {
-      //   formData.append("tech_stacks", form.tech_stacks);
-      // }
-
-      // if (form.result_title)
-      //   formData.append("result_title", form.result_title);
-
-      //       console.log("Submitting Form Data 1:", form); // Debugging line
-
-      // 2. Banner File
-      // if (form.banner) formData.append("banner", form.banner);
-
-      // 3. Multiple Gallery Images: Key "images[]" honi chahiye array ke liye
       form.images.forEach((img) => formData.append("images", img));
-
-      // 4. Challenges & Solutions
-      // form.challenges.forEach(item => {
-      //   formData.append("challenge_texts[]", item.challenge);
-      //   formData.append("solution_texts[]", item.solution);
-      // });
-
-      // 5. Bullet Points
-      // form.bullet_points.forEach(point => formData.append("bullet_points[]", point));
-
-      // console.log("Submitting Form Data 2:", form); // Debugging line
-
-      // API Call
 
       const res = await fetch("/api/case-studies", {
         method: "POST",
@@ -130,7 +76,7 @@ export default function AddCaseStudy() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 text-white px-6 py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:bg-blue-700 transition-all active:scale-95"
+        className="bg-blue-400 text-white px- py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:bg-blue-500 transition-all active:scale-95"
       >
         <Plus size={20} /> Add Case Study
       </button>
@@ -229,65 +175,12 @@ export default function AddCaseStudy() {
                   />
                 </div>
 
-                {/* 2. Challenges & Solutions */}
-                {/* <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-4">
-                  <div className="flex justify-between items-center border-b border-slate-200 pb-2 text-red-500 font-bold">
-                    <div className="flex items-center gap-2"><AlertCircle size={18}/> Challenges & Solutions</div>
-                    <button onClick={() => addRow('challenges', {challenge: "", solution: ""})} className="text-xs bg-red-100 hover:bg-red-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer">+ Add Row</button>
-                  </div>
-                  {form.challenges.map((item, idx) => (
-                    <div key={idx} className="flex gap-4 items-start animate-in fade-in zoom-in duration-200">
-                      <textarea className="flex-1 border p-3 rounded-xl text-sm shadow-sm" placeholder="Challenge" onChange={e => {
-                        const list = [...form.challenges]; list[idx].challenge = e.target.value; setForm({...form, challenges: list});
-                      }} />
-                      <textarea className="flex-1 border p-3 rounded-xl text-sm shadow-sm" placeholder="Solution" onChange={e => {
-                        const list = [...form.challenges]; list[idx].solution = e.target.value; setForm({...form, challenges: list});
-                      }} />
-                      <Trash2 size={20} className="text-red-400 mt-4 cursor-pointer hover:text-red-600 transition-colors" onClick={() => removeRow('challenges', idx)} />
-                    </div>
-                  ))}
-                </div> */}
-
-                {/* 3. Results */}
-                {/* <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-4">
-                  <div className="flex justify-between items-center border-b border-slate-200 pb-2 text-green-600 font-bold">
-                    <div className="flex items-center gap-2"><CheckCircle size={18}/> Results / Impact</div>
-                    <button onClick={() => addRow('bullet_points', "")} className="text-xs bg-green-100 hover:bg-green-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer">+ Add Point</button>
-                  </div>
-                  <input className="w-full border p-3 rounded-xl shadow-sm font-bold" placeholder="Results Section Title (e.g. Key Achievements)" onChange={e => setForm({...form, result: e.target.value})} />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {form.bullet_points.map((point, idx) => (
-                      <div key={idx} className="flex gap-2 animate-in slide-in-from-left duration-200">
-                        <input className="flex-1 border p-3 rounded-xl text-sm shadow-sm" placeholder="Result Point" onChange={e => {
-                          const list = [...form.bullet_points]; list[idx] = e.target.value; setForm({...form, bullet_points: list});
-                        }} />
-                        <X size={18} className="text-slate-400 mt-4 cursor-pointer hover:text-red-500" onClick={() => removeRow('bullet_points', idx)} />
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                {/* Fixed: Testimonials & Tech Stack (Yahan aapka div galat closed tha) */}
-                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="font-bold text-sm text-slate-700 block">Client Testimonial</label>
-                    <textarea className="border p-3 rounded-xl w-full min-h-[100px] shadow-sm" placeholder="Client feedback..." onChange={e => setForm({...form, testimonial: e.target.value})} />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="font-bold text-sm text-slate-700 flex items-center gap-1 block">
-                      <Code2 size={16}/> Tech Stacks
-                    </label>
-                    <input className="border p-3 rounded-xl w-full shadow-sm" placeholder="React, Node.js, MongoDB" onChange={e => setForm({...form, tech_stacks: e.target.value})} />
-                  </div>
-                </div> */}
-
                 {/* 4. Multiple Images */}
                 <div className="space-y-3 bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
                   <label className="font-bold text-sm text-slate-700 flex items-center gap-2">
                     <ImageIcon size={18} className="text-blue-600" /> Project
                     Gallery Images
                   </label>
-                  {/* <input type="file" multiple className="w-full border border-slate-200 bg-white p-3 rounded-xl text-sm" onChange={e => setForm({...form, images: Array.from(e.target.files)})} /> */}
                   <input
                     type="file"
                     multiple

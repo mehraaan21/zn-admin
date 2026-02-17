@@ -1,61 +1,232 @@
+// "use client";
+
+// import React, { useState, useCallback } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
+// import Image from "next/image";
+// import { useRouter } from "next/navigation";
+
+// import {
+//   Moon,
+//   Sun,
+//   Bell,
+//   MessageSquare,
+//   ChevronDown,
+//   ChevronUp,
+//   User,
+// } from "lucide-react";
+
+// import EditProfileModal from "./EditProfileModal";
+// import LogoutButton from "./LogoutButton";
+
+// export default function Header() {
+//   const router = useRouter();
+
+// const [darkMode, setDarkMode] = useState(false);
+//   const [showNotifications, setShowNotifications] = useState(false);
+//   const [showMessages, setShowMessages] = useState(false);
+//   const [profileOpen, setProfileOpen] = useState(false);
+//   const [showEditProfile, setShowEditProfile] = useState(false);
+
+//   const notifications = [
+//     "New user signed up",
+//     "Order #2045 shipped",
+//     "Backup completed",
+//     "Payment received",
+//     "Server reboot successful",
+//   ];
+
+//   const messages = [
+//     "New report ready",
+//     "Message from Admin",
+//     "Server stable",
+//     "Performance report available",
+//   ];
+
+//   const toggleTheme = useCallback(() => {
+//     setDarkMode((prev) => !prev);
+//     document.documentElement.classList.toggle("dark");
+//   }, []);
+
+//   // const handleLogout = () => {
+//   //   localStorage.removeItem("isAuth");
+//   //   router.push("/log-in"); // Next.js route navigation
+//   // };
+
+//   return (
+//     <header className="sticky top-0 z-30 bg-linear-to-br from-sky-500 to-sky-700  shadow-sm">
+//       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
+
+//         {/* LEFT - LOGO */}
+//         <div className="flex items-center gap-2">
+//           <Image
+//             src="/images/542313.png"
+//             alt="Logo"
+//             width={120}
+//             height={50}
+//             className="rounded-md"
+//             priority
+//           />
+//         </div>
+
+//         {/* RIGHT SECTION */}
+//         <div className="flex items-center gap-4">
+
+//           {/* Messages */}
+//           <div className="relative">
+//             <button
+//               onClick={() => {
+//                 setShowMessages((p) => !p);
+//                 setShowNotifications(false);
+//               }}
+//               className="p-2 rounded-full cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
+//             >
+//               <MessageSquare size={18} className="text-gray-700 " />
+//             </button>
+
+//             <AnimatePresence>
+//               {showMessages && (
+//                 <motion.div
+//                   initial={{ opacity: 0, y: -8 }}
+//                   animate={{ opacity: 1, y: 0 }}
+//                   exit={{ opacity: 0, y: -8 }}
+//                   className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
+//                 >
+//                   <div className="px-4 py-2 border-b font-semibold">Messages</div>
+//                   {messages.map((m, i) => (
+//                     <div key={i} className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+//                       {m}
+//                     </div>
+//                   ))}
+//                 </motion.div>
+//               )}
+//             </AnimatePresence>
+//           </div>
+
+//           {/* Notifications */}
+//           <div className="relative">
+//             <button
+//               onClick={() => {
+//                 setShowNotifications((p) => !p);
+//                 setShowMessages(false);
+//               }}
+//               className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
+//             >
+//               <Bell size={18} className="text-gray-700 " />
+//             </button>
+
+//             <AnimatePresence>
+//               {showNotifications && (
+//                 <motion.div
+//                   initial={{ opacity: 0, y: -8 }}
+//                   animate={{ opacity: 1, y: 0 }}
+//                   exit={{ opacity: 0, y: -8 }}
+//                   className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
+//                 >
+//                   <div className="px-4 py-2 border-b font-semibold">Notifications</div>
+//                   {notifications.map((n, i) => (
+//                     <div key={i} className="px-4 py-2 hover:bg-gray-200">
+//                       {n}
+//                     </div>
+//                   ))}
+//                 </motion.div>
+//               )}
+//             </AnimatePresence>
+//           </div>
+
+//           {/* Theme Toggle */}
+//           <button
+//             onClick={toggleTheme}
+//             className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
+//           >
+//             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+//           </button>
+
+//           {/* PROFILE */}
+//           <div className="relative ">
+//             <button
+//               onClick={() => setProfileOpen((p) => !p)}
+//               className="flex items-center gap-2"
+//             >
+//               <Image
+//                 src="/images/hacker.png"
+//                 alt="Profile"
+//                 width={32}
+//                 height={32}
+//                 className="rounded-full"
+//               />
+
+//               <div className="hidden md:block cursor-pointer text-left">
+//                 <div className="text-sm text-white font-medium">Admin</div>
+//                 <div className="text-xs text-white">admin@gmail.com</div>
+//               </div>
+
+//               {profileOpen ? <ChevronUp className="text-white" size={18} /> : <ChevronDown className="text-white" size={18} />}
+//             </button>
+
+//             <AnimatePresence>
+//               {profileOpen && (
+//                 <motion.div
+//                   initial={{ opacity: 0, y: -8 }}
+//                   animate={{ opacity: 1, y: 0 }}
+//                   exit={{ opacity: 0, y: -8 }}
+//                   className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border z-50"
+//                 >
+//                   <button
+//                     onClick={() => setShowEditProfile(true)}
+//                     className="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer hover:text-white"
+//                   >
+//                     <User  size={16}  /> Edit profile
+//                   </button>
+
+//                 {/* logout */}
+//                    <LogoutButton />
+
+//                 </motion.div>
+//               )}
+//             </AnimatePresence>
+//           </div>
+
+//           <EditProfileModal
+//             isOpen={showEditProfile}
+//             onClose={() => setShowEditProfile(false)}
+//           />
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
 "use client";
 
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Moon, Sun, Bell, ChevronDown, ChevronUp, User } from "lucide-react";
 
-import {
-  Moon,
-  Sun,
-  Bell,
-  MessageSquare,
-  ChevronDown,
-  ChevronUp,
-  User,
-} from "lucide-react";
-
+// 1. Import your new component
+import MessageDropdown from "./MessageDropdown";
 import EditProfileModal from "./EditProfileModal";
 import LogoutButton from "./LogoutButton";
+import NewsletterDropdown from "./NewsletterDropdown";
 
 export default function Header() {
   const router = useRouter();
-
-const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
+  const [showMessages, setShowMessages] = useState(false); // This state still controls visibility
   const [profileOpen, setProfileOpen] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
-
-  const notifications = [
-    "New user signed up",
-    "Order #2045 shipped",
-    "Backup completed",
-    "Payment received",
-    "Server reboot successful",
-  ];
-
-  const messages = [
-    "New report ready",
-    "Message from Admin",
-    "Server stable",
-    "Performance report available",
-  ];
+  const [showNewsletter, setShowNewsletter] = useState(false);
 
   const toggleTheme = useCallback(() => {
     setDarkMode((prev) => !prev);
     document.documentElement.classList.toggle("dark");
   }, []);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("isAuth");
-  //   router.push("/log-in"); // Next.js route navigation
-  // };
-
   return (
-    <header className="sticky top-0 z-30 bg-linear-to-br from-blue-500 to-blue-500  shadow-sm">
+    <header className="sticky top-0 z-30 bg-linear-to-br from-sky-500 to-sky-700 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
-
         {/* LEFT - LOGO */}
         <div className="flex items-center gap-2">
           <Image
@@ -70,78 +241,30 @@ const [darkMode, setDarkMode] = useState(false);
 
         {/* RIGHT SECTION */}
         <div className="flex items-center gap-4">
+          {/* 2. CALL THE NEW COMPONENT HERE */}
+          <MessageDropdown
+            showMessages={showMessages}
+            setShowMessages={setShowMessages}
+            setShowNotifications={setShowNotifications}
+          />
 
-          {/* Messages */}
-          <div className="relative">
-            <button
-              onClick={() => {
-                setShowMessages((p) => !p);
-                setShowNotifications(false);
-              }}
-              className="p-2 rounded-full cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
-            >
-              <MessageSquare size={18} className="text-gray-700 " />
-            </button>
-
-            <AnimatePresence>
-              {showMessages && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
-                >
-                  <div className="px-4 py-2 border-b font-semibold">Messages</div>
-                  {messages.map((m, i) => (
-                    <div key={i} className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
-                      {m}
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Notifications */}
-          <div className="relative">
-            <button
-              onClick={() => {
-                setShowNotifications((p) => !p);
-                setShowMessages(false);
-              }}
-              className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
-            >
-              <Bell size={18} className="text-gray-700 " />
-            </button>
-
-            <AnimatePresence>
-              {showNotifications && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  className="absolute right-0 mt-2 w-64 bg-white  rounded-lg shadow-lg border z-50"
-                >
-                  <div className="px-4 py-2 border-b font-semibold">Notifications</div>
-                  {notifications.map((n, i) => (
-                    <div key={i} className="px-4 py-2 hover:bg-gray-200">
-                      {n}
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <NewsletterDropdown
+            showNewsletter={showNewsletter}
+            setShowNewsletter={setShowNewsletter}
+            setShowMessages={setShowMessages}
+            setShowNotifications={setShowNotifications}
+          />
 
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full cursor-pointer bg-gray-100  hover:bg-gray-200 transition"
+            className="p-2 rounded-full cursor-pointer bg-gray-100 hover:bg-gray-200 transition"
           >
             {darkMode ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           {/* PROFILE */}
+          {/* ... keeping your existing Profile code ... */}
           <div className="relative ">
             <button
               onClick={() => setProfileOpen((p) => !p)}
@@ -154,15 +277,16 @@ const [darkMode, setDarkMode] = useState(false);
                 height={32}
                 className="rounded-full"
               />
-
               <div className="hidden md:block cursor-pointer text-left">
                 <div className="text-sm text-white font-medium">Admin</div>
                 <div className="text-xs text-white">admin@gmail.com</div>
               </div>
-
-              {profileOpen ? <ChevronUp className="text-white" size={18} /> : <ChevronDown className="text-white" size={18} />}
+              {profileOpen ? (
+                <ChevronUp className="text-white" size={18} />
+              ) : (
+                <ChevronDown className="text-white" size={18} />
+              )}
             </button>
-
             <AnimatePresence>
               {profileOpen && (
                 <motion.div
@@ -173,14 +297,11 @@ const [darkMode, setDarkMode] = useState(false);
                 >
                   <button
                     onClick={() => setShowEditProfile(true)}
-                    className="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer hover:text-white"
+                    className="w-full px-4 py-2 flex items-center gap-3 hover:rounded-t-md hover:bg-gray-900 hover:text-white text-gray-700 cursor-pointer"
                   >
-                    <User  size={16}  /> Edit profile
+                    <User size={16} /> Edit profile
                   </button>
-
-                {/* logout */}
-                   <LogoutButton />
-
+                  <LogoutButton />
                 </motion.div>
               )}
             </AnimatePresence>

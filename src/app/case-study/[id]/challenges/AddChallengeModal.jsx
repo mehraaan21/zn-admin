@@ -50,13 +50,13 @@
 
 import React, { useState } from "react";
 import { X, RefreshCcw, Save } from "lucide-react";
-import { toast } from "react-hot-toast"; 
-
+import { toast } from "react-hot-toast";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function AddChallengeModal({ caseStudyId, onClose }) {
   // Router functionality ko simulate karne ke liye local handle
   const router = { refresh: () => console.log("Router refreshed") };
-  
+
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ challenge: "", solution: "" });
 
@@ -77,7 +77,7 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
       const res = await fetch(`/api/case-studies/${caseStudyId}/challenges`, {
         method: "POST",
         // FormData ke saath Content-Type manually set nahi karte
-        body: formData, 
+        body: formData,
       });
 
       // Response ko JSON mein badlein
@@ -93,7 +93,9 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
         if (router.refresh) router.refresh();
         onClose();
       } else {
-        throw new Error(result.message || "Challenge add karne mein nakami hui");
+        throw new Error(
+          result.message || "Challenge add karne mein nakami hui",
+        );
       }
     } catch (err) {
       toast.error(err.message);
@@ -105,11 +107,14 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl max-h-[90vh] overflow-y-auto p-8 auto-flow-y">
         <div className="flex justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-800"> Add Challenge or Solution </h2>
-          <button 
-            onClick={onClose} 
+          <h2 className="text-xl font-bold  text-gray-800">
+            {" "}
+            Add Challenge or Solution{" "}
+          </h2>
+          <button
+            onClick={onClose}
             className="text-gray-400 hover:text-red-500 transition-colors"
           >
             <X size={24} />
@@ -118,39 +123,52 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
 
         <div className="space-y-5">
           <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-500 uppercase ml-1">Challenges</label>
-            <textarea 
-              placeholder="Challenges" 
-              rows={4} 
-              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all" 
-              value={form.challenge} 
-              onChange={e => setForm({...form, challenge: e.target.value})} 
+            <label className="text-xs font-bold text-gray-500 uppercase ml-1">
+              Challenges
+            </label>
+            <RichTextEditor
+              placeholder="Challenges"
+              rows={4}
+              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
+              value={form.challenge}
+              onChange={(e) => setForm({ ...form, challenge: e.target.value })}
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-500 uppercase ml-1">Solution</label>
-            <textarea 
-              placeholder="Solution" 
-              rows={4} 
-              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" 
-              value={form.solution} 
-              onChange={e => setForm({...form, solution: e.target.value})} 
+            <label className="text-xs font-bold text-gray-500 uppercase ml-1">
+              Solution
+            </label>
+            <RichTextEditor
+              placeholder="Solution"
+              rows={4}
+              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+              value={form.solution}
+              onChange={(e) => setForm({ ...form, solution: e.target.value })}
             />
           </div>
 
-          <button 
-            onClick={submit} 
-            disabled={loading} 
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl font-bold flex justify-center items-center gap-2 disabled:bg-orange-200 transition-all shadow-lg shadow-orange-100"
-          >
-            {loading ? (
-              <RefreshCcw className="animate-spin" size={20} />
-            ) : (
-              <Save size={20} />
-            )} 
-            {loading ? "Saving..." : " saved"}
-          </button>
+          <div className="flex justify-end gap-3 pt-4 border-t">
+            <button
+              onClick={onClose}
+              className="px-6 py-2 border cursor-pointer rounded-lg hover:bg-slate-50 transition"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={submit}
+              disabled={loading}
+              className=" bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-8 py-2.5 rounded-xl font-bold text-md flex justify-center items-center gap-2 disabled:bg-orange-200 transition-all shadow-lg shadow-orange-100"
+            >
+              {loading ? (
+                <RefreshCcw className="animate-spin" size={20} />
+              ) : (
+                <Save size={20} />
+              )}
+              {loading ? "Saving..." : " saved"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -55,8 +55,11 @@ export default function AddTechModal({ caseStudyId, onClose }) {
            </div>
            <input placeholder="Tech Name (e.g. React)" className="w-full border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-indigo-500 font-bold" onChange={e => setForm({...form, name: e.target.value})} />
              <input placeholder="Category (e.g. Frontend , Backend)" className="w-full border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-indigo-500 font-bold" onChange={e => setForm({...form, category: e.target.value})} />
-           <button onClick={submit} disabled={loading} className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest flex justify-center items-center gap-2">
-              {loading ? <RefreshCcw className="animate-spin" /> : <Save size={18} />} Save Tech
+           <button onClick={submit} disabled={loading}
+            className=" w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-2.5 px-8 rounded-2xl font-black uppercase tracking-widest flex justify-center items-center gap-2">
+              {loading ? <RefreshCcw className="animate-spin" />
+               :
+                <Save size={18} />} Save Tech
            </button>
         </div>
       </div>

@@ -103,10 +103,6 @@ export default async function TestimonialsPage() {
                         />
                       </div>
                     </td>
-{/* 
-                    <td className="px-6 py-4 text-center">
-                      <StatusBadge status={item.status} />
-                    </td> */}
 
                     <td className="px-6 py-4">
                       <div className="flex justify-center items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">

@@ -46,7 +46,7 @@ export default function ViewTestimonialModal({ testimonial, onClose }) {
               
               {/* LEFT: CONTENT */}
               <div className="lg:col-span-2 space-y-8">
-                <div className="relative p-8 bg-slate-50 rounded-[2rem] border border-slate-100 italic text-slate-700 text-xl leading-relaxed">
+                <div className="relative p-8 bg-slate-50 rounded-2rem border border-slate-100 italic text-slate-700 text-xl leading-relaxed">
                   <Quote size={40} className="text-purple-200 absolute -top-2 -left-2" />
                   <p className="relative z-10 font-medium">
                     {testimonial.feedback}
@@ -82,7 +82,7 @@ export default function ViewTestimonialModal({ testimonial, onClose }) {
                   Client Profile
                 </h3>
                 {testimonial.image_url ? (
-                  <div className="relative aspect-square rounded-[2rem] overflow-hidden border-4 border-white shadow-xl">
+                  <div className="relative aspect-square rounded-2rem overflow-hidden border-4 border-white shadow-xl">
                     <Image
                       src={testimonial.image_url}
                       alt="client"
@@ -91,7 +91,7 @@ export default function ViewTestimonialModal({ testimonial, onClose }) {
                     />
                   </div>
                 ) : (
-                  <div className="aspect-square bg-slate-100 rounded-[2rem] flex items-center justify-center text-5xl">
+                  <div className="aspect-square bg-slate-100 rounded-2rem flex items-center justify-center text-5xl">
                     👤
                   </div>
                 )}
@@ -108,7 +108,7 @@ export default function ViewTestimonialModal({ testimonial, onClose }) {
           <div className="p-6 border-t bg-slate-50/50 flex justify-end">
             <button
               onClick={onClose}
-              className="px-8 py-3 bg-black text-white rounded-xl font-bold hover:scale-105 active:scale-95 transition-all shadow-lg"
+              className="px-8 py-2.5 bg-blue-500 text-white rounded-xl font-bold hover:bg-blue-600  transition-all shadow-lg"
             >
               Close Preview
             </button>

@@ -233,7 +233,7 @@ export default function ResultsTable({ data, caseStudyId }) {
 
         <button
           onClick={() => setOpenAdd(true)}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl shadow active:scale-95 transition"
+          className="flex items-center gap-2 bg-blue-500 cursor-pointer hover:bg-blue-600 text-white px-8 py-2.5 rounded-xl shadow active:scale-95 transition"
         >
           <Plus size={18} />
           Add Result
@@ -323,7 +323,7 @@ export default function ResultsTable({ data, caseStudyId }) {
                             {/* VIEW BUTTON */}
                             <button
                               onClick={() => setViewItem(result)}
-                              className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                              className="p-2 cursor-pointer text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
                               title="View Details"
                             >
                               <Eye size={18} />
@@ -331,7 +331,7 @@ export default function ResultsTable({ data, caseStudyId }) {
                             
                             <button
                               onClick={() => setEditItem(result)}
-                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                              className="p-2 text-blue-600 cursor-pointer hover:bg-blue-50 rounded-full transition-colors"
                               title="Edit Portfolio"
                             >
                               <Pencil size={18} />
@@ -339,7 +339,7 @@ export default function ResultsTable({ data, caseStudyId }) {
                             
                             <button
                               onClick={() => setDeleteId(result.id)}
-                              className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                              className="p-2 text-red-600 cursor-pointer hover:bg-red-50 rounded-full transition-colors"
                               title="Delete Portfolio"
                             >
                               <Trash2 size={18} />

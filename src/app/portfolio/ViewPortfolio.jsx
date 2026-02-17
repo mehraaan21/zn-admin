@@ -22,8 +22,9 @@ export default function ViewPortfolio({ data, onClose }) {
           className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl border border-slate-200 custom-scrollbar"
         >
           {/* HEADER */}
-          <div className="sticky top-0 z-20 p-6 border-b bg-white/90 backdrop-blur-md flex justify-between items-center overflow-hidden">
-            <div className="absolute top-[-20px] left-[-20px] w-32 h-32 bg-blue-50 rounded-full blur-3xl opacity-60" />
+          
+          <div className="sticky top-2 z-20 p-8 border-b bg-white/90 backdrop-blur-md flex justify-between items-center overflow-hidden">
+            <div className="absolute top-20px left-20px w-32 h-32 bg-blue-50 rounded-full blur-3xl opacity-60" />
             <div className="flex items-center gap-3 relative z-10">
               <div className="p-2.5 bg-blue-600 rounded-xl shadow-lg shadow-blue-200 text-white">
                 <Briefcase size={22} />
@@ -39,7 +40,7 @@ export default function ViewPortfolio({ data, onClose }) {
           </div>
 
           {/* BODY */}
-          <div className="p-6 md:p-8 space-y-8 flex-grow">
+          <div className="p-6 md:p-8 space-y-8 grow">
             {/* Hero Image */}
             <div className="relative aspect-video w-full bg-slate-100 rounded-3xl overflow-hidden border-4 border-white shadow-xl group">
                <Image 
@@ -112,7 +113,7 @@ export default function ViewPortfolio({ data, onClose }) {
 
           {/* FOOTER */}
           <div className="sticky bottom-0 z-20 p-6 border-t bg-slate-50/80 backdrop-blur-md flex justify-end px-8">
-            <button onClick={onClose} className="px-10 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer">
+            <button onClick={onClose} className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer">
               Close Preview
             </button>
           </div>

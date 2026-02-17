@@ -25,12 +25,14 @@ export default function DashboardPage() {
     );
   }
 
+  
   const stats = [
     { title: "Total Activities", value: "24", icon: <Activity size={20} />, color: "text-blue-600", bg: "bg-blue-50" },
     { title: "System Status", value: "Optimal", icon: <Settings size={20} />, color: "text-green-600", bg: "bg-green-50" },
     { title: "Reports", value: "View All", icon: <BarChart3 size={20} />, color: "text-purple-600", bg: "bg-purple-50" },
   ];
 
+  //  content here 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
       
@@ -43,9 +45,9 @@ export default function DashboardPage() {
           </h1>
           <p className="mt-2 text-blue-100 flex items-center gap-2 text-lg">
             <User size={18} />
-            Logged in as: <span className="font-bold underline">{session?.user?.email}</span>
+            Logged in as: <span className="font-bold cursor-pointer underline">{session?.user?.email}</span>
           </p>
-          <div className="mt-6 flex items-center gap-2 bg-white/10 w-fit px-4 py-2 rounded-full text-sm backdrop-blur-sm border border-white/20">
+          <div className="mt-6 flex items-center cursor-pointer gap-2 bg-white/10 w-fit px-4 py-2 rounded-full text-sm backdrop-blur-sm border border-white/20">
             <span className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></span>
             System Online & Active
           </div>
@@ -87,7 +89,7 @@ export default function DashboardPage() {
         </div>
         <button 
           onClick={() => router.push('/home')} 
-          className="bg-white text-blue-600 px-6 py-2 rounded-lg font-bold shadow-sm hover:bg-blue-600 hover:text-white transition-all active:scale-95 border border-blue-200"
+          className="bg-white text-blue-600 cursor-pointer px-6 py-2 rounded-lg font-bold shadow-sm hover:bg-blue-600 hover:text-white transition-all active:scale-95 border border-blue-200"
         >
           Go to Home Sidebar
         </button>

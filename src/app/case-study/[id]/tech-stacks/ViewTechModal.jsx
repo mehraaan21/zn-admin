@@ -22,7 +22,7 @@ export default function ViewTechModal({ tech, onClose }) {
           className="bg-white rounded-[2.5rem] w-full max-w-2xl overflow-hidden flex flex-col shadow-2xl border border-slate-200"
         >
           {/* TOP DESIGN BAR */}
-          <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+          <div className="h-2 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500" />
 
           {/* HEADER */}
           <div className="relative p-8 flex justify-between items-start">
@@ -42,7 +42,7 @@ export default function ViewTechModal({ tech, onClose }) {
 
           {/* BODY */}
           <div className="px-8 pb-10 space-y-8">
-            <div className="flex flex-col items-center text-center p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+            <div className="flex flex-col items-center text-center p-8 bg-slate-50 rounded-2rem border border-slate-100">
               <div className="relative h-32 w-32 bg-white rounded-3xl p-5 shadow-xl mb-6 flex items-center justify-center group hover:scale-105 transition-transform">
                 <Image
                   src={tech.image_url || "/placeholder.png"}
@@ -79,7 +79,7 @@ export default function ViewTechModal({ tech, onClose }) {
           <div className="p-6 border-t bg-slate-50/50 flex justify-end">
             <button
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all active:scale-95"
+              className="px-8 py-2.5 bg-blue-500 text-white rounded-2xl font-black text-md uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95"
             >
               Back to Stack
             </button>

@@ -1,6 +1,3 @@
-
-
-
 "use client";
 
 import { useState } from "react";
@@ -34,7 +31,7 @@ export default function BlogsTable({ data = [] }) {
 
         <button
           onClick={() => setShowAdd(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-sm"
+          className="bg-blue-600  hover:bg-blue-700 text-white px-8 py-2.5 rounded-lg text-md font-md shadow-sm"
         >
           + Add Blog
         </button>
@@ -58,18 +55,6 @@ export default function BlogsTable({ data = [] }) {
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
                   Slug
                 </th>
-                {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                  Description
-                </th> */}
-                {/* <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                  SEO Title
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                  SEO Keyword
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase">
-                  SEO Description
-                </th> */}
                 <th className="px-6 py-4 text-center text-xs font-semibold text-gray-500 uppercase">
                   Actions
                 </th>
@@ -116,34 +101,15 @@ export default function BlogsTable({ data = [] }) {
                       {blog.slug}
                     </td>
 
-                    {/* <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
-                      {blog.description}
-                    </td> */}
-
-                    
-{/* 
-                    <td className="px-6 py-4 text-sm text-gray-500 max-w-[250px] truncate">
-                      {blog.seo_title}
-                    </td>
-
-                    <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
-                      {blog.seo_keywords}
-                    </td>
-
-                    <td className="px-6 py-4 text-sm text-gray-500 max-w-[220px] truncate">
-                      {blog.seo_description}
-                    </td> */}
-
                     <td className="px-6 py-4">
                       <div className="flex justify-center gap-3 opacity-80 group-hover:opacity-100 transition-opacity">
-                        
-                           <button
-  onClick={() => setViewBlog(blog)}
-  className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
-  title="Quick View"
->
-  <Eye size={18} />
-</button>
+                        <button
+                          onClick={() => setViewBlog(blog)}
+                          className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                          title="Quick View"
+                        >
+                          <Eye size={18} />
+                        </button>
 
                         <button
                           onClick={() => setEditBlog(blog)}
@@ -172,29 +138,18 @@ export default function BlogsTable({ data = [] }) {
 
       {/* MODALS */}
       {showAdd && <AddBlogModal onClose={() => setShowAdd(false)} />}
-      
-   
 
       {deleteId && (
-        <DeleteBlogModal
-          id={deleteId}
-          onClose={() => setDeleteId(null)}
-        />
+        <DeleteBlogModal id={deleteId} onClose={() => setDeleteId(null)} />
       )}
 
       {editBlog && (
-        <EditBlogModal
-          blog={editBlog}
-          onClose={() => setEditBlog(null)}
-        />
+        <EditBlogModal blog={editBlog} onClose={() => setEditBlog(null)} />
       )}
 
       {viewBlog && (
-  <ViewBlogModal 
-    data={viewBlog} 
-    onClose={() => setViewBlog(null)} 
-  />
-)}
+        <ViewBlogModal data={viewBlog} onClose={() => setViewBlog(null)} />
+      )}
     </div>
   );
 }

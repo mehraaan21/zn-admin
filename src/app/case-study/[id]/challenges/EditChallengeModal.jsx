@@ -4,20 +4,21 @@ import { useState, useEffect } from "react";
 import { X, RefreshCcw, Save, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditChallengeModal({ item, onClose }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     challenge: "",
-    solution: ""
+    solution: "",
   });
 
   useEffect(() => {
     if (item) {
       setForm({
         challenge: item.challenge || "",
-        solution: item.solution || ""
+        solution: item.solution || "",
       });
     }
   }, [item]);
@@ -31,11 +32,14 @@ export default function EditChallengeModal({ item, onClose }) {
     try {
       setLoading(true);
       // Ensure the endpoint matches your folder structure: /api/case-studies/[id]/challenges/[challenge_id]
-      const res = await fetch(`/api/case-studies/${item.case_study_id || item.CaseStudyID}/challenges/${item.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        `/api/case-studies/${item.case_study_id || item.CaseStudyID}/challenges/${item.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
 
       if (!res.ok) throw new Error("Update failed");
 
@@ -50,12 +54,17 @@ export default function EditChallengeModal({ item, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-2xl overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {/* HEADER */}
         <div className="p-8 border-b bg-slate-50 flex justify-between items-center">
-          <h2 className="text-xl font-black text-slate-800 uppercase tracking-tight">Edit Challenge</h2>
-          <button onClick={onClose} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded-full transition-colors">
+          <h2 className="text-xl font-black text-slate-800 uppercase tracking-tight">
+            Edit Challenge
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded-full transition-colors"
+          >
             <X size={20} />
           </button>
         </div>
@@ -65,11 +74,15 @@ export default function EditChallengeModal({ item, onClose }) {
             <label className="text-[10px] font-black text-red-500 uppercase tracking-widest ml-1 flex items-center gap-1">
               <AlertTriangle size={12} /> The Challenge
             </label>
-            <textarea
+            <RichTextEditor
               rows={5}
-              value={form.challenge}
-              onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-              className="w-full border-2 border-slate-100 p-5 rounded-2xl focus:border-red-400 focus:ring-0 outline-none font-medium text-slate-600 transition-all bg-slate-50/50"
+              value={form.challenge || ""}
+              onChange={(content) =>
+                setForm((prev) => ({
+                  ...prev,
+                  challenge: content,
+                }))
+              }
             />
           </div>
 
@@ -77,23 +90,30 @@ export default function EditChallengeModal({ item, onClose }) {
             <label className="text-[10px] font-black text-green-600 uppercase tracking-widest ml-1 flex items-center gap-1">
               <CheckCircle2 size={12} /> The Solution
             </label>
-            <textarea
+            <RichTextEditor
               rows={5}
-              value={form.solution}
-              onChange={(e) => setForm({ ...form, solution: e.target.value })}
-              className="w-full border-2 border-slate-100 p-5 rounded-2xl focus:border-green-500 focus:ring-0 outline-none font-medium text-slate-600 transition-all bg-slate-50/50"
+              value={form.solution || ""}
+              onChange={(value) =>
+                setForm((prev) => ({
+                  ...prev,
+                  solution: value,
+                }))
+              }
             />
           </div>
 
           {/* FOOTER */}
           <div className="flex justify-end gap-3 pt-6 border-t">
-            <button onClick={onClose} className="px-6 py-3 font-bold text-slate-400 hover:text-slate-600">
+            <button
+              onClick={onClose}
+              className="px-6 py-2.5 font-bold text-slate-400 cursor-pointer rounded-2xl border-2 hover:text-slate-600"
+            >
               Cancel
             </button>
             <button
               onClick={submit}
               disabled={loading}
-              className="px-10 py-3 bg-orange-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] flex items-center gap-2 shadow-lg shadow-orange-100 hover:bg-orange-600 transition-all active:scale-95"
+              className="px-8 py-2.5 bg-blue-500 text-white cursor-pointer rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] flex items-center gap-2 shadow-lg shadow-orange-100 hover:bg-blue-600 transition-all active:scale-95"
             >
               {loading ? (
                 <>

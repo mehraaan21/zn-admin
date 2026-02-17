@@ -19,7 +19,7 @@ export default async function OurSpecializationPage() {
         Authorization: `Bearer ${session.user.accessToken}`,
       },
       cache: "no-store",
-    }
+    },
   );
 
   if (!res.ok) {
@@ -33,15 +33,12 @@ export default async function OurSpecializationPage() {
   const specializations = Array.isArray(result.data) ? result.data : [];
 
   return (
-  
-
-
-       <div className="p-6">
-              {/* HEADER */}
-              <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Our Specializations</h1>
-                <AddSpecialization />
-              </div>
+    <div className="p-6">
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Our Specializations</h1>
+        <AddSpecialization />
+      </div>
 
       <SpecializationTable data={specializations} />
     </div>

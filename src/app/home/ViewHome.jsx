@@ -157,7 +157,7 @@ export default function ViewHome({ home }) {
               <div className="p-6 border-t bg-white flex justify-end gap-3 px-8">
                 <button
                   onClick={() => setOpen(false)}
-                  className="px-8 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
+                  className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
                 >
                   Close Preview
                 </button>

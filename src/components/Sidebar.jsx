@@ -56,18 +56,10 @@ export default function Sidebar() {
     Product: [{ label: "Product List", path: "/product" }],
     Career: [{ label: "Job List", path: "/career" }],
     Contact: [{ label: "Contact Us", path: "/contact" }],
-    "Case Study": [
-      { label: "Case Study", path: "/case-study" },
-      { label: " Results", path: "/case-study-results" },
-      { label: "Testimonials", path: "/case-study-testimonials" },
-      { label: "Challenges", path: "/case-study-challenges" },
-      { label: "Tech Stacks", path: "/case-study-tech-stacks" },
-    ],
+    "Case Study": [{ label: "Case Study", path: "/case-study" }],
     "Tech Stacks": [{ label: "Tech Stacks", path: "/tech-stacks" }],
-    "Our Specialization": [
-      { label: "Our Specialization", path: "/our-specialization" },
-    ],
-    Users: [{ label: "Users", path: "/users" }],
+    "Our Specialization": [{ label: "Our Specialization", path: "/our-specialization" }],
+    Users: [{ label: "Newsletter Subscribers", path: "/users" }],
     Blogs: [{ label: "Blogs", path: "/blogs" }],
     "Image Gallery": [{ label: "Image Gallery", path: "/image-gallery" }],
   };
@@ -75,7 +67,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden flex items-start justify-between bg-gradient-to-br from-blue-150 to-blue-500 p-4 border-b">
+      <div className="md:hidden flex items-start justify-between bg-linear-to-br from-blue-150 to-blue-500 p-4 border-b">
         <button onClick={() => setSidebarOpen(true)}>
           <Menu size={26} className="text-gray-800 dark:text-white" />
         </button>
@@ -90,7 +82,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 left-0 sm:w-auto md:w-54 lg:w-64 bg-gradient-to-br from-blue-500 to-blue-500 border-r dark:border-gray-700 z-40 p-4 transform transition-transform  duration-300
+        className={` md:static top-0 left-0 sm:w-auto md:w-54 lg:w-64 bg-linear-to-br from-sky-400 to-blue-700 border-r dark:border-gray-700 z-40 p-4 transform transition-transform  fixed duration-300
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
         <div className="flex justify-end mb-4 md:hidden">

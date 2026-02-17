@@ -5,6 +5,7 @@ import Image from "next/image";
 import { X, Upload, RefreshCcw, Save } from "lucide-react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditTestimonialModal({ testimonial, onClose }) {
   const router = useRouter();
@@ -124,12 +125,12 @@ const res = await fetch(`/api/case-studies/${caseId}/testimonials/${testimonial.
           {/* IMAGE SECTION */}
           <div className="space-y-4">
             <label className="font-bold text-sm text-slate-700 flex items-center gap-2">
-              <Upload size={16} className="text-purple-500" />
+              <Upload size={16} className="text-blue-500" />
               Update Client Photo
             </label>
 
             <div className="flex items-center gap-6">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-slate-100 flex-shrink-0">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-slate-100 shrink-0">
                 {preview ? (
                   <Image
                     src={preview}
@@ -146,7 +147,7 @@ const res = await fetch(`/api/case-studies/${caseId}/testimonials/${testimonial.
               </div>
 
               <div className="flex-1">
-                <label className="inline-block px-4 py-2 border-2 border-purple-100 text-purple-600 rounded-xl font-bold text-sm cursor-pointer hover:bg-purple-50 transition">
+                <label className="inline-block px-4 py-2 border-2 border-purple-100 text-blue-600 rounded-xl font-bold text-sm cursor-pointer hover:bg-purple-50 transition">
                   Change Photo
                   <input
                     type="file"
@@ -167,20 +168,25 @@ const res = await fetch(`/api/case-studies/${caseId}/testimonials/${testimonial.
             <label className="font-bold text-sm text-slate-700">
               Client Feedback
             </label>
-            <textarea
-              placeholder="Update the client's feedback here..."
-              value={form.feedback}
-              onChange={(e) => setForm({ ...form, feedback: e.target.value })}
-              className="w-full border-2 border-slate-100 rounded-2xl p-4 focus:border-purple-500 focus:ring-0 outline-none transition text-slate-600 font-medium"
-              rows={6}
-            />
+           <RichTextEditor
+  placeholder="Update the client's feedback here..."
+  value={form.feedback || ""}
+  onChange={(value) =>
+    setForm((prev) => ({
+      ...prev,
+      feedback: value,
+    }))
+  }
+  className="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+  rows={6}
+/>
           </div>
 
           {/* FOOTER */}
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100">
             <button
               onClick={onClose}
-              className="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition"
+              className="px-5 py-2.5 font-bold text-slate-400 border-2 cursor-pointer rounded-2xl hover:text-slate-600 transition"
             >
               Discard Changes
             </button>
@@ -188,7 +194,7 @@ const res = await fetch(`/api/case-studies/${caseId}/testimonials/${testimonial.
             <button
               onClick={submit}
               disabled={loading}
-              className="px-10 py-3 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black disabled:bg-slate-300 flex items-center gap-2 shadow-lg transition-all active:scale-95"
+              className="px-8 py-2.5 bg-blue-500 text-white cursor-pointer rounded-2xl font-bold hover:bg-blue-600 disabled:bg-slate-300 flex items-center gap-2 shadow-lg transition-all active:scale-95"
             >
               {loading ? (
                 <>

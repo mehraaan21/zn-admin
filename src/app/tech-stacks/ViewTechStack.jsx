@@ -22,9 +22,9 @@ export default function ViewTechStack({ data, onClose }) {
           className="bg-white rounded-3xl w-full max-w-lg overflow-hidden flex flex-col shadow-2xl border border-slate-200"
         >
           {/* STYLISH HEADER */}
-          <div className="relative p-6 border-b bg-gradient-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
+          <div className="relative p-6 border-b bg-linrar-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
             {/* Background Decoration */}
-            <div className="absolute top-[-20px] left-[-20px] w-32 h-32 bg-blue-50 rounded-full blur-3xl opacity-60" />
+            <div className="absolute top-20px left-20px w-32 h-32 bg-blue-50 rounded-full blur-3xl opacity-60" />
             
             <div className="flex items-center gap-3 relative z-10">
               <div className="p-2.5 bg-blue-600 rounded-xl shadow-lg shadow-blue-200 text-white">
@@ -81,33 +81,14 @@ export default function ViewTechStack({ data, onClose }) {
                   </div>
                   <p className="text-sm font-bold text-slate-700">{data.Category}</p>
                </div>
-               
-               {/* <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Calendar size={14} className="text-slate-400" />
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Added On</span>
-                  </div>
-                  <p className="text-sm font-bold text-slate-700">Jan 27, 2026</p>
-               </div> */}
             </div>
-
-            {/* Meta Footer Section */}
-            {/* <div className="bg-slate-900 rounded-2xl p-5 flex items-center justify-between text-white/70">
-                <div className="flex items-center gap-3">
-                   <User size={14} className="opacity-50" />
-                   <span className="text-xs font-medium">Author: System Admin</span>
-                </div>
-                <div className="flex items-center gap-2 px-2 py-1 bg-white/10 rounded text-[10px] font-bold text-white uppercase tracking-tighter uppercase">
-                   <Layout size={10} /> Stack Library
-                </div>
-            </div> */}
           </div>
 
           {/* Action Footer */}
           <div className="p-6 border-t bg-slate-50/50 flex justify-end px-8">
             <button
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
+              className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
             >
               Close Details
             </button>

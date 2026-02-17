@@ -69,10 +69,7 @@ export default function EditResults({ result, onClose }) {
       formData.append("title", title.trim());
 formData.append("case_study_id", result.CaseStudyID);
 
-      // bulletPoints.forEach((p) =>
-      //   formData.append("bullet_points[]", p)
-      // );
-
+   
       bulletPoints
   .map(p => p.trim())
   .filter(Boolean)
@@ -169,7 +166,7 @@ router.refresh();
 
                   <button
                     onClick={addBullet}
-                    className="flex items-center gap-1 text-blue-600 font-semibold"
+                    className="flex items-center cursor-pointer gap-1 text-blue-600 font-semibold"
                   >
                     <Plus size={16} />
                     Add
@@ -191,7 +188,7 @@ router.refresh();
                         onClick={() =>
                           removeBullet(i)
                         }
-                        className="p-2 bg-red-50 rounded-lg"
+                        className="p-2 cursor-pointer bg-red-50 rounded-lg"
                       >
                         <Trash2
                           size={16}
@@ -238,7 +235,7 @@ router.refresh();
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="flex items-center gap-2 px-6 py-2 bg-black text-white rounded-xl"
+              className="flex items-center cursor-pointer gap-2 px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl"
             >
               <Save size={16} />
               {loading ? "Saving..." : "Save Changes"}

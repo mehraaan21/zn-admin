@@ -1,12 +1,20 @@
-
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
-import { X, Plus, Upload, Type, Globe, Layers, FileText, RefreshCcw } from "lucide-react";
+import {
+  X,
+  Plus,
+  Upload,
+  Type,
+  Globe,
+  Layers,
+  FileText,
+  RefreshCcw,
+} from "lucide-react";
 import Image from "next/image";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function AddProduct() {
   const router = useRouter();
@@ -33,7 +41,13 @@ export default function AddProduct() {
   };
 
   const submit = async () => {
-    if (!form.title || !form.website_url || !form.category || !form.description || !form.image) {
+    if (
+      !form.title ||
+      !form.website_url ||
+      !form.category ||
+      !form.description ||
+      !form.image
+    ) {
       toast("All fields are required", "error");
       return;
     }
@@ -43,7 +57,13 @@ export default function AddProduct() {
       const data = new FormData();
       data.append("title", form.title);
       // Auto-generating slug from title for the API call
-      data.append("slug", form.title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, ""));
+      data.append(
+        "slug",
+        form.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, ""),
+      );
       data.append("url", form.website_url);
       data.append("category", form.category);
       data.append("description", form.description);
@@ -61,7 +81,14 @@ export default function AddProduct() {
 
       toast("Product added successfully");
       setOpen(false);
-      setForm({ title: "", slug: "", website_url: "", category: "", description: "", image: null });
+      setForm({
+        title: "",
+        slug: "",
+        website_url: "",
+        category: "",
+        description: "",
+        image: null,
+      });
       setPreview(null);
       router.refresh();
     } catch (error) {
@@ -75,7 +102,7 @@ export default function AddProduct() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
+        className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-sm active:scale-95 font-medium cursor-pointer"
       >
         <Plus size={20} />
         Add Product
@@ -84,15 +111,14 @@ export default function AddProduct() {
       {open && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
-            
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <Layers className="text-blue-600" size={22} />
                 Create New Product
               </h2>
-              <button 
-                onClick={() => setOpen(false)} 
+              <button
+                onClick={() => setOpen(false)}
                 className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
               >
                 <X size={24} />
@@ -102,22 +128,38 @@ export default function AddProduct() {
             <div className="p-6 space-y-6">
               {/* Image Upload Area */}
               <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700 flex items-center gap-1">
+                <label className="block text-sm font-semibold text-gray-700  items-center gap-1">
                   <Upload size={14} /> Product Image
                 </label>
                 <div className="relative group border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition-all bg-gray-50 flex flex-col items-center justify-center min-h-[180px]">
                   {preview ? (
                     <div className="relative w-full aspect-video rounded-lg overflow-hidden border shadow-sm">
-                      <Image src={preview} alt="Preview" fill className="object-cover" unoptimized />
+                      <Image
+                        src={preview}
+                        alt="Preview"
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
                     </div>
                   ) : (
                     <div className="text-center">
-                      <Upload className="mx-auto text-gray-300 mb-2" size={40} />
-                      <p className="text-sm text-gray-500 font-medium">Click to upload product image</p>
+                      <Upload
+                        className="mx-auto text-gray-300 mb-2"
+                        size={40}
+                      />
+                      <p className="text-sm text-gray-500 font-medium">
+                        Click to upload product image
+                      </p>
                     </div>
                   )}
                   <label className="absolute inset-0 cursor-pointer">
-                    <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleImageChange}
+                    />
                   </label>
                 </div>
               </div>
@@ -125,56 +167,63 @@ export default function AddProduct() {
               {/* Form Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                     <Type size={14} /> Product Title
                   </label>
                   <input
                     type="text"
                     placeholder="Enter product title"
                     value={form.title}
-                    onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                    onChange={(e) =>
+                      setForm({ ...form, title: e.target.value })
+                    }
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                     <Layers size={14} /> Category
                   </label>
                   <input
                     type="text"
                     placeholder="e.g. Fintech, SaaS"
                     value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                    onChange={(e) =>
+                      setForm({ ...form, category: e.target.value })
+                    }
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                   />
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                     <Globe size={14} /> Website URL
                   </label>
                   <input
                     type="url"
                     placeholder="https://yourproduct.com"
                     value={form.website_url}
-                    onChange={(e) => setForm({ ...form, website_url: e.target.value })}
-                    className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                    onChange={(e) =>
+                      setForm({ ...form, website_url: e.target.value })
+                    }
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
                   />
                 </div>
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                   <FileText size={14} /> Description
                 </label>
-                <textarea
+                <RichTextEditor
                   placeholder="Tell us about this product..."
                   rows={4}
                   value={form.description}
-                  onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                  onChange={(e) =>
+                    setForm({ ...form, description: e.target.value })
+                  }
                 />
               </div>
 

@@ -1,6 +1,15 @@
 "use client";
 
-import { X, Briefcase, Users, FileText, Calendar, CheckCircle2, MapPin, Clock } from "lucide-react";
+import {
+  X,
+  Briefcase,
+  Users,
+  FileText,
+  Calendar,
+  CheckCircle2,
+  MapPin,
+  Clock,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ViewOpening({ data, onClose }) {
@@ -21,9 +30,9 @@ export default function ViewOpening({ data, onClose }) {
           className="bg-white rounded-3xl w-full max-w-3xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200"
         >
           {/* STYLISH HEADER */}
-          <div className="relative p-8 border-b bg-gradient-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
-            <div className="absolute top-[-20px] left-[-20px] w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
-            
+          <div className="relative p-8 border-b bg-linear-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
+            <div className="absolute top-20px left-20px w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
+
             <div className="flex items-center gap-4 relative z-10">
               <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 text-white">
                 <Briefcase size={24} />
@@ -71,7 +80,8 @@ export default function ViewOpening({ data, onClose }) {
                   </h3>
                   <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100">
                     <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">
-                      {data.description || "No description provided for this role."}
+                      {data.description ||
+                        "No description provided for this role."}
                     </p>
                   </div>
                 </div>
@@ -80,61 +90,36 @@ export default function ViewOpening({ data, onClose }) {
               {/* Sidebar Metadata Card */}
               <div className="space-y-6">
                 <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100 space-y-6">
-                  {/* <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
-                      Hiring Status
-                    </p>
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${
-                      data.status === 'active' || data.status === true
-                        ? 'bg-green-50 text-green-600 border-green-100' 
-                        : 'bg-red-50 text-red-600 border-red-100'
-                    }`}>
-                      <CheckCircle2 size={12} />
-                      {data.status === 'active' || data.status === true ? 'Accepting Apps' : 'Closed'}
-                    </div>
-                  </div> */}
-                  
                   <div className="pt-6 border-t border-slate-200 space-y-4">
                     <div className="flex items-center gap-3">
-                       <div className="p-2 bg-white rounded-lg shadow-sm">
-                          <Users size={16} className="text-slate-400" />
-                       </div>
-                       <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase">Available Slots</p>
-                          <p className="text-sm font-bold text-slate-700">{data.opening} Openings</p>
-                       </div>
+                      <div className="p-2 bg-white rounded-lg shadow-sm">
+                        <Users size={16} className="text-slate-400" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase">
+                          Available Slots
+                        </p>
+                        <p className="text-sm font-bold text-slate-700">
+                          {data.opening} Openings
+                        </p>
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-3">
-                       <div className="p-2 bg-white rounded-lg shadow-sm">
-                          <Clock size={16} className="text-slate-400" />
-                       </div>
-                       <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase">Job Type</p>
-                          <p className="text-sm font-bold text-slate-700">Full Time / Remote</p>
-                       </div>
+                      <div className="p-2 bg-white rounded-lg shadow-sm">
+                        <Clock size={16} className="text-slate-400" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase">
+                          Job Type
+                        </p>
+                        <p className="text-sm font-bold text-slate-700">
+                          Full Time / Remote
+                        </p>
+                      </div>
                     </div>
-
-                    {/* <div className="flex items-center gap-3">
-                       <div className="p-2 bg-white rounded-lg shadow-sm">
-                          <Calendar size={16} className="text-slate-400" />
-                       </div>
-                       <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase">Posted On</p>
-                          <p className="text-sm font-bold text-slate-700">
-                             {new Date(data.created_at || Date.now()).toLocaleDateString('en-US', { 
-                                month: 'short', day: 'numeric', year: 'numeric' 
-                             })}
-                          </p>
-                       </div>
-                    </div> */}
                   </div>
                 </div>
-
-                {/* <div className="p-4 bg-blue-600 rounded-2xl text-white text-center shadow-lg shadow-blue-100">
-                   <p className="text-[10px] font-bold uppercase opacity-60 mb-1">Recruitment Link</p>
-                   <p className="text-xs font-mono truncate">career.yourcompany.com</p>
-                </div> */}
               </div>
             </div>
           </div>
@@ -143,7 +128,7 @@ export default function ViewOpening({ data, onClose }) {
           <div className="p-6 border-t bg-white flex justify-end gap-3 px-8">
             <button
               onClick={onClose}
-              className="px-10 py-3 bg-slate-900 hover:bg-black text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
+              className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
             >
               Close Preview
             </button>
@@ -152,9 +137,16 @@ export default function ViewOpening({ data, onClose }) {
       </motion.div>
 
       <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 10px;
+        }
       `}</style>
     </AnimatePresence>
   );
