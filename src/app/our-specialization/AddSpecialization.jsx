@@ -172,7 +172,7 @@ export default function AddSpecialization() {
                   <label className="block text-sm font-semibold text-slate-700 mb-1  items-center gap-1">
                     <List size={14} /> Bullet Points
                   </label>
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Fast Delivery, User Centric, Modern UI (comma separated)"
                     value={form.bullet_points}
@@ -180,7 +180,18 @@ export default function AddSpecialization() {
                       setForm({ ...form, bullet_points: e.target.value })
                     }
                     className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
-                  />
+                  /> */}
+
+
+                   <textarea
+              className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+              placeholder="Enter each bullet point on comma seprated..."
+              rows={4}
+              value={form.bullet_points}
+              onChange={(e) =>
+                setForm({ ...form, bullet_points: e.target.value })
+              }
+            />
                 </div>
 
                 <div className="md:col-span-2">

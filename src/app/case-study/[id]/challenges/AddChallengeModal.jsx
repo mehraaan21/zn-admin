@@ -62,13 +62,13 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
 
   const submit = async () => {
     if (!form.challenge || !form.solution) {
-      return toast.error("Dono fields bharna zaroori hai");
+      return toast.error("Required Challenges and solutions");
     }
 
     try {
       setLoading(true);
 
-      // Backend req.formData() expect kar raha hai
+   
       const formData = new FormData();
       formData.append("challenge", form.challenge);
       formData.append("solution", form.solution);
@@ -76,25 +76,23 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
 
       const res = await fetch(`/api/case-studies/${caseStudyId}/challenges`, {
         method: "POST",
-        // FormData ke saath Content-Type manually set nahi karte
         body: formData,
       });
 
-      // Response ko JSON mein badlein
       let result;
       try {
         result = await res.json();
       } catch (e) {
-        throw new Error("Server se invalid response mila");
+        throw new Error("Server response Invalid");
       }
 
       if (res.ok) {
-        toast.success("Challenge add ho gaya! 🚀");
+        toast.success(" Succesfull Add Challenge! 🚀");
         if (router.refresh) router.refresh();
         onClose();
       } else {
         throw new Error(
-          result.message || "Challenge add karne mein nakami hui",
+          result.message || "Failed to Add challenges",
         );
       }
     } catch (err) {
@@ -126,26 +124,30 @@ export default function AddChallengeModal({ caseStudyId, onClose }) {
             <label className="text-xs font-bold text-gray-500 uppercase ml-1">
               Challenges
             </label>
-            <RichTextEditor
-              placeholder="Challenges"
-              rows={4}
-              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
-              value={form.challenge}
-              onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-            />
+           <RichTextEditor
+  placeholder="Challenges"
+  className="w-full min-h-[150px] border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
+  value={form.challenge}
+  onChange={(value) =>
+    setForm((prev) => ({
+      ...prev,
+      challenge: value,
+    }))
+  }
+/>
           </div>
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase ml-1">
               Solution
             </label>
-            <RichTextEditor
-              placeholder="Solution"
-              rows={4}
-              className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
-              value={form.solution}
-              onChange={(e) => setForm({ ...form, solution: e.target.value })}
-            />
+           <RichTextEditor
+  placeholder="Solution"
+  rows={4}
+  className="w-full border-2 border-gray-100 rounded-xl p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+  value={form.solution}
+  onChange={(value) => setForm({ ...form, solution: value })}
+/>
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t">

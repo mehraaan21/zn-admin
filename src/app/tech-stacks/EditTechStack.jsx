@@ -8,8 +8,8 @@ import { X, Upload, Layout, Layers, Type, RefreshCcw } from "lucide-react";
 export default function EditTechStack({ tech, onClose }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState(tech.Name);
-  const [category, setCategory] = useState(tech.Category);
+const [name, setName] = useState(tech?.Name || "");
+const [category, setCategory] = useState(tech?.Category || "");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(tech.image_url || "/placeholder.png");
 
@@ -22,37 +22,72 @@ export default function EditTechStack({ tech, onClose }) {
     }
   };
 
-  const submit = async () => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("category", category);
+  // const submit = async () => {
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+  //   formData.append("category", category);
 
-    if (image) {
-      formData.append("image", image);
+  //   if (image) {
+  //     formData.append("image", image);
+  //   }
+
+  //   try {
+  //     setLoading(true);
+
+  //     const res = await fetch(`/api/tech-stacks/${tech.id}`, {
+  //       method: "PUT",
+  //       body: formData,
+  //     });
+
+  //     if (!res.ok) {
+  //       const errorData = await res.json();
+  //       throw new Error(errorData.message || "Update failed");
+  //     }
+
+  //     toast("Tech Stack updated successfully");
+  //     onClose();
+  //     router.refresh();
+  //   } catch (err) {
+  //     toast(err.message, "error");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+const submit = async () => {
+  const formData = new FormData();
+  formData.append("name", name || "");
+  formData.append("category", category || "");
+
+  if (image) {
+    formData.append("image", image);
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await fetch(`/api/tech-stacks/${tech.id}`, {
+      method: "PUT",
+      body: formData,
+      duplex: "half", // ✅ VERY IMPORTANT FIX
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Update failed");
     }
 
-    try {
-      setLoading(true);
+    toast("Tech Stack updated successfully");
+    onClose();
+    router.refresh();
+  } catch (err) {
+    console.error(err);
+    toast(err.message, "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
-      const res = await fetch(`/api/tech-stacks/${tech.id}`, {
-        method: "PUT",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Update failed");
-      }
-
-      toast("Tech Stack updated successfully");
-      onClose();
-      router.refresh();
-    } catch (err) {
-      toast(err.message, "error");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">

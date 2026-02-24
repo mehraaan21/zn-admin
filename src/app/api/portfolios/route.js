@@ -57,7 +57,7 @@ export async function POST(req) {
 
     console.log("➡️ BEFORE formData()");
     const formData = await req.formData(); // ❗ crashing line usually
-    console.log("➡️ AFTER formData()");
+    console.log("➡️ AFTER formData",formData);
 
     console.log(
       "➡️ IMAGE:",
@@ -73,6 +73,8 @@ export async function POST(req) {
           Authorization: `Bearer ${session.user.accessToken}`,
         },
         body: formData,
+        duplex: "half",
+
       }
     );
 

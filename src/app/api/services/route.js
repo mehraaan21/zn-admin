@@ -12,6 +12,7 @@ export async function POST(req) {
     }
 
     const formData = await req.formData();
+    console.log("form data", formData);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/our-services`,

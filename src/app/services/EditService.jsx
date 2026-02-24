@@ -461,3 +461,374 @@ value={form.sub_title} onChange={(e) => setForm({ ...form, sub_title: e.target.v
     </AnimatePresence>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// "use client";
+
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+// import { toast } from "@/lib/toast";
+// import {
+//   X,
+//   Plus,
+//   Trash2,
+//   Save,
+//   Loader2,
+//   Info,
+//   HelpCircle,
+//   GitMerge,
+//   FileText,
+//   ImageIcon,
+// } from "lucide-react";
+// import { motion, AnimatePresence } from "framer-motion";
+
+// export default function EditService({ service, onClose }) {
+//   const router = useRouter();
+//   const [loading, setLoading] = useState(false);
+
+//   // 1. Initial State Setup (Mapping existing API data into the form)
+//   const [form, setForm] = useState({
+//     title: service?.title || "",
+//     sub_title: service?.sub_title || "",
+//     slug: service?.slug || "",
+//     description: service?.description || "",
+//     icon: null, // New file upload
+//     process_title: service?.process_title || "",
+//     process_sub_title: service?.process_sub_title || "",
+//     process_description: service?.process_description || "",
+//     process_images: null, // New file upload
+//     steps: service?.process?.map((s) => ({ key: s.key, value: s.value })) || [
+//       { key: "", value: "" },
+//     ],
+//     faqs: service?.faqs?.map((f) => ({
+//       title: f.title,
+//       description: f.description,
+//     })) || [{ title: "", description: "" }],
+//     about_service: service?.about_service?.map((a) => ({
+//       key: a.key ?? a.title ?? "",
+//       value: a.value ?? a.description ?? "",
+//       media: null,
+//     })) || [{ key: "", value: "", media: null }],
+//   });
+
+//   // Dynamic Add/Remove Handlers
+//   const addField = (field) => {
+//     const newItems =
+//       field === "steps"
+//         ? { key: "", value: "" }
+//         : field === "faqs"
+//           ? { title: "", description: "" }
+//           : { key: "", value: "", media: null };
+//     setForm({ ...form, [field]: [...form[field], newItems] });
+//   };
+
+//   const removeField = (field, index) => {
+//     const list = [...form[field]];
+//     list.splice(index, 1);
+//     setForm({ ...form, [field]: list });
+//   };
+
+//   const handleDynamicChange = (field, index, key, val) => {
+//     const list = [...form[field]];
+//     list[index][key] = val;
+//     setForm({ ...form, [field]: list });
+//   };
+
+//   // --- Update Logic ---
+//   const update = async () => {
+//     if (loading) return;
+//     setLoading(true);
+
+//     try {
+//       const formData = new FormData();
+//       formData.append("_method", "PUT");
+
+//       formData.append("title", form.title || "");
+//       formData.append("sub_title", form.sub_title || "");
+//       formData.append("slug", form.slug || "");
+//       formData.append("description", form.description || "");
+
+//       if (form.icon instanceof File) {
+//         formData.append("icon", form.icon);
+//       }
+
+//       formData.append("process_title", form.process_title || "");
+//       formData.append("process_sub_title", form.process_sub_title || "");
+//       formData.append("process_description", form.process_description || "");
+
+//       if (form.process_images instanceof File) {
+//         formData.append("process_media", form.process_images);
+//       }
+
+//       form.steps.forEach((step) => {
+//         formData.append("process_steps_keys[]", step.key || "");
+//         formData.append("process_steps_values[]", step.value || "");
+//       });
+
+//       form.faqs.forEach((faq) => {
+//         formData.append("faq_titles[]", faq.title || "");
+//         formData.append("faq_descriptions[]", faq.description || "");
+//       });
+
+//       form.about_service.forEach((item, index) => {
+//         formData.append(`about_service[${index}][key]`, item.key || "");
+//         formData.append(`about_service[${index}][value]`, item.value || "");
+//         if (item.media instanceof File) {
+//           formData.append(`about_service[${index}][media]`, item.media);
+//         }
+//       });
+
+//       const res = await fetch(`/api/services/${service.id}`, {
+//         method: "PUT",
+//         body: formData,
+//       });
+
+//       const result = await res.json();
+
+//       if (!res.ok) {
+//         console.error("Server Validation Error:", result);
+//         throw new Error(result.message || "Update Failed");
+//       }
+
+//       toast("Service Updated Successfully!", "success");
+//       router.refresh();
+//       onClose();
+
+//     } catch (err) {
+//       console.error("Update Debug Info:", err);
+//       toast(err.message, "error");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <AnimatePresence>
+//       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+//         <motion.div
+//           initial={{ opacity: 0, scale: 0.95 }}
+//           animate={{ opacity: 1, scale: 1 }}
+//           exit={{ opacity: 0, scale: 0.95 }}
+//           className="flex flex-col w-full bg-white shadow-2xl max-w-5xl max-h-[90vh] rounded-3xl overflow-hidden"
+//         >
+//           {/* Header */}
+//           <div className="flex items-center justify-between p-6 bg-blue-50 border-b">
+//             <div>
+//               <h2 className="text-2xl font-black text-gray-800 tracking-tight">Edit Service</h2>
+//               <p className="text-sm font-medium text-blue-600">ID: #{service.id} • {service.title}</p>
+//             </div>
+//             <button onClick={onClose} className="p-2 text-black-500 transition-all rounded-full hover:bg-gray-150">
+//               <X size={24} />
+//             </button>
+//           </div>
+
+//           {/* Form Body (Scrollable) */}
+//           <div className="p-8 space-y-10 overflow-y-auto custom-scrollbar">
+//             {/* 1. Basic Information */}
+//             <div className="space-y-4">
+//               <div className="flex items-center gap-2 pb-2 text-lg font-bold text-blue-600 border-b">
+//                 <Info size={20} /> Basic Information
+//               </div>
+//               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+//                 <div className="space-y-1">
+//                   <label className="text-xs font-bold text-gray-400 ml-1">TITLE</label>
+//                   <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                     value={form.title}
+//                     onChange={(e) => setForm({ ...form, title: e.target.value })}
+//                   />
+//                 </div>
+//                 <div className="space-y-1">
+//                   <label className="text-xs font-bold text-gray-400 ml-1">SUB TITLE</label>
+//                   <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                     value={form.sub_title}
+//                     onChange={(e) => setForm({ ...form, sub_title: e.target.value })}
+//                   />
+//                 </div>
+//                 <div className="space-y-1">
+//                   <label className="text-xs font-bold text-gray-400 ml-1">SLUG (URL)</label>
+//                   <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                     value={form.slug}
+//                     onChange={(e) => setForm({ ...form, slug: e.target.value })}
+//                   />
+//                 </div>
+//                 <div className="space-y-1">
+//                   <label className="text-xs font-bold text-gray-400 ml-1">UPDATE ICON (OPTIONAL)</label>
+//                   <input type="file" className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                     onChange={(e) => setForm({ ...form, icon: e.target.files[0] })}
+//                   />
+//                 </div>
+//               </div>
+//               <div className="space-y-1">
+//                 <label className="text-xs font-bold text-gray-400 ml-1">FULL DESCRIPTION</label>
+//                 <textarea className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                   rows={3}
+//                   value={form.description}
+//                   onChange={(e) => setForm({ ...form, description: e.target.value })}
+//                 />
+//               </div>
+//             </div>
+
+//             {/* 2. Process Section */}
+//             <div className="space-y-4">
+//               <div className="flex items-center justify-between pb-2 border-b">
+//                 <div className="flex items-center gap-2 text-lg font-bold text-orange-600"><GitMerge size={20} /> Process Section</div>
+//                 <button onClick={() => addField("steps")} className="px-3 py-1 text-xs font-bold text-orange-600 bg-orange-100 rounded-lg hover:bg-orange-200">+ Add Step</button>
+//               </div>
+//               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+//                 <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                   placeholder="Process Title"
+//                   value={form.process_title}
+//                   onChange={(e) => setForm({ ...form, process_title: e.target.value })}
+//                 />
+//                 <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                   placeholder="Process Sub-title"
+//                   value={form.process_sub_title}
+//                   onChange={(e) => setForm({ ...form, process_sub_title: e.target.value })}
+//                 />
+//                 <textarea className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                   rows={3}
+//                   placeholder="Process Description"
+//                   value={form.process_description}
+//                   onChange={(e) => setForm({ ...form, process_description: e.target.value })}
+//                 />
+//                 <div className="space-y-1">
+//                   <label className="text-xs font-bold text-orange-400 ml-1 uppercase">Update Process Image</label>
+//                   <input type="file" className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                     onChange={(e) => setForm({ ...form, process_images: e.target.files[0] })}
+//                   />
+//                 </div>
+//               </div>
+
+//               <div className="space-y-3">
+//                 {form.steps.map((step, index) => (
+//                   <div key={index} className="flex gap-3 p-3 bg-orange-50/50 rounded-2xl border border-orange-100 animate-in fade-in zoom-in duration-300">
+//                     <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Step Key"
+//                       value={step.key}
+//                       onChange={(e) => handleDynamicChange("steps", index, "key", e.target.value)}
+//                     />
+//                     <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Step Value"
+//                       value={step.value}
+//                       onChange={(e) => handleDynamicChange("steps", index, "value", e.target.value)}
+//                     />
+//                     <button onClick={() => removeField("steps", index)} className="text-red-400 hover:text-red-600"><Trash2 size={20} /></button>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* 3. About Service Sections */}
+//             <div className="space-y-4">
+//               <div className="flex items-center justify-between pb-2 border-b">
+//                 <div className="flex items-center gap-2 text-lg font-bold text-purple-600"><FileText size={20} /> Feature Sections</div>
+//                 <button onClick={() => addField("about_service")} className="px-3 py-1 text-xs font-bold text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200">+ Add Content</button>
+//               </div>
+//               {form.about_service.map((about, index) => (
+//                 <div key={index} className="relative grid grid-cols-1 gap-4 p-6 border bg-purple-50/30 md:grid-cols-2 rounded-3xl border-purple-100">
+//                   <button onClick={() => removeField("about_service", index)} className="absolute p-1 text-red-500 bg-white border border-red-100 rounded-full shadow-md -top-2 -right-2 hover:bg-red-50"><X size={16} /></button>
+//                   <div className="space-y-3">
+//                     <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Section Key"
+//                       value={about.key}
+//                       onChange={(e) => handleDynamicChange("about_service", index, "key", e.target.value)}
+//                     />
+//                     <input className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Section Value"
+//                       value={about.value}
+//                       onChange={(e) => handleDynamicChange("about_service", index, "value", e.target.value)}
+//                     />
+//                   </div>
+//                   <div className="flex flex-col items-center justify-center p-4 bg-white border-2 border-dashed rounded-xl border-purple-200">
+//                     <input type="file" id={`edit-about-media-${index}`} className="hidden" onChange={(e) => {
+//                       const list = [...form.about_service];
+//                       list[index].media = e.target.files[0];
+//                       setForm({ ...form, about_service: list });
+//                     }} />
+//                     <label htmlFor={`edit-about-media-${index}`} className="flex flex-col items-center gap-2 cursor-pointer">
+//                       {about.media ? (
+//                         <span className="text-xs font-bold text-green-600 truncate max-w-[150px]">{about.media.name}</span>
+//                       ) : (
+//                         <><ImageIcon size={24} className="text-purple-400" /><span className="text-xs font-medium text-purple-600">Change Media</span></>
+//                       )}
+//                     </label>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+
+//             {/* 4. FAQs Section */}
+//             <div className="space-y-4">
+//               <div className="flex items-center justify-between pb-2 border-b">
+//                 <div className="flex items-center gap-2 text-lg font-bold text-green-600"><HelpCircle size={20} /> FAQs</div>
+//                 <button onClick={() => addField("faqs")} className="px-3 py-2 text-xs font-bold text-green-600 bg-green-100 rounded-lg hover:bg-green-200">+ Add FAQ</button>
+//               </div>
+//               <div className="grid p-2 grid-cols-1 gap-4 md:grid-cols-2">
+//                 {form.faqs.map((faq, index) => (
+//                   <div key={index} className="relative p-8 bg-gray-50 rounded-2xl border border-gray-100">
+//                     <button onClick={() => removeField("faqs", index)} className="absolute text-red-400 top-2 right-2 p-2 hover:text-red-500"><X size={16} /></button>
+//                     <input className="w-full border border-gray-300 rounded-xl mb-4 p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Question"
+//                       value={faq.title}
+//                       onChange={(e) => handleDynamicChange("faqs", index, "title", e.target.value)}
+//                     />
+//                     <textarea className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+//                       placeholder="Answer"
+//                       value={faq.description}
+//                       onChange={(e) => handleDynamicChange("faqs", index, "description", e.target.value)}
+//                     />
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Footer */}
+//           <div className="flex justify-end gap-4 p-6 bg-gray-50 border-t">
+//             <button onClick={onClose} className="px-6 py-2 font-bold text-gray-500 transition-all rounded-xl hover:bg-gray-200">Cancel</button>
+//             <button onClick={update} disabled={loading} className="flex items-center gap-2 px-8 py-2.5 font-bold text-white bg-blue-600 shadow-lg rounded-xl hover:bg-blue-700 disabled:bg-blue-300">
+//               {loading ? <Loader2 className="animate-spin" /> : <Save size={20} />}
+//               {loading ? "Updating..." : "Save Changes"}
+//             </button>
+//           </div>
+//         </motion.div>
+//       </div>
+
+//       <style jsx global>{`
+//         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+//         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+//         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+//       `}</style>
+//     </AnimatePresence>
+//   );
+// }

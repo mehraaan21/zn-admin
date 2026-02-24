@@ -41,7 +41,7 @@ const EditProfileModal = ({ isOpen, onClose }) => {
           <X size={24} />
         </button>
 
-        <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in zoom-in duration-300">
+        <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in zoom-in p-8 duration-300">
           {/* WELCOME HEADER SECTION */}
           <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
             <div className="relative z-10">

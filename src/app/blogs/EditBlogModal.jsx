@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "@/lib/toast";
 import { useRouter } from "next/navigation";
-import { X, Upload, Globe, FileText, Search } from "lucide-react"; // Icons for UI
+import { X, Upload, Globe, FileText, Search, Tags } from "lucide-react"; // Icons for UI
 import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditBlogModal({ blog, onClose }) {
@@ -89,6 +89,32 @@ export default function EditBlogModal({ blog, onClose }) {
                   required
                 />
               </div>
+
+
+               <div className="space-y-1">
+                              <label className="text-sm font-semibold text-slate-700 flex items-center gap-1">
+                                <Tags size={14} /> Category
+                              </label>
+              
+                              {/* ✅ Category Dropdown */}
+                              <select
+                                name="blog_category_id"
+                                required
+                                defaultValue=""
+                                className="w-full appearance-none border border-slate-200 rounded-xl p-2 pr-10 focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm bg-white text-slate-700"
+                              >
+                                <option value="" disabled>
+                                  Select a category
+                                </option>
+              
+                                <option value={1}>AI & ML</option>
+                                <option value={2}>Development</option>
+                                <option value={3}>Security</option>
+                                <option value={4}>Data Science</option>
+                              </select>
+                            </div>
+
+
             </div>
 
             {/* Image Upload Section */}
@@ -161,12 +187,14 @@ export default function EditBlogModal({ blog, onClose }) {
               <label className="block text-xs font-bold text-gray-600 mb-1 uppercase">
                 SEO Meta Description
               </label>
+
               <textarea
                 name="seo_description"
                 defaultValue={blog.seo_description}
                 rows={2}
                 className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
               />
+              
             </div>
           </div>
 

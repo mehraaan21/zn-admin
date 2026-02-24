@@ -1,12 +1,12 @@
 
+
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-
-
 export async function POST(req, { params }) {
-
-    const { id } = params; // ⭐⭐⭐ THIS WAS MISSING
+    // 1. Ensure params are awaited (required in newer Next.js versions)
+    const { id } = await params; 
 
     const session = await getServerSession(authOptions);
 
@@ -15,7 +15,6 @@ export async function POST(req, { params }) {
     }
 
     try {
-
         const formData = await req.formData();
 
         const res = await fetch(
@@ -23,31 +22,88 @@ export async function POST(req, { params }) {
             {
                 method: "POST",
                 headers: {
+                    // ⭐ IMPORTANT: REMOVE 'Content-Type' if you had it.
+                    // Keep ONLY Authorization. fetch will handle the boundary.
                     Authorization: `Bearer ${session.user.accessToken}`,
                 },
                 body: formData,
             }
         );
 
-        const data = await res.json();
+        // Attempt to parse response safely
+        const data = await res.json().catch(() => ({ message: "Invalid JSON response from API" }));
 
         if (!res.ok) {
-            console.log("Post API Error:", data);
+            console.error("Post API Error Detail:", data);
             return Response.json(data, { status: res.status });
         }
 
         return Response.json(data, { status: res.status });
 
     } catch (error) {
-
         console.error("POST TECH STACK ERROR:", error);
-
         return Response.json(
-            { message: error.message || "Server error" },
+            { message: error.message || "Internal Server Error" },
             { status: 500 }
         );
     }
 }
+
+export const config = {
+  api: {
+    bodyParser: false, // Disables standard body parser for custom handling
+  },
+};
+
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/lib/auth";
+
+
+
+// export async function POST(req, { params }) {
+
+//     const { id } = await params; // ⭐⭐⭐ THIS WAS MISSING
+
+//     const session = await getServerSession(authOptions);
+
+//     if (!session?.user?.accessToken) {
+//         return Response.json({ message: "Unauthorized" }, { status: 401 });
+//     }
+
+//     try {
+
+//         const formData = await req.formData();
+
+//         const res = await fetch(
+//             `${process.env.NEXT_PUBLIC_API_URL}/case-studies/${id}/tech-stacks`,
+//             {
+//                 method: "POST",
+//                 headers: {
+//                     Authorization: `Bearer ${session.user.accessToken}`,
+//                 },
+//                 body: formData,
+//             }
+//         );
+
+//         const data = await res.json();
+
+//         if (!res.ok) {
+//             console.log("Post API Error:", data);
+//             return Response.json(data, { status: res.status });
+//         }
+
+//         return Response.json(data, { status: res.status });
+
+//     } catch (error) {
+
+//         console.error("POST TECH STACK ERROR:", error);
+
+//         return Response.json(
+//             { message: error.message || "Server error" },
+//             { status: 500 }
+//         );
+//     }
+// }
 
 
 // // Post case-study Tech-stacks

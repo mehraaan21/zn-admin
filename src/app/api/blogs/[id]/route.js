@@ -16,6 +16,7 @@ export async function PUT(req, { params }) {
 
     // 2. Capture the incoming FormData
     const formData = await req.formData();
+    console.log(formData);
     
 
     // 3. Forward to Backend

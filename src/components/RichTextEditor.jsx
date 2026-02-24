@@ -6,9 +6,11 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function RichTextEditor({ value = "", onChange }) {
+export default function RichTextEditor({ value = "", onChange, name }) {
+  const [content, setContent] = useState(value || "");
+
   const editor = useEditor({
     immediatelyRender: false,
 
@@ -20,7 +22,7 @@ export default function RichTextEditor({ value = "", onChange }) {
       }),
     ],
 
-    content: value,
+    content: content,
 
     editorProps: {
       attributes: {
@@ -30,14 +32,26 @@ export default function RichTextEditor({ value = "", onChange }) {
     },
 
     onUpdate({ editor }) {
-      onChange?.(editor.getHTML());
+      const html = editor.getHTML();
+      onChange?.(html);
+      setContent(html);
     },
   });
 
-  // Sync value safely
+  // Sync value safely and handle empty state
   useEffect(() => {
-    if (editor && value !== editor.getHTML()) {
-      editor.commands.setContent(value);
+    if (editor) {
+      const currentContent = editor.getHTML();
+      const isEmpty = !value || value === "" || value === "<p></p>";
+      const isCurrentEmpty = !currentContent || currentContent === "" || currentContent === "<p></p>";
+
+      if (isEmpty && !isCurrentEmpty) {
+        editor.commands.clearContent();
+        setContent("");
+      } else if (value && value !== currentContent) {
+        editor.commands.setContent(value);
+        setContent(value);
+      }
     }
   }, [value, editor]);
 
@@ -45,6 +59,7 @@ export default function RichTextEditor({ value = "", onChange }) {
 
   return (
     <div className="border rounded-xl overflow-hidden">
+      {name && <input type="hidden" name={name} value={content} />}
       
       {/* ⭐ Toolbar */}
       <div className="flex flex-wrap gap-2 p-2 border-b bg-gray-200">

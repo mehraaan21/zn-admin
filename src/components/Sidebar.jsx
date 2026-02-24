@@ -82,7 +82,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={` md:static top-0 left-0 sm:w-auto md:w-54 lg:w-64 bg-linear-to-br from-sky-400 to-blue-700 border-r dark:border-gray-700 z-40 p-4 transform transition-transform  fixed duration-300
+        className={` md:static top-0 left-0  sm:w-auto md:w-54 lg:w-64 bg-linear-to-br from-sky-400 to-blue-700 border-r dark:border-gray-700 z-40 p-4 pb- transform transition-transform  fixed duration-300
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
         <div className="flex justify-end mb-4 md:hidden">

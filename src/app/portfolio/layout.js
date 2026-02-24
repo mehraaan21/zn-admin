@@ -24,6 +24,10 @@ export default async function DashboardLayout({ children }) {
 }
 
 
+
+
+
+
 // import { getServerSession } from "next-auth";
 // import { redirect } from "next/navigation";
 // import { authOptions } from "@/lib/auth";
@@ -52,7 +56,7 @@ export default async function DashboardLayout({ children }) {
 //         <Breadcrumb />
 
 //         {/* ✅ ONLY THIS AREA SCROLLS */}
-//         <main className="flex-1 overflow-y-auto p-4">
+//         <main className="flex-1 overflow-y-auto p-2 scroll-smooth scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500">
 //           {children}
 //         </main>
 

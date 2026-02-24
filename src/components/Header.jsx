@@ -299,7 +299,7 @@ export default function Header() {
                     onClick={() => setShowEditProfile(true)}
                     className="w-full px-4 py-2 flex items-center gap-3 hover:rounded-t-md hover:bg-gray-900 hover:text-white text-gray-700 cursor-pointer"
                   >
-                    <User size={16} /> Edit profile
+                    <User size={16} /> Admin profile
                   </button>
                   <LogoutButton />
                 </motion.div>

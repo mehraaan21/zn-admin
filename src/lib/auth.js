@@ -17,6 +17,9 @@ export const authOptions = {
             return null;
           }
 
+
+          
+
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/login`,
             {
@@ -30,6 +33,8 @@ export const authOptions = {
               }),
             }
           );
+
+          
           //console.log(res);
           const data = await res.json();
           console.log(data);

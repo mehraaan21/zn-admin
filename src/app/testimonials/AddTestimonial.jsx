@@ -40,7 +40,10 @@ export default function AddTestimonial() {
   };
 
   const submit = async () => {
-    if (!form.name || !form.message) {
+    // Check if message is truly empty (RichTextEditor can return empty HTML)
+    const messageIsEmpty = !form.message || form.message === "<p></p>" || form.message.trim() === "";
+    
+    if (!form.name || messageIsEmpty) {
       toast("Name & Message are required", "error");
       return;
     }
@@ -69,8 +72,8 @@ export default function AddTestimonial() {
       }
 
       toast("Testimonial added successfully");
-      setOpen(false);
-
+      
+      // Reset form properly
       setForm({
         name: "",
         designation: "",
@@ -80,6 +83,7 @@ export default function AddTestimonial() {
         image: null,
       });
       setPreview(null);
+      setOpen(false);
       router.refresh();
     } catch (error) {
       toast(error.message, "error");
@@ -205,12 +209,9 @@ export default function AddTestimonial() {
                   <MessageSquare size={14} /> Testimonial Quote
                 </label>
                 <RichTextEditor
-                  className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
-                  placeholder="Write the client's feedback here..."
-                  rows={4}
                   value={form.message}
-                  onChange={(e) =>
-                    setForm({ ...form, message: e.target.value })
+                  onChange={(content) =>
+                    setForm({ ...form, message: content })
                   }
                 />
               </div>
@@ -218,7 +219,18 @@ export default function AddTestimonial() {
               {/* Footer Actions */}
               <div className="flex justify-end gap-3 pt-4 border-t">
                 <button
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setForm({
+                      name: "",
+                      designation: "",
+                      company: "",
+                      message: "",
+                      status: "active",
+                      image: null,
+                    });
+                    setPreview(null);
+                    setOpen(false);
+                  }}
                   className="px-6 py-2 border rounded-lg font-medium hover:bg-gray-50 text-gray-600 cursor-pointer"
                 >
                   Cancel

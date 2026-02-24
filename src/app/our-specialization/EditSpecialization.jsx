@@ -142,6 +142,7 @@ export default function EditSpecialization({ data, onClose }) {
                   alt="Preview"
                   className="w-full h-32 object-cover rounded-lg shadow-sm"
                 />
+                
                 <label className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg cursor-pointer text-white">
                   <Upload size={20} className="mb-1" />
                   <span className="text-xs font-bold">Change Image</span>

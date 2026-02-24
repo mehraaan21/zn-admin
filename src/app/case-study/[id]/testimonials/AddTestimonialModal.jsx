@@ -118,6 +118,19 @@ export default function AddTestimonialModal({ caseStudyId, onClose }) {
               className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-purple-500 outline-none text-slate-700"
               rows={5}
             />
+
+
+                     {/* <RichTextEditor
+  placeholder="What did the client say about this project?"
+  value={form.feedback}
+  onChange={(value) =>
+    setForm((prev) => ({
+      ...prev,
+      feedback: value,
+    }))
+  }
+  className="w-full min-h-[180px] rounded-xl border border-gray-200 bg-white focus-within:ring-2 focus-within:ring-purple-500 outline-none text-slate-700 transition"
+/> */}
           </div>
 
           {/* FOOTER */}

@@ -1,5 +1,6 @@
-
 "use client";
+
+import { SessionProvider } from "next-auth/react";
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";

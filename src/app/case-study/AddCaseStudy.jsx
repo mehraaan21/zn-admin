@@ -4,10 +4,7 @@ import { useState } from "react";
 import {
   X,
   Plus,
-  Trash2,
   Image as ImageIcon,
-  CheckCircle,
-  AlertCircle,
   RefreshCcw,
   Upload,
   Type,
@@ -21,6 +18,7 @@ import { useRouter } from "next/navigation";
 export default function AddCaseStudy() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(""); // Add this under other useState hooks
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     title: "",
@@ -34,49 +32,97 @@ export default function AddCaseStudy() {
     images: [],
   });
 
+  // const submit = async () => {
+  //   if (loading) return;
+  //   setLoading(true);
+
+  //   try {
+  //     const formData = new FormData();
+
+  //     // 1. Basic Text Fields: Explicitly append karein taaki miss na ho
+  //     formData.append("title", form.title);
+  //     formData.append("client_name", form.client_name);
+  //     formData.append("position", form.position);
+  //     formData.append("description", form.description);
+  //     formData.append("services", form.services);
+  //     formData.append("duration", form.duration);
+  //     formData.append("team_size", form.team_size);
+
+  //     formData.append("banner", form.banner);
+  //     form.images.forEach((img) => formData.append("images", img));
+
+  //     const res = await fetch("/api/case-studies", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     const result = await res.json();
+
+  //     if (!res.ok) throw new Error(result.message || "Validation Error");
+
+  //     toast.success("Case Study added successfully!");
+  //     setOpen(false);
+  //     router.refresh();
+  //   } catch (err) {
+  //     toast.error(err.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const submit = async () => {
     if (loading) return;
+    
+    // Basic Client-side Validation to prevent 500s from Backend
+    if (!form.title || !form.banner) {
+        toast.error("Title and Banner are required");
+        return;
+    }
+
     setLoading(true);
 
     try {
-      const formData = new FormData();
+        const formData = new FormData();
+        formData.append("title", form.title);
+        formData.append("client_name", form.client_name);
+        formData.append("position", form.position);
+        formData.append("description", form.description);
+        formData.append("services", form.services);
+        formData.append("duration", form.duration);
+        formData.append("team_size", form.team_size);
+        
+        // Ensure files are appended
+        if (form.banner) formData.append("banner", form.banner);
+        
+        if (form.images && form.images.length > 0) {
+            form.images.forEach((img) => formData.append("images", img));
+        }
 
-      // 1. Basic Text Fields: Explicitly append karein taaki miss na ho
-      formData.append("title", form.title);
-      formData.append("client_name", form.client_name);
-      formData.append("position", form.position);
-      formData.append("description", form.description);
-      formData.append("services", form.services);
-      formData.append("duration", form.duration);
-      formData.append("team_size", form.team_size);
+        const res = await fetch("/api/case-studies", {
+            method: "POST",
+            // Note: No headers here, browser handles boundary
+            body: formData,
+        });
 
-      formData.append("banner", form.banner);
-      form.images.forEach((img) => formData.append("images", img));
+        const result = await res.json();
 
-      const res = await fetch("/api/case-studies", {
-        method: "POST",
-        body: formData,
-      });
+        if (!res.ok) throw new Error(result.message || "Failed to save");
 
-      const result = await res.json();
-
-      if (!res.ok) throw new Error(result.message || "Validation Error");
-
-      toast.success("Case Study added successfully!");
-      setOpen(false);
-      router.refresh();
+        toast.success("Case Study published!");
+        setOpen(false);
+        router.refresh();
     } catch (err) {
-      toast.error(err.message);
+        toast.error(err.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-400 text-white px- py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:bg-blue-500 transition-all active:scale-95"
+        className="bg-blue-500 text-white px-8 py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg hover:bg-blue-700 transition-all active:scale-95"
       >
         <Plus size={20} /> Add Case Study
       </button>

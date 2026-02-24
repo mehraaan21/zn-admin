@@ -66,7 +66,7 @@ export default async function TestimonialsPage() {
               {testimonials.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-10 text-center text-gray-400">
-                    No testimonials found. Click "Add Testimonial" to start.
+                    No testimonials found. Click &quot;Add Testimonial&quot; to start.
                   </td>
                 </tr>
               ) : (

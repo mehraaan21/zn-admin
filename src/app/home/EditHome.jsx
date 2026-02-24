@@ -197,7 +197,7 @@ export default function EditHome({ home, onSuccess }) {
                           key={idx}
                           className="relative h-20 w-full rounded-lg overflow-hidden border"
                         >
-                          <Image
+                          <img
                             src={src}
                             className="h-full w-full object-cover"
                             alt="New upload preview"

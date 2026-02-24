@@ -28,6 +28,7 @@ export default async function OurSpecializationPage() {
   }
 
   const result = await res.json();
+  
 
   // API shape: { data: [...], success, message }
   const specializations = Array.isArray(result.data) ? result.data : [];

@@ -43,7 +43,7 @@ export default function AddPortfolio() {
   };
 
   const submit = async () => {
-    if (!form.title || !form.category || !form.image) {
+    if (!form.title || !form.category || !form.image || !form.description) {
       toast("All fields required", "error");
       return;
     }
@@ -181,14 +181,29 @@ export default function AddPortfolio() {
                 <label className="block text-sm font-semibold text-slate-700 mb-1 items-center gap-1">
                   <FileText size={14} /> Project Description
                 </label>
-                               <RichTextEditor
-                onChange={(content) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      description: content,
-                    }))
+
+                <textarea
+                   rows={3}
+                    placeholder="e.g. write"
+                    value={form.description}
+                    onChange={(e) =>
+                      setForm({ ...form, description: e.target.value })
+                    }
+                    className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+                  />
+                {/* <RichTextEditor
+                                  value={form.message}
+                                  onChange={(content) =>
+                                    setForm({ ...form, message: content })
+                                  }
+                                /> */}
+
+                {/* <RichTextEditor
+                  value={form.description}
+                  onChange={(content) =>
+                    setForm({ ...form, description: content })
                   }
-                 />
+                /> */}
               </div>
 
               {/* Footer Actions */}

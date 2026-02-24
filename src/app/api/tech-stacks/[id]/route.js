@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-export const runtime = "nodejs";
+// export const runtime = "nodejs";
 
 export async function PUT(req, { params }) {
   const session = await getServerSession(authOptions);
@@ -12,6 +12,8 @@ export async function PUT(req, { params }) {
 
   const { id } = await params;
 
+      const formData = await req.formData();
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/tech-stacks/${id}`,
     {
@@ -19,15 +21,16 @@ export async function PUT(req, { params }) {
       headers: {
         Authorization: `Bearer ${session.user.accessToken}`,
         // 🔥 VERY IMPORTANT
-        "Content-Type": req.headers.get("content-type"),
+        // "Content-Type": req.headers.get("content-type"),
       },
       // 🔥 RAW STREAM FORWARD
-      body: req.body,
+      body: formData,
       duplex: "half",
     }
   );
 
   const data = await res.json();
+  console.log("api hit", data);
   return Response.json(data, { status: res.status });
 }
 

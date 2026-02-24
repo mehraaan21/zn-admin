@@ -10,28 +10,34 @@ export async function PUT(req, { params }) {
 
   const { id } = await params;
 
-  try {
-    const formData = await req.formData();
+ try {
+  // ✅ Remove the broken log, declare first then log
+  const formData = await req.formData();
+  console.log("formdata after", formData); // this one is fine
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/portfolios/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-        body: formData,
-      }
-    );
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/portfolios/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+      body: formData,
+      duplex: "half",
+    }
+  );
 
-    const data = await res.json();
-    return Response.json(data, { status: res.status });
-  } catch (error) {
-    return Response.json(
-      { message: error.message || "Server Error" },
-      { status: 500 }
-    );
-  }
+  const data = await res.json();
+  console.log("api hit", data);
+
+  return Response.json(data, { status: res.status });
+} catch (error) {
+  console.log("error:", error.message); // add this to see future errors clearly
+  return Response.json(
+    { message: error.message || "Server Error" },
+    { status: 500 }
+  );
+}
 }
 
 

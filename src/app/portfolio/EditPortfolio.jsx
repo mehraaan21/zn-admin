@@ -13,6 +13,7 @@ import {
   RefreshCcw,
 } from "lucide-react"; // Icons for consistency
 import RichTextEditor from "@/components/RichTextEditor";
+import Image from "next/image";
 
 export default function EditPortfolio({ portfolio, onClose }) {
   const router = useRouter();
@@ -116,10 +117,13 @@ export default function EditPortfolio({ portfolio, onClose }) {
                 Project Image
               </label>
               <div className="relative group border-2 border-dashed border-gray-200 rounded-xl p-2 hover:border-blue-400 transition-all bg-gray-50 flex items-center justify-center">
-                <img
+                <Image
                   src={preview}
                   alt="Preview"
+                  width={600}
+                  height={180}
                   className="w-full h-32 object-cover rounded-lg shadow-sm"
+                  unoptimized
                 />
                 <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer text-white rounded-lg">
                   <Upload size={20} className="mb-1" />

@@ -217,14 +217,26 @@ export default function AddProduct() {
                 <label className="block text-sm font-semibold text-gray-700 mb-1 items-center gap-1">
                   <FileText size={14} /> Description
                 </label>
-                <RichTextEditor
+                {/* <RichTextEditor
                   placeholder="Tell us about this product..."
                   rows={4}
                   value={form.description}
                   onChange={(e) =>
                     setForm({ ...form, description: e.target.value })
                   }
-                />
+                /> */}
+
+                <RichTextEditor
+  placeholder="Tell us about this product..."
+  value={form.description}
+  onChange={(value) =>
+    setForm((prev) => ({
+      ...prev,
+      description: value,
+    }))
+  }
+  className="w-full min-h-[180px] rounded-xl border border-gray-200 bg-white focus-within:ring-2 focus-within:ring-indigo-500 transition"
+/>
               </div>
 
               {/* Footer Actions */}
