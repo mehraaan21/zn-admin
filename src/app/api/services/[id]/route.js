@@ -58,7 +58,10 @@ export async function PUT(req, { params }) {
   const { id } = await params; // Ensure you await params in Next.js 15
   
   try {
+        
     const formData = await req.formData();
+
+    console.log("-------------after----------------",formData);
 
     // We forward the request as POST to the backend. 
     // The backend will see the '_method' => 'PUT' inside the formData and handle it correctly.
@@ -75,6 +78,7 @@ export async function PUT(req, { params }) {
     );
 
     const data = await res.json();
+    console.log("api hit----------------------", data);
     return Response.json(data, { status: res.status });
   } catch (error) {
     return Response.json(

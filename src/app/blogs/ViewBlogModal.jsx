@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import DOMPurify from "dompurify";
 
 export default function ViewBlogModal({ data, onClose }) {
   const [activeTab, setActiveTab] = useState("content"); // 'content' or 'seo'
@@ -116,9 +117,15 @@ export default function ViewBlogModal({ data, onClose }) {
                       <Globe size={14} className="text-blue-500" /> {data.slug}
                     </span>
                   </div>
-                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 leading-relaxed text-slate-600 prose prose-slate max-w-none">
-                    {data.description}
-                  </div>
+                  <div
+                    className="text-slate-700 leading-relaxed whitespace-pre-wrap"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        data?.description ||
+                          "<p>No description provided for this role.</p>",
+                      ),
+                    }}
+                  />
                 </div>
               </motion.div>
             ) : (

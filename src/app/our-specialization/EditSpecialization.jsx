@@ -161,6 +161,7 @@ export default function EditSpecialization({ data, onClose }) {
             <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
               <AlignLeft size={14} /> Short Description
             </label>
+            
            <RichTextEditor
               className="w-full border border-gray-300 rounded-xl shadow-sm outline-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
               value={form.description || ""}

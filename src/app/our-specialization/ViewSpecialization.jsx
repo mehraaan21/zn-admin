@@ -1,8 +1,18 @@
 "use client";
 
-import { X, Sparkles, Layout, ListChecks, FileText, Calendar, Hash, Award } from "lucide-react";
+import {
+  X,
+  Sparkles,
+  Layout,
+  ListChecks,
+  FileText,
+  Calendar,
+  Hash,
+  Award,
+} from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import DOMPurify from "dompurify";
 
 export default function ViewSpecialization({ data, onClose }) {
   if (!data) return null;
@@ -25,7 +35,7 @@ export default function ViewSpecialization({ data, onClose }) {
           <div className="relative p-8 border-b bg-linear-to-r from-slate-50 to-white flex justify-between items-center overflow-hidden">
             {/* Background Decoration */}
             <div className="absolute top-20px left-20px w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60" />
-            
+
             <div className="flex items-center gap-4 relative z-10">
               <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 text-white">
                 <Sparkles size={24} />
@@ -69,13 +79,13 @@ export default function ViewSpecialization({ data, onClose }) {
 
                 {/* Cover Image Preview */}
                 <div className="relative aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100 group">
-                   <Image 
-                      src={data.image_url || "/placeholder.png"} 
-                      alt={data.title} 
-                      fill 
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                   />
-                   <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                  <Image
+                    src={data.image_url || "/placeholder.png"}
+                    alt={data.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 </div>
 
                 {/* Description */}
@@ -84,7 +94,15 @@ export default function ViewSpecialization({ data, onClose }) {
                     <FileText size={12} /> Overview
                   </h3>
                   <p className="text-slate-600 leading-relaxed text-base">
-                    {data.description}
+                    <div
+                      className="text-slate-700 leading-relaxed whitespace-pre-wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          data?.description ||
+                            "<p>No description provided for this role.</p>",
+                        ),
+                      }}
+                    />
                   </p>
                 </div>
 
@@ -95,11 +113,16 @@ export default function ViewSpecialization({ data, onClose }) {
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {data.bullet_points?.map((point, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                      <div
+                        key={i}
+                        className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100"
+                      >
                         <div className="h-6 w-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
                           <ListChecks size={14} />
                         </div>
-                        <span className="text-sm font-semibold text-slate-700 leading-tight">{point}</span>
+                        <span className="text-sm font-semibold text-slate-700 leading-tight">
+                          {point}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -117,19 +140,25 @@ export default function ViewSpecialization({ data, onClose }) {
                       <div className="h-10 w-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
                         <Hash size={18} className="text-blue-600" />
                       </div>
-                      <span className="text-xl font-black text-slate-800">Rank #{data.number || "0"}</span>
+                      <span className="text-xl font-black text-slate-800">
+                        Rank #{data.number || "0"}
+                      </span>
                     </div>
                   </div>
-                  
+
                   <div className="pt-6 border-t border-slate-200 space-y-5">
                     <div className="flex items-center gap-3">
-                       <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                          <Award size={16} className="text-blue-500" />
-                       </div>
-                       <div>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Status</p>
-                          <p className="text-xs font-bold text-green-600 uppercase">Live on Web</p>
-                       </div>
+                      <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
+                        <Award size={16} className="text-blue-500" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                          Status
+                        </p>
+                        <p className="text-xs font-bold text-green-600 uppercase">
+                          Live on Web
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -139,7 +168,7 @@ export default function ViewSpecialization({ data, onClose }) {
 
           {/* FOOTER */}
           <div className="p-6 border-t bg-white flex justify-end gap-3 px-8">
-            <button 
+            <button
               onClick={onClose}
               className="px-8 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-slate-200 transition-all active:scale-95 cursor-pointer"
             >
@@ -150,9 +179,16 @@ export default function ViewSpecialization({ data, onClose }) {
       </motion.div>
 
       <style jsx>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #e2e8f0;
+          border-radius: 10px;
+        }
       `}</style>
     </AnimatePresence>
   );

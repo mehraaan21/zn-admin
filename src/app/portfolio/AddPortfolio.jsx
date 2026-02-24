@@ -182,7 +182,7 @@ export default function AddPortfolio() {
                   <FileText size={14} /> Project Description
                 </label>
 
-                <textarea
+                {/* <textarea
                    rows={3}
                     placeholder="e.g. write"
                     value={form.description}
@@ -190,7 +190,7 @@ export default function AddPortfolio() {
                       setForm({ ...form, description: e.target.value })
                     }
                     className="   w-full   border border-gray-300   rounded-xl   p-3   shadow-sm   outline-none   resize-none  transition-all  focus:ring-2  focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
-                  />
+                  /> */}
                 {/* <RichTextEditor
                                   value={form.message}
                                   onChange={(content) =>
@@ -198,12 +198,12 @@ export default function AddPortfolio() {
                                   }
                                 /> */}
 
-                {/* <RichTextEditor
+                <RichTextEditor
                   value={form.description}
                   onChange={(content) =>
                     setForm({ ...form, description: content })
                   }
-                /> */}
+                />
               </div>
 
               {/* Footer Actions */}

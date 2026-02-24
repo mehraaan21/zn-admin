@@ -146,11 +146,22 @@ export default function EditBlogModal({ blog, onClose }) {
               Content Description
             </label>
 
-            <RichTextEditor
+            {/* <RichTextEditor
               name="description"
               defaultValue={blog.description}
               rows={4}
-            />
+            /> */}
+
+            <RichTextEditor
+                          className="w-full border border-gray-300 rounded-xl p-3 shadow-sm outline-none transition-all focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 text-gray-700"
+                          value={blog.description || ""}
+                          onChange={(content) =>
+                            setForm((prev) => ({
+                              ...prev,
+                              quote: content,
+                            }))
+                          }
+                        />
 
           </div>
 

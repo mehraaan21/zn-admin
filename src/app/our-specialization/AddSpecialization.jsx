@@ -215,6 +215,7 @@ export default function AddSpecialization() {
                 <label className="block text-sm font-semibold text-slate-700 mb-1 items-center gap-1">
                   <FileText size={14} /> Description
                 </label>
+                
                 <RichTextEditor
                   placeholder="Explain what this specialization includes..."
                   value={form.description || ""}

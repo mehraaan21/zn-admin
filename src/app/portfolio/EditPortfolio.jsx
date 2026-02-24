@@ -66,8 +66,8 @@ export default function EditPortfolio({ portfolio, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
-            {/* Header */}
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+        {/* Header */}
         {/* Header - Matching previous modern UI updates */}
         <div className="flex justify-between items-center p-6 border-b bg-white sticky top-0 z-10">
           <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
@@ -146,15 +146,15 @@ export default function EditPortfolio({ portfolio, onClose }) {
             <label className="block text-sm font-semibold text-gray-700 mb-1  items-center gap-1">
               <FileText size={14} /> Project Description
             </label>
-           <RichTextEditor
-  value={form.description || ""}
-  onChange={(content) =>
-    setForm((prev) => ({
-      ...prev,
-      description: content,
-    }))
-  }
-/>
+            <RichTextEditor
+              value={form.description || ""}
+              onChange={(content) =>
+                setForm((prev) => ({
+                  ...prev,
+                  description: content,
+                }))
+              }
+            />
           </div>
 
           {/* Footer Actions */}

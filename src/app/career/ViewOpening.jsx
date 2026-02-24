@@ -11,6 +11,7 @@ import {
   Clock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import DOMPurify from "dompurify";
 
 export default function ViewOpening({ data, onClose }) {
   if (!data) return null;
@@ -80,8 +81,15 @@ export default function ViewOpening({ data, onClose }) {
                   </h3>
                   <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100">
                     <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">
-                      {data.description ||
-                        "No description provided for this role."}
+                      <div
+                        className="prose prose-slate max-w-none text-slate-600 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-100"
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(
+                            data?.description ||
+                              "No description provided for this role.",
+                          ),
+                        }}
+                      />
                     </p>
                   </div>
                 </div>

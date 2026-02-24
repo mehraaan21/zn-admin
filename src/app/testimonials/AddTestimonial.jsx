@@ -40,6 +40,8 @@ export default function AddTestimonial() {
   };
 
   const submit = async () => {
+
+    
     // Check if message is truly empty (RichTextEditor can return empty HTML)
     const messageIsEmpty = !form.message || form.message === "<p></p>" || form.message.trim() === "";
     

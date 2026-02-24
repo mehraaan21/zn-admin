@@ -80,23 +80,32 @@ export default function AddService() {
     if (form.process_images) formData.append("process_media", form.process_images);
 
     // 3. PROCESS STEPS (Mandatory Bracket Notation [])
+    // Only add steps that have both key and value
     form.steps.forEach((step) => {
-      formData.append("process_steps_keys[]", step.key);
-      formData.append("process_steps_values[]", step.value);
+      if (step.key.trim() && step.value.trim()) {
+        formData.append("process_titles[]", step.key);
+        formData.append("process_descriptions[]", step.value);
+      }
     });
 
     // 4. FAQS (Mandatory Bracket Notation [])
+    // Only add FAQs that have both title and description
     form.faqs.forEach((faq) => {
-      formData.append("faq_titles[]", faq.title);
-      formData.append("faq_descriptions[]", faq.description);
+      if (faq.title.trim() && faq.description.trim()) {
+        formData.append("faq_titles[]", faq.title);
+        formData.append("faq_descriptions[]", faq.description);
+      }
     });
 
     // 5. ABOUT SERVICE (Indexed Notation for Multi-Part)
+    // Only add items that have a title
     form.about_service.forEach((item, index) => {
-      formData.append(`about_titles[]`, item.title);
-      formData.append(`about_descriptions[]`, item.description);
-      if (item.media) {
-        formData.append(`about_media[]`, item.media);
+      if (item.title.trim() || item.description.trim()) {
+        formData.append(`about_titles[]`, item.title);
+        formData.append(`about_descriptions[]`, item.description);
+        if (item.media) {
+          formData.append(`about_media[]`, item.media);
+        }
       }
     });
 

@@ -113,9 +113,13 @@ export default function ViewTestimonial({ data }) {
                         <span className="absolute -top-6 -left-4 text-8xl text-blue-100/60 font-serif leading-none select-none">
                           “
                         </span>
-                        <p className="text-xl text-slate-700 leading-relaxed italic relative z-10 font-medium px-4">
+                        {/* <p className="text-xl text-slate-700 leading-relaxed italic relative z-10 font-medium px-4">
                           {data.quote}
-                        </p>
+                        </p> */}
+                          <div
+                        className="text-xl text-slate-700 leading-relaxed italic relative z-10 font-medium px-4"
+                        dangerouslySetInnerHTML={{ __html: data.quote }}
+                      />
                         <span className="absolute -bottom-14 -right-4 text-8xl text-blue-100/60 font-serif leading-none rotate-180 select-none">
                           “
                         </span>
